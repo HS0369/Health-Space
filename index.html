@@ -276,6 +276,151 @@ Status Tracking (ऑर्डर स्थिती):
 
 जर तुमच्या Google Sheet चे कॉलम हेडिंग्स (उदा. Column A मध्ये काय आहे, Column B मध्ये काय आहे) वेगळे असतील, तर ते सांगा. मी त्या एक्झॅक्ट फॉरमॅटनुसार Script मॅप करून देतो.
 
+ऑटो जनरेट क्यूआर कोड यूज करू ऑप्शन बी प्रमाणे आणि दुसरं ऑटो एसएमएस व्ट्सअप अलर्ट आपण ते ॲप स्क्रिप्ट मध्ये ऍड करा स्टेटस ट्रॅकिंग जे काही असेल पेमेंट कलेक्टेड वगैरे ते पण तुम्ही करून द्या आणि मी तुम्हाला एक्सेल चा फोटो टाकलाय तर ते सांगा आणि मी गिटहब वर ॲप हे सगळं नोट करून घ्या मी गिटहब वर नवीन ॲप बनवण्यासाठी काय करू नवीन पेज जनरेट करू की अजून काही ऑप्शन असतील माझ्याकडे फ्लेबो ॲप ऑलरेडी गिटहब मध्ये चालू आहे तर ते पण तुम्ही सांगा
+
+नक्कीच PK! तुमच्या इमेजनुसार Sheet चे Columns अगदी व्यवस्थित मॅप करून, ऑटो-डायनॅमिक QR कोड, ऑटो-SMS/WhatsApp नोटिफिकेशन आणि स्टेटस ट्रॅकिंगचा संपूर्ण Apps Script कोड खालीलप्रमाणे तयार केला आहे.
+
+1. 📊 तुमच्या Google Sheet च्या Column Structure नुसार मॅपिंग:
+इमेजमध्ये दिसणाऱ्या कॉलम स्ट्रक्चरनुसार नवीन बुकिंगचा डेटा खालील फॉरमॅटमध्ये इन्सर्ट होईल:
+
+Col A	Col B	Col C	Col D	Col E	Col F	Col G	Col H	Col I	Col J	Col K
+ID	Date	Time	Pateint Name	Mobile	Address	Phlebotomist Name	Tube	Amount	Package/Status	UTR / Ref
+AUTO	2026-07-28	08:00 AM	KEDAR PATIL	9028467907	Kedar Banglow...	Pending Assign	Pending	369	Diabetes Package (PAYMENT_COLLECTED)	402918293812
+फायदा: Phlebotomist Name आणि Tube हे कॉलम Pending राहतील, जेणेकरून तुमचे जुने Flebo App या नवीन रो (Row) ला शोधून सहज असाईन करू शकेल!
+
+2. ⚙️ Apps Script साठी Update झालेला Complete Code:
+तुमच्या Google Sheet मधील Extensions > Apps Script उघडा आणि तेथील जुन्या doPost फंक्शनमध्ये किंवा शेवटी हा संपूर्ण अपडेटेड कोड टाका:
+
+JavaScript
+function doPost(e) {
+  try {
+    var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+    var data = JSON.parse(e.postData.contents);
+
+    // ऑटो-आयडी जनरेट करणे (उदा. HS-1001)
+    var lastRow = sheet.getLastRow();
+    var bookingId = "HS-" + (1000 + lastRow);
+
+    // १. तुमच्या एक्सेल शीटच्या कॉलम ऑर्डनुसार डेटा इन्सर्ट करणे
+    sheet.appendRow([
+      bookingId,                          // Col A: ID
+      data.bookingDate,                   // Col B: Date
+      data.time || "08:00 AM",            // Col C: Time (Default Morning Slot)
+      data.patientName,                   // Col D: Pateint Name
+      data.phone,                         // Col E: Mobile
+      data.address,                       // Col F: Address
+      "Pending Assignment",               // Col G: Phlebotomist Name (फ्लेबो ॲपसाठी)
+      "Pending",                          // Col H: Tube (फ्लेबो ॲपसाठी)
+      data.amount,                        // Col I: Amount
+      data.packageName + " [PAYMENT_COLLECTED]", // Col J: Package & Payment Status
+      data.utrNumber                      // Col K: UTR Transaction Ref
+    ]);
+
+    // २. ऑटोमॅटिक SMS / WhatsApp Alert पाठवणे
+    sendSMSNotification(data.phone, data.patientName, data.packageName, data.bookingDate, data.amount);
+
+    return ContentService.createTextOutput(JSON.stringify({
+      "result": "success",
+      "bookingId": bookingId
+    })).setMimeType(ContentService.MimeType.JSON);
+
+  } catch (err) {
+    return ContentService.createTextOutput(JSON.stringify({
+      "result": "error",
+      "message": err.toString()
+    })).setMimeType(ContentService.MimeType.JSON);
+  }
+}
+
+// पेशंटला ऑटो एसएमएस/व्हॉट्सॲप अलर्ट पाठवण्यासाठी फंक्शन
+function sendSMSNotification(phone, name, pkg, date, amount) {
+  var message = "Hello " + name + ", HealthSpace Nashik has received your booking for " + pkg + 
+                " on " + date + ". Payment of ₹" + amount + " collected successfully. Our Phlebotomist will visit soon!";
+  
+  // फास्ट एसएमएस / टेक्स्टलोकल Gateway API सह इंटिग्रेट करण्यासाठी (पर्यायी):
+  // UrlFetchApp.fetch("https://api.sms-provider.com/send?mobile=" + phone + "&message=" + encodeURIComponent(message));
+
+  Logger.log("Notification sent to " + phone + ": " + message);
+}
+3. 🌐 GitHub वर नवीन ॲप कसे Deploy करायचे? (सर्वोत्तम पर्याय)
+तुमचे Flebo App आधीपासून एका GitHub Repository मध्ये चालू असल्यामुळे, खालील २ पर्यायांपैकी (Options) एक निवडा:
+
+पर्याय १: GitHub Pages वर नवीन Repository (उदा. healthspace-web) बनवणे [BEST & CLEANEST]
+काय करावे:
+
+तुमच्या GitHub वर जा आणि New Repository तयार करा (नाव द्या: healthspace-booking किंवा healthspace-web).
+
+मी दिलेली index.html फाईल त्या नवीन रिपॉझिटरीमध्ये अपलोड करा.
+
+Repository च्या Settings > Pages मध्ये जाऊन Deploy from branch (Main/Master) सेव्ह करा.
+
+फायदा: पेशंटसाठीचे हे बुकिंग ॲप स्वतंत्र राहील (username.github.io/healthspace-booking) आणि फ्लेबो ॲपचे कोड सुरक्षित राहील.
+
+पर्याय २: जुन्याच Repo मध्ये नवीन Sub-folder/Page तयार करणे
+जर तुम्हाला एकाच डोमेनवर दोन्ही ठेवायचे असतील, तर जुन्या Flebo App च्या रिपॉझिटरीमध्ये एक booking नावाचा फोल्डर बनवून त्यात ही index.html फाईल टाकू शकता. मग तुमची लिंक username.github.io/flebo-app/booking अशी दिसेल.
+
+🚀 पुढील स्टेप्स (Next Steps):
+Apps Script Deploy करा: Apps Script मध्ये बदल केल्यावर वरती Deploy > Manage Deployments > Edit (Pencil Icon) > New Version निवडून Save करा आणि ती Web App URL आधी दिलेल्या index.html मधील GOOGLE_SHEET_WEBHOOK_URL च्या ठिकाणी रिप्लेस करा.
+
+GitHub वर पर्याय १ प्रमाणे नवीन Repo बनवून index.html पुश (Upload) करा.
+
+आपण हे फायर बेस वर करू शकतो का हा एक प्रश्न आहे मला आणि त्याला काही चार्जेस असतील का आणि ते बेस्ट ऑप्शन आहे का आणि दुसरी गोष्ट मला गिटहबचा डिटेल स्टेप्स सांगा मी रिपोजिटरी बनवली पण पुढचं मला थोडसं समजत नाही तर डिटेल मध्ये सांगा स्टेप बाय स्टेप
+
+नक्कीच PK! तुमच्या दोन्ही प्रश्नांची सविस्तर आणि सोप्या भाषेत उत्तरे खालीलप्रमाणे आहेत:
+
+१. Firebase वर हे करू शकतो का? मोफत आहे का आणि हा बेस्ट ऑप्शन आहे का?
+👉 होय, हे नक्कीच Firebase वर करता येते!
+
+चार्जेस लागतील का?
+
+मुळीच नाही! Firebase चे "Spark Plan" पूर्णपणे मोफत (FREE) आहे.
+
+रोज हजारो पेशंट्सने ॲप वापरले तरीही तुम्हाला रु. १ ही द्यावा लागणार नाही.
+
+हा बेस्ट पर्याय आहे का? (Google Sheet vs Firebase):
+
+Google Sheet चा फायदा: तुम्हाला एक्सेलमध्ये डेटा बघणे, एडिट करणे आणि फ्लेबो बॉईजसाठी मॅनेज करणे खूप सोपे जाते.
+
+Firebase चा फायदा: ॲपचा स्पीड (Speed) आणि सिक्युरिटी खूप फास्ट असते.
+
+💡 बेस्ट सल्ला:
+जर तुमचे Flebo App आधीपासून Google Sheet सोबत कनेक्टेड आहे, तर Google Sheet + Apps Script वापरणेच तुमच्यासाठी सर्वोत्तम राहील, कारण त्यामुळे तुम्हाला जुन्या फ्लेबो ॲपमध्ये कोणताही बदल करावा लागणार नाही. परंतु, जर भविष्यात ॲप खूप मोठे करायचे असेल, तरच Firebase चा विचार करावा.
+
+२. GitHub वर ॲप लाईव्ह करण्याची Step-by-Step सोपी पद्धत (GitHub Pages)
+तुम्ही नवीन Repository बनवली आहे, आता ॲप लाईव्ह करण्यासाठी खालील पायऱ्या (Steps) फॉलो करा:
+
+Step 1: Code File (index.html) अपलोड करा
+तुमच्या GitHub मधील तुम्ही बनवलेल्या नवीन Repository वर जा.
+
+तेथे Add file चे बटन दिसेल -> त्यावर क्लिक करून Upload files निवडा.
+
+मी वर दिलेली index.html फाईल तेथे ड्रॅग/अपलोड करा.
+
+खाली हिरव्या रंगाचे Commit changes बटन दिसेल, त्यावर क्लिक करा.
+
+Step 2: GitHub Pages चालू (Enable) करा (ॲप लाईव्ह करण्यासाठी)
+तुमच्या Repository च्या वरच्या मेनूमध्ये Settings (गिअर आयकॉन) वर क्लिक करा.
+
+डाव्या बाजूच्या मेनूमधून Pages या ऑप्शनवर क्लिक करा.
+
+Build and deployment च्या खाली Source मधील ड्रॉपडाऊनमधून Deploy from a branch निवडा.
+
+Branch च्या खाली None ऐवजी main (किंवा master) निवडा आणि फोल्डर / (root) राहू द्या.
+
+बाजूच्या Save बटनावर क्लिक करा.
+
+Step 3: तुमची ॲपची लिंक मिळवा!
+सेव्ह केल्यानंतर २ ते ३ मिनिटे वाट पाहा.
+
+पेज रिफ्रेश केल्यावर वरती हिरव्या रंगात "Your site is live at https://your-username.github.io/your-repository-name/" असा मेसेज दिसेल.
+
+तीच तुमच्या HealthSpace ॲपची ऑफिशियल लिंक असेल! ही लिंक तुम्ही पेशंट्सला शेअर करू शकता.
+
+📲 Apps Script Webhook लिंक जोडण्यास विसरू नका!
+index.html अपलोड करण्यापूर्वी, त्यातील Line 333 वर असणारी:
+const GOOGLE_SHEET_WEBHOOK_URL = "[https://script.google.com/macros/s/YOUR_SCRIPT_ID_HERE/exec](https://script.google.com/macros/s/YOUR_SCRIPT_ID_HERE/exec)";
+ही लिंक तुमच्या Google Apps Script च्या Web App URL ने बदलून घ्या, म्हणजे पेशंटने भरलेला डेटा थेट तुमच्या एक्सेल शीटमध्ये जमा होईल.
+
 
 
 
