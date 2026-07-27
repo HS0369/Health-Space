@@ -35,7 +35,7 @@
             line-height: 1.6;
         }
 
-        /* Top Header */
+        /* Header */
         header {
             position: sticky;
             top: 0;
@@ -63,20 +63,28 @@
             color: var(--primary-dark);
         }
 
-        .logo-text {
-            font-size: 22px;
-            font-weight: 800;
-            color: #0369a1;
-            letter-spacing: -0.5px;
-            text-decoration: none;
+        .logo-box {
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
+            text-decoration: none;
         }
 
-        .logo-text span { color: var(--secondary); }
+        .logo-icon {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, #0284c7, #f97316);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 900;
+            font-size: 20px;
+            box-shadow: 0 4px 10px rgba(2, 132, 199, 0.3);
+        }
 
-        /* Mobile Navigation Drawer */
+        /* Drawer Overlay */
         .drawer-overlay {
             position: fixed;
             top: 0;
@@ -106,8 +114,6 @@
             background: var(--primary-dark);
             color: white;
             padding: 20px;
-            font-size: 20px;
-            font-weight: 800;
             display: flex;
             align-items: center;
             gap: 10px;
@@ -206,7 +212,7 @@
             margin-top: 10px;
         }
 
-        /* Services Grid (Expanded) */
+        /* Services Grid */
         .services-section {
             padding: 35px 20px;
             max-width: 1100px;
@@ -215,14 +221,14 @@
 
         .services-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 15px;
             margin-top: 20px;
         }
 
         .service-card {
             background: white;
-            padding: 22px;
+            padding: 20px;
             border-radius: var(--radius);
             box-shadow: var(--shadow);
             text-align: center;
@@ -230,8 +236,8 @@
         }
 
         .service-icon {
-            width: 50px;
-            height: 50px;
+            width: 48px;
+            height: 48px;
             background: var(--primary-light);
             color: var(--primary);
             border-radius: 14px;
@@ -239,11 +245,11 @@
             align-items: center;
             justify-content: center;
             margin: 0 auto 12px;
-            font-size: 24px;
+            font-size: 22px;
         }
 
-        .service-card h3 { font-size: 16px; margin-bottom: 6px; color: var(--dark); font-weight: 700; }
-        .service-card p { font-size: 12.5px; color: var(--text-muted); }
+        .service-card h3 { font-size: 15px; margin-bottom: 6px; color: var(--dark); font-weight: 700; }
+        .service-card p { font-size: 12px; color: var(--text-muted); }
 
         /* Container & Grid */
         .container {
@@ -258,7 +264,7 @@
 
         .packages-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 20px;
         }
 
@@ -273,7 +279,7 @@
             justify-content: space-between;
             position: relative;
             overflow: hidden;
-            height: 390px;
+            height: 410px;
         }
 
         .pkg-card.metro-card {
@@ -321,7 +327,7 @@
         .pkg-mrp { font-size: 13.5px; color: #94a3b8; text-decoration: line-through; }
 
         .pkg-scroll-area {
-            max-height: 180px;
+            max-height: 190px;
             overflow-y: auto;
             padding-right: 5px;
             margin-bottom: 10px;
@@ -338,7 +344,7 @@
         }
         .pkg-list li::before { content: "✓"; color: #10b981; font-weight: 900; }
 
-        /* Membership Card Section */
+        /* Membership Box */
         .membership-card-box {
             background: linear-gradient(135deg, #0f172a, #1e293b);
             color: white;
@@ -347,8 +353,7 @@
             box-shadow: var(--shadow);
             max-width: 800px;
             margin: 0 auto;
-            position: relative;
-            overflow: hidden;
+            text-align: center;
         }
 
         .membership-badge {
@@ -356,44 +361,10 @@
             color: white;
             font-size: 12px;
             font-weight: 800;
-            padding: 4px 12px;
+            padding: 4px 14px;
             border-radius: 20px;
             display: inline-block;
             margin-bottom: 12px;
-        }
-
-        /* Why Choose Section */
-        .why-section {
-            background: #ffffff;
-            padding: 35px 20px;
-            border-radius: 24px;
-            box-shadow: var(--shadow);
-            margin: 40px auto;
-            max-width: 900px;
-        }
-
-        .why-item {
-            background: #f8fafc;
-            border: 1px solid #e2e8f0;
-            border-radius: 16px;
-            padding: 16px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin-top: 12px;
-        }
-
-        .why-icon-box {
-            width: 44px;
-            height: 44px;
-            background: #e0f2fe;
-            color: #0284c7;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            flex-shrink: 0;
         }
 
         /* Testimonials */
@@ -510,16 +481,17 @@
     <!-- Drawer Overlay -->
     <div class="drawer-overlay" id="drawerOverlay" onclick="toggleDrawer()"></div>
 
-    <!-- Navigation Drawer -->
+    <!-- Navigation Drawer (Dashboard) -->
     <div class="nav-drawer" id="navDrawer">
         <div class="drawer-header">
-            <span>logo.png</span> HealthSpace
+            <div class="logo-icon">┼</div>
+            <span style="font-weight: 800; font-size: 18px;">HealthSpace</span>
         </div>
         <ul class="drawer-menu">
             <li><a href="#home" onclick="toggleDrawer()">Home</a></li>
             <li><a href="#services" onclick="toggleDrawer()">Services</a></li>
             <li><a href="#packages" onclick="toggleDrawer()">Packages</a></li>
-            <li><a href="#membership" onclick="toggleDrawer()">Membership</a></li>
+            <li><a href="#membership" onclick="toggleDrawer()">HealthSpace Membership</a></li>
             <li><a href="#testimonials" onclick="toggleDrawer()">Testimonials</a></li>
             <li><a href="#contact" onclick="toggleDrawer()">Contact</a></li>
         </ul>
@@ -532,7 +504,9 @@
     <header>
         <div class="nav-left">
             <button class="menu-btn" onclick="toggleDrawer()">☰</button>
-            <a href="#home" class="logo-text"><span>logo.png</span> Health<span>Space</span></a>
+            <a href="#home" class="logo-box">
+                <div class="logo-icon">┼</div>
+            </a>
         </div>
         <a href="tel:+919096522533" class="btn btn-white" style="padding: 8px 16px; font-size: 13px; border: 1px solid #e2e8f0;">
             📞 Call Us
@@ -541,15 +515,15 @@
 
     <!-- Home Hero Section -->
     <section class="hero" id="home">
-        <span class="hero-badge">🏥 Premium Doorstep Health Checkups Nashik</span>
+        <span class="hero-badge">🏥 Premium Doorstep Healthcare Nashik</span>
         <h1>Accurate Health Testing<br>at Your Doorstep</h1>
-        <p>Experience reliable diagnostic testing with HealthSpace Nashik. Certified home sample collection and quick digital reports.</p>
+        <p>Reliable diagnostic testing with HealthSpace Nashik. Certified home sample collection and quick digital reports.</p>
         <div>
             <a href="#packages" class="btn btn-white">Book Test Package</a>
         </div>
     </section>
 
-    <!-- Services Section (Expanded with Supplements) -->
+    <!-- Services Section -->
     <section class="services-section" id="services">
         <div class="section-header">
             <h2>Our Healthcare Services</h2>
@@ -580,18 +554,18 @@
             <div class="service-card">
                 <div class="service-icon">💊</div>
                 <h3>Health Supplements</h3>
-                <p>Premium Multivitamins, Health Detox, Joint Care & Protein Powders.</p>
+                <p>Multivitamins, Health Detox, Joint Care & Protein Powders.</p>
             </div>
         </div>
     </section>
 
-    <!-- Packages Section (ALL PACKAGES RESTORED) -->
+    <!-- Packages Section (ALL PACKAGES FROM IMAGES) -->
     <section class="container" id="packages">
         
         <!-- HealthSpace Special Packages -->
         <div class="section-header">
-            <h2>HealthSpace Special Checkup Packages</h2>
-            <p>Affordable doorstep health checkup packages curated for complete family health</p>
+            <h2>HealthSpace Packages</h2>
+            <p>Schedule your checkup today with special offer prices</p>
         </div>
 
         <div class="packages-grid" style="margin-bottom: 50px;">
@@ -601,20 +575,22 @@
                 <div>
                     <h3 class="pkg-title">HealthSpace Maximum</h3>
                     <div class="pkg-price-box">
-                        <span class="pkg-price">₹1,369/-</span>
+                        <span class="pkg-price">₹1,800/-</span>
                         <span class="pkg-mrp">₹7,200</span>
                     </div>
                     <div class="pkg-scroll-area">
                         <ul class="pkg-list">
                             <li>Complete Blood Count (18 Tests)</li>
-                            <li>ESR Test & Lipid Profile (7 Tests)</li>
-                            <li>Liver & Kidney Function Tests</li>
-                            <li>Thyroid, Sugar, Urine R/M</li>
-                            <li>Vitamin B12 & Vitamin D</li>
+                            <li>ESR (1 Test), Liver Function Test (11 Tests)</li>
+                            <li>Kidney Function Test (7 Tests)</li>
+                            <li>Thyroid Function Test (3 Tests)</li>
+                            <li>Lipid Profile (7 Tests), Urine R/M (20 Tests)</li>
+                            <li>Sugar Profile (5 Tests), Iron Test (1 Test)</li>
+                            <li>Magnesium (1 Test), Vitamin (B12 & D)</li>
                         </ul>
                     </div>
                 </div>
-                <button class="btn btn-primary" onclick="openBookingModal('HealthSpace Maximum', 1369)">Book Now</button>
+                <button class="btn btn-primary" onclick="openBookingModal('HealthSpace Maximum', 1800)">Book Now</button>
             </div>
 
             <div class="pkg-card">
@@ -622,37 +598,40 @@
                 <div>
                     <h3 class="pkg-title">HealthSpace General</h3>
                     <div class="pkg-price-box">
-                        <span class="pkg-price">₹963/-</span>
+                        <span class="pkg-price">₹1,050/-</span>
                         <span class="pkg-mrp">₹3,500</span>
                     </div>
                     <div class="pkg-scroll-area">
                         <ul class="pkg-list">
                             <li>Complete Blood Count (18 Tests)</li>
-                            <li>Lipid & Liver Function Test</li>
-                            <li>Kidney & Thyroid Function Test</li>
-                            <li>Fasting Blood Glucose & Urine R/M</li>
+                            <li>Lipid Profile (7 Tests)</li>
+                            <li>Liver Function Test (10 Tests)</li>
+                            <li>Kidney Function Test (7 Tests)</li>
+                            <li>Thyroid Function Test (3 Tests)</li>
+                            <li>Fasting Blood Glucose (3 Tests)</li>
+                            <li>Urine R/M (20 Tests)</li>
                         </ul>
                     </div>
                 </div>
-                <button class="btn btn-primary" onclick="openBookingModal('HealthSpace General', 963)">Book Now</button>
+                <button class="btn btn-primary" onclick="openBookingModal('HealthSpace General', 1050)">Book Now</button>
             </div>
 
             <div class="pkg-card">
                 <div>
                     <h3 class="pkg-title">Diabetes Care</h3>
                     <div class="pkg-price-box">
-                        <span class="pkg-price">₹369/-</span>
+                        <span class="pkg-price">₹550/-</span>
                         <span class="pkg-mrp">₹1,050</span>
                     </div>
                     <div class="pkg-scroll-area">
                         <ul class="pkg-list">
                             <li>Complete Blood Count (18 Tests)</li>
                             <li>Blood Glucose Level (2 Tests)</li>
-                            <li>Glycated Hemoglobin / HbA1c</li>
+                            <li>Glycated Hemoglobin (2 Tests / HbA1c)</li>
                         </ul>
                     </div>
                 </div>
-                <button class="btn btn-primary" onclick="openBookingModal('Diabetes Care', 369)">Book Now</button>
+                <button class="btn btn-primary" onclick="openBookingModal('Diabetes Care', 550)">Book Now</button>
             </div>
 
             <div class="pkg-card">
@@ -665,9 +644,10 @@
                     <div class="pkg-scroll-area">
                         <ul class="pkg-list">
                             <li>Complete Blood Count (18 Tests)</li>
-                            <li>Serum CPK & LDH Test</li>
-                            <li>Liver & Kidney Function Tests</li>
-                            <li>Full Lipid Profile Check</li>
+                            <li>Serum Creatine Phosphokinase (CPK)</li>
+                            <li>Lactate Dehydrogenase (LDH)</li>
+                            <li>Liver Function Test (10 Tests)</li>
+                            <li>Kidney Function Test (7 Tests)</li>
                         </ul>
                     </div>
                 </div>
@@ -683,9 +663,11 @@
                     </div>
                     <div class="pkg-scroll-area">
                         <ul class="pkg-list">
-                            <li>CBC, ESR & RA Factor</li>
-                            <li>C-Reactive Protein (CRP)</li>
-                            <li>Anti Nuclear Antibody (ANA)</li>
+                            <li>Complete Blood Count (18 Tests)</li>
+                            <li>ESR (1 Test)</li>
+                            <li>Rheumatoid Arthritis Factor (1 Test)</li>
+                            <li>C-Reactive Protein (1 Test)</li>
+                            <li>Anti Nuclear Antibody (1 Test)</li>
                         </ul>
                     </div>
                 </div>
@@ -701,9 +683,10 @@
                     </div>
                     <div class="pkg-scroll-area">
                         <ul class="pkg-list">
-                            <li>CBC, ESR & Serum Calcium</li>
-                            <li>TSH & Alkaline Phosphatase</li>
-                            <li>Vitamin B12 & Vitamin D</li>
+                            <li>Complete Blood Count</li>
+                            <li>ESR, Calcium, Phosphorus</li>
+                            <li>TSH, Alkaline Phosphatase</li>
+                            <li>Vitamins (B12 & D)</li>
                         </ul>
                     </div>
                 </div>
@@ -712,56 +695,60 @@
 
             <div class="pkg-card">
                 <div>
-                    <h3 class="pkg-title">Hair Care Package</h3>
+                    <h3 class="pkg-title">Hair Care</h3>
                     <div class="pkg-price-box">
-                        <span class="pkg-price">₹1,450/-</span>
-                        <span class="pkg-mrp">₹3,200</span>
+                        <span class="pkg-price">₹2,200/-</span>
+                        <span class="pkg-mrp">₹4,000</span>
                     </div>
                     <div class="pkg-scroll-area">
                         <ul class="pkg-list">
-                            <li>Serum Ferritin & Iron Profile</li>
-                            <li>Thyroid Profile & Vitamin D</li>
-                            <li>CBC & Zinc Levels</li>
+                            <li>Complete Blood Count</li>
+                            <li>SR. Ferritin</li>
+                            <li>Vitamin B12 & Vitamin D</li>
+                            <li>TSH</li>
                         </ul>
                     </div>
                 </div>
-                <button class="btn btn-primary" onclick="openBookingModal('Hair Care Package', 1450)">Book Now</button>
+                <button class="btn btn-primary" onclick="openBookingModal('Hair Care', 2200)">Book Now</button>
             </div>
 
             <div class="pkg-card">
                 <div>
-                    <h3 class="pkg-title">Self Care Package</h3>
+                    <h3 class="pkg-title">Self Care</h3>
                     <div class="pkg-price-box">
-                        <span class="pkg-price">₹850/-</span>
-                        <span class="pkg-mrp">₹2,100</span>
+                        <span class="pkg-price">₹1,050/-</span>
+                        <span class="pkg-mrp">₹2,600</span>
                     </div>
                     <div class="pkg-scroll-area">
                         <ul class="pkg-list">
-                            <li>Routine Body Screening</li>
-                            <li>Hemogram & Fasting Sugar</li>
-                            <li>Kidney Function Basics</li>
+                            <li>Complete Blood Count</li>
+                            <li>Lipid Profile</li>
+                            <li>HbA1c & TSH</li>
+                            <li>Vitamin B12</li>
                         </ul>
                     </div>
                 </div>
-                <button class="btn btn-primary" onclick="openBookingModal('Self Care Package', 850)">Book Now</button>
+                <button class="btn btn-primary" onclick="openBookingModal('Self Care', 1050)">Book Now</button>
             </div>
 
             <div class="pkg-card">
                 <div>
-                    <h3 class="pkg-title">PCOD Care Package</h3>
+                    <h3 class="pkg-title">PCOD Care</h3>
                     <div class="pkg-price-box">
-                        <span class="pkg-price">₹1,850/-</span>
-                        <span class="pkg-mrp">₹4,500</span>
+                        <span class="pkg-price">₹3,300/-</span>
+                        <span class="pkg-mrp">₹6,800</span>
                     </div>
                     <div class="pkg-scroll-area">
                         <ul class="pkg-list">
-                            <li>LH, FSH & Prolactin</li>
-                            <li>Total Testosterone & TSH</li>
-                            <li>Fasting Sugar & Insulin Check</li>
+                            <li>Complete Blood Count</li>
+                            <li>FSH, LH, Prolactin</li>
+                            <li>Testosterone</li>
+                            <li>Sr. Ferritin</li>
+                            <li>Vitamins (B12 & D)</li>
                         </ul>
                     </div>
                 </div>
-                <button class="btn btn-primary" onclick="openBookingModal('PCOD Care Package', 1850)">Book Now</button>
+                <button class="btn btn-primary" onclick="openBookingModal('PCOD Care', 3300)">Book Now</button>
             </div>
 
         </div>
@@ -785,7 +772,7 @@
                     <div class="pkg-scroll-area">
                         <ul class="pkg-list">
                             <li>48 Parameters Included</li>
-                            <li>Anaemia (CBC), Diabetes (HbA1c)</li>
+                            <li>CBC, HbA1c, ESR</li>
                             <li>Liver, Kidney, Thyroid, Heart, Bone Profiles</li>
                         </ul>
                     </div>
@@ -803,7 +790,7 @@
                     </div>
                     <div class="pkg-scroll-area">
                         <ul class="pkg-list">
-                            <li>59 Parameters Included</li>
+                            <li>55 Parameters Included</li>
                             <li>CBC, Vit B-12, HbA1c, ESR</li>
                             <li>Full Organ Functioning Profiles</li>
                         </ul>
@@ -815,16 +802,92 @@
             <div class="pkg-card metro-card">
                 <div class="metro-badge">Metropolis</div>
                 <div>
-                    <h3 class="pkg-title">TruHealth Elite</h3>
+                    <h3 class="pkg-title">TruHealth Vital Plus</h3>
                     <div class="pkg-price-box">
-                        <span class="pkg-price pkg-price-metro">₹10,000/-</span>
-                        <span class="pkg-mrp">₹34,350</span>
+                        <span class="pkg-price pkg-price-metro">₹3,300/-</span>
+                        <span class="pkg-mrp">₹10,090</span>
                     </div>
                     <div class="pkg-scroll-area">
                         <ul class="pkg-list">
-                            <li>116 Parameters Included</li>
-                            <li>Ultimate Full Body Master Checkup</li>
-                            <li>Cancer & Cardiac Markers Included</li>
+                            <li>66 Parameters Included</li>
+                            <li>1+1 Offer Available @ ₹5,610</li>
+                            <li>CBC, Vit B-12, HbA1c, Liver, Kidney, Thyroid, Heart & Bone</li>
+                        </ul>
+                    </div>
+                </div>
+                <button class="btn btn-metro" onclick="openBookingModal('TruHealth Vital Plus (Metropolis)', 3300)">Book Now</button>
+            </div>
+
+            <div class="pkg-card metro-card">
+                <div class="metro-badge">Metropolis</div>
+                <div>
+                    <h3 class="pkg-title">TruHealth Active</h3>
+                    <div class="pkg-price-box">
+                        <span class="pkg-price pkg-price-metro">₹4,400/-</span>
+                        <span class="pkg-mrp">₹14,885</span>
+                    </div>
+                    <div class="pkg-scroll-area">
+                        <ul class="pkg-list">
+                            <li>97 (M) / 88 (F) Parameters</li>
+                            <li>1+1 Offer Available @ ₹7,450</li>
+                            <li>Complete Full Body Master Screening</li>
+                        </ul>
+                    </div>
+                </div>
+                <button class="btn btn-metro" onclick="openBookingModal('TruHealth Active (Metropolis)', 4400)">Book Now</button>
+            </div>
+
+            <div class="pkg-card metro-card">
+                <div class="metro-badge">Metropolis</div>
+                <div>
+                    <h3 class="pkg-title">TruHealth ProActive</h3>
+                    <div class="pkg-price-box">
+                        <span class="pkg-price pkg-price-metro">₹5,400/-</span>
+                        <span class="pkg-mrp">₹18,345</span>
+                    </div>
+                    <div class="pkg-scroll-area">
+                        <ul class="pkg-list">
+                            <li>103 (M) / 103 (F) Parameters</li>
+                            <li>1+1 Offer Available @ ₹9,150</li>
+                            <li>Includes Cardiac & Allergy Screenings</li>
+                        </ul>
+                    </div>
+                </div>
+                <button class="btn btn-metro" onclick="openBookingModal('TruHealth ProActive (Metropolis)', 5400)">Book Now</button>
+            </div>
+
+            <div class="pkg-card metro-card">
+                <div class="metro-badge">Metropolis</div>
+                <div>
+                    <h3 class="pkg-title">TruHealth Expert</h3>
+                    <div class="pkg-price-box">
+                        <span class="pkg-price pkg-price-metro">₹6,700/-</span>
+                        <span class="pkg-mrp">₹22,510</span>
+                    </div>
+                    <div class="pkg-scroll-area">
+                        <ul class="pkg-list">
+                            <li>109 (M) / 110 (F) Parameters</li>
+                            <li>1+1 Offer Available @ ₹10,850</li>
+                            <li>Includes Cancer Screening & Hormones</li>
+                        </ul>
+                    </div>
+                </div>
+                <button class="btn btn-metro" onclick="openBookingModal('TruHealth Expert (Metropolis)', 6700)">Book Now</button>
+            </div>
+
+            <div class="pkg-card metro-card">
+                <div class="metro-badge">Metropolis</div>
+                <div>
+                    <h3 class="pkg-title">TruHealth Elite</h3>
+                    <div class="pkg-price-box">
+                        <span class="pkg-price pkg-price-metro">₹10,000/-</span>
+                        <span class="pkg-mrp">₹33,235</span>
+                    </div>
+                    <div class="pkg-scroll-area">
+                        <ul class="pkg-list">
+                            <li>116 (M) / 118 (F) Parameters</li>
+                            <li>1+1 Offer Available @ ₹18,000</li>
+                            <li>Ultimate Comprehensive Health Checkup</li>
                         </ul>
                     </div>
                 </div>
@@ -838,50 +901,20 @@
     <!-- HealthSpace Membership Section -->
     <section class="container" id="membership">
         <div class="membership-card-box">
-            <span class="membership-badge">ANNUAL HEALTH CARD</span>
-            <h2 style="font-size: 26px; font-weight: 800; margin-bottom: 10px;">HealthSpace Membership Card</h2>
+            <span class="membership-badge">ANNUAL HEALTH MEMBERSHIP</span>
+            <h2 style="font-size: 26px; font-weight: 800; margin-bottom: 10px;">HealthSpace Membership</h2>
             <p style="font-size: 14px; opacity: 0.9; margin-bottom: 20px;">Join HealthSpace annual membership program and save big on all healthcare needs for your entire family in Nashik.</p>
             
-            <div style="background: rgba(255,255,255,0.1); padding: 18px; border-radius: 16px; margin-bottom: 20px;">
-                <h3 style="font-size: 28px; color: #f97316; font-weight: 800; margin-bottom: 10px;">₹369 / Year</h3>
-                <ul style="list-style: none; text-align: left; font-size: 14px; line-height: 1.8;">
-                    <li>🔥 <strong>25% Discount</strong> on all Individual Lab Tests</li>
-                    <li>🔥 <strong>10% Extra Discount</strong> on Health Packages</li>
-                    <li>🩸 Free Home Sample Collection for 1 Year</li>
+            <div style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 16px; margin-bottom: 20px;">
+                <h3 style="font-size: 32px; color: #f97316; font-weight: 800; margin-bottom: 10px;">₹369 / Year</h3>
+                <ul style="list-style: none; text-align: left; font-size: 14px; line-height: 2; max-width: 400px; margin: 0 auto;">
+                    <li>🔥 <strong>25% Discount</strong> on Individual Tests</li>
+                    <li>🔥 <strong>10% Extra Discount</strong> on Packages</li>
+                    <li>🩸 Free Home Sample Collection</li>
                 </ul>
             </div>
 
-            <button class="btn btn-white" onclick="openBookingModal('HealthSpace Membership Card', 369)">Get Membership @ ₹369</button>
-        </div>
-    </section>
-
-    <!-- Why Choose HealthSpace Section -->
-    <section class="container">
-        <div class="why-section">
-            <h2 style="font-size: 24px; color: var(--dark); font-weight: 800; margin-bottom: 8px;">Why Choose HealthSpace?</h2>
-            <p style="font-size: 13.5px; color: var(--text-muted);">We combine cutting-edge technology with compassionate care to deliver the most accurate healthcare experience.</p>
-            
-            <div class="why-item">
-                <div class="why-icon-box">✔</div>
-                <div>
-                    <h4 style="font-size: 15px; color: var(--dark); font-weight: 700;">NABL Accredited Lab Testing</h4>
-                    <p style="font-size: 12.5px; color: var(--text-muted);">Certified partner laboratories ensuring highest testing standards.</p>
-                </div>
-            </div>
-            <div class="why-item">
-                <div class="why-icon-box">🛡</div>
-                <div>
-                    <h4 style="font-size: 15px; color: var(--dark); font-weight: 700;">Data Security & Confidentiality</h4>
-                    <p style="font-size: 12.5px; color: var(--text-muted);">Your health records and test results remain 100% private.</p>
-                </div>
-            </div>
-            <div class="why-item">
-                <div class="why-icon-box">🎧</div>
-                <div>
-                    <h4 style="font-size: 15px; color: var(--dark); font-weight: 700;">24/7 Support</h4>
-                    <p style="font-size: 12.5px; color: var(--text-muted);">Round-the-clock support for booking sample collection.</p>
-                </div>
-            </div>
+            <button class="btn btn-white" onclick="openBookingModal('HealthSpace Membership', 369, true)">Get Membership @ ₹369</button>
         </div>
     </section>
 
@@ -896,7 +929,7 @@
             <div class="testimonial-card">
                 <p style="font-size: 13.5px; font-style: italic;">"Very quick home collection service. The technician arrived right on time in Indira Nagar and reports were sent on WhatsApp."</p>
                 <div class="patient-info">
-                    <img src="https://via.placeholder.com/100" alt="Patient" class="patient-img">
+                    <img src="https://i.pravatar.cc/100?img=12" alt="Patient" class="patient-img">
                     <div>
                         <h4 style="font-size: 14px; font-weight: 700;">Sanjay Kulkarni</h4>
                         <p style="font-size: 12px; color: var(--text-muted);">Indira Nagar, Nashik</p>
@@ -907,10 +940,21 @@
             <div class="testimonial-card">
                 <p style="font-size: 13.5px; font-style: italic;">"Booked Diabetes Care package for my parents. Excellent home blood sample service and very economical rates!"</p>
                 <div class="patient-info">
-                    <img src="https://via.placeholder.com/100" alt="Patient" class="patient-img">
+                    <img src="https://i.pravatar.cc/100?img=47" alt="Patient" class="patient-img">
                     <div>
                         <h4 style="font-size: 14px; font-weight: 700;">Priya Sharma</h4>
                         <p style="font-size: 12px; color: var(--text-muted);">College Road, Nashik</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="testimonial-card">
+                <p style="font-size: 13.5px; font-style: italic;">"HealthSpace membership is very useful. Got 25% discount on regular individual tests for my grandmother."</p>
+                <div class="patient-info">
+                    <img src="https://i.pravatar.cc/100?img=33" alt="Patient" class="patient-img">
+                    <div>
+                        <h4 style="font-size: 14px; font-weight: 700;">Rohan Deshmukh</h4>
+                        <p style="font-size: 12px; color: var(--text-muted);">Govind Nagar, Nashik</p>
                     </div>
                 </div>
             </div>
@@ -925,7 +969,7 @@
             <!-- Step 1: Form -->
             <div id="step1">
                 <h3 style="font-size: 20px; color: var(--dark); margin-bottom: 5px;" id="modalPkgTitle">Book Package</h3>
-                <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 18px;">Enter patient details for home sample collection</p>
+                <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 18px;">Enter details to proceed</p>
 
                 <form id="patientForm" onsubmit="goToPaymentStep(event)">
                     <div class="form-group">
@@ -941,7 +985,7 @@
                         <input type="email" id="patientEmail" class="form-control" placeholder="patient@gmail.com" required>
                     </div>
                     <div class="form-group">
-                        <label>Collection Address *</label>
+                        <label>Address *</label>
                         <textarea id="patientAddress" class="form-control" rows="2" placeholder="House no, Area, Landmark, Nashik" required></textarea>
                     </div>
                     
@@ -950,9 +994,9 @@
                             <label>Date *</label>
                             <input type="date" id="bookingDate" class="form-control" required>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group" id="timeSlotContainer">
                             <label>Time Slot (6AM-12PM) *</label>
-                            <select id="timeSlot" class="form-control" required>
+                            <select id="timeSlot" class="form-control">
                                 <option value="06:00 AM">06:00 AM - 07:00 AM</option>
                                 <option value="07:00 AM">07:00 AM - 08:00 AM</option>
                                 <option value="08:00 AM">08:00 AM - 09:00 AM</option>
@@ -964,7 +1008,7 @@
                     </div>
 
                     <!-- 1+1 Offer Discount -->
-                    <div class="one-plus-one-box" onclick="toggleOnePlusOne()">
+                    <div class="one-plus-one-box" id="onePlusOneBox" onclick="toggleOnePlusOne()">
                         <input type="checkbox" id="onePlusOneCheck" style="width: 18px; height: 18px; cursor: pointer;">
                         <div>
                             <strong style="font-size: 13px; color: #15803d;">Add 1+1 Offer (2 Persons)</strong>
@@ -1013,8 +1057,8 @@
                 </p>
                 <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 12px; font-size: 13px; text-align: left; margin-bottom: 20px;">
                     📌 <strong>Booking Details:</strong><br>
-                    • Package: <span id="successPackage"></span><br>
-                    • Date & Time: <span id="successDateTime"></span><br>
+                    • Package/Item: <span id="successPackage"></span><br>
+                    • Date: <span id="successDateTime"></span><br>
                     • Email: <span id="successEmail"></span><br>
                     • UTR (Last 4 Digits): <strong id="successUtr"></strong><br>
                     • Status: <span style="color: #16a34a; font-weight: 700;">Confirmed</span>
@@ -1028,12 +1072,13 @@
     <footer id="contact">
         <div class="footer-content">
             <div class="footer-col">
-                <h4 style="font-size: 20px;"> HealthSpace Nashik</h4>
+                <div class="logo-icon" style="margin-bottom: 10px;">┼</div>
+                <h4 style="font-size: 20px;">HealthSpace Nashik</h4>
                 <p>Your trusted doorstep healthcare diagnostic & lab testing partner across Nashik city.</p>
             </div>
             <div class="footer-col">
                 <h4>Contact Info</h4>
-                <p>📍 Shop No. 2073, Roongta Shopping Hub, Opp. Opel Blue Hospital, Near Indira Nagar Canal, Indira Nagar, Nashik - 422009</p>
+                <p>📍 Shop No. 2073, ROONGTA Shopping Hub, Opp. Opel Blue Hospital, Near Indira Nagar Canal, Indira Nagar, Nashik - 422009</p>
                 <p>📞 +91 90965 22533 / 0253 403 8004</p>
                 <p>✉️ healthspacensk@gmail.com</p>
                 <p>⏰ Mon-Sun: 6:00 AM - 10:00 PM</p>
@@ -1050,6 +1095,7 @@
         const UPI_ID = "healthspace@ybl"; 
 
         let basePrice = 0;
+        let isMembershipBooking = false;
         let currentBooking = {
             packageName: "",
             amount: 0,
@@ -1077,15 +1123,31 @@
             }
         }
 
-        function openBookingModal(packageName, price) {
+        function openBookingModal(packageName, price, isMembership = false) {
             basePrice = price;
+            isMembershipBooking = isMembership;
             currentBooking.packageName = packageName;
             currentBooking.isOnePlusOne = false;
             document.getElementById('onePlusOneCheck').checked = false;
 
+            // Hide/Show Time Slot & 1+1 Offer for Membership
+            const timeSlotContainer = document.getElementById('timeSlotContainer');
+            const timeSlotSelect = document.getElementById('timeSlot');
+            const onePlusOneBox = document.getElementById('onePlusOneBox');
+
+            if (isMembershipBooking) {
+                timeSlotContainer.style.display = 'none';
+                timeSlotSelect.removeAttribute('required');
+                onePlusOneBox.style.display = 'none';
+            } else {
+                timeSlotContainer.style.display = 'block';
+                timeSlotSelect.setAttribute('required', 'required');
+                onePlusOneBox.style.display = 'flex';
+            }
+
             updatePayableAmount();
 
-            document.getElementById('modalPkgTitle').innerText = "Book " + packageName;
+            document.getElementById('modalPkgTitle').innerText = "Get " + packageName;
             document.getElementById('step1').style.display = 'block';
             document.getElementById('step2').style.display = 'none';
             document.getElementById('step3').style.display = 'none';
@@ -1095,6 +1157,7 @@
         }
 
         function toggleOnePlusOne() {
+            if(isMembershipBooking) return;
             const chk = document.getElementById('onePlusOneCheck');
             chk.checked = !chk.checked;
             currentBooking.isOnePlusOne = chk.checked;
@@ -1102,7 +1165,7 @@
         }
 
         function updatePayableAmount() {
-            if(currentBooking.isOnePlusOne) {
+            if(!isMembershipBooking && currentBooking.isOnePlusOne) {
                 let total = basePrice * 2;
                 currentBooking.amount = Math.round(total * 0.95);
             } else {
@@ -1123,7 +1186,7 @@
             currentBooking.email = document.getElementById('patientEmail').value;
             currentBooking.address = document.getElementById('patientAddress').value;
             currentBooking.bookingDate = document.getElementById('bookingDate').value;
-            currentBooking.timeSlot = document.getElementById('timeSlot').value;
+            currentBooking.timeSlot = isMembershipBooking ? "N/A (Membership)" : document.getElementById('timeSlot').value;
 
             const upiString = `upi://pay?pa=${UPI_ID}&pn=HealthSpace%20Nashik&am=${currentBooking.amount}&cu=INR&tn=Booking%20for%20${encodeURIComponent(currentBooking.packageName)}`;
             
@@ -1180,7 +1243,7 @@
         function showSuccessScreen() {
             document.getElementById('successPatientName').innerText = currentBooking.patientName;
             document.getElementById('successPackage').innerText = currentBooking.packageName;
-            document.getElementById('successDateTime').innerText = currentBooking.bookingDate + " (" + currentBooking.timeSlot + ")";
+            document.getElementById('successDateTime').innerText = currentBooking.bookingDate + (isMembershipBooking ? "" : " (" + currentBooking.timeSlot + ")");
             document.getElementById('successEmail').innerText = currentBooking.email;
             document.getElementById('successUtr').innerText = "xxxx" + currentBooking.utr;
 
