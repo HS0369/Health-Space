@@ -70,18 +70,12 @@
             text-decoration: none;
         }
 
-        .logo-icon {
-            width: 36px;
-            height: 36px;
-            background: linear-gradient(135deg, #0284c7, #f97316);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: 900;
-            font-size: 20px;
-            box-shadow: 0 4px 10px rgba(2, 132, 199, 0.3);
+        /* जुना .logo-icon बदलून हा ठेवा */
+        .logo-img {
+        height: 40px;          /* गरजेनुसार हायट कमी/जास्त करू शकता */
+        width: auto;
+        object-fit: contain;
+        display: block;
         }
 
         /* Drawer Overlay */
@@ -484,9 +478,8 @@
     <!-- Navigation Drawer (Dashboard) -->
     <div class="nav-drawer" id="navDrawer">
         <div class="drawer-header">
-            <div class="logo-icon">┼</div>
-            <span style="font-weight: 800; font-size: 18px;">HealthSpace</span>
-        </div>
+    <img src="logo.png" alt="Health Space Logo" class="logo-img">
+</div>
         <ul class="drawer-menu">
             <li><a href="#home" onclick="toggleDrawer()">Home</a></li>
             <li><a href="#services" onclick="toggleDrawer()">Services</a></li>
@@ -505,8 +498,8 @@
         <div class="nav-left">
             <button class="menu-btn" onclick="toggleDrawer()">☰</button>
             <a href="#home" class="logo-box">
-                <div class="logo-icon">┼</div>
-            </a>
+    <img src="logo.png" alt="Health Space Logo" class="logo-img">
+</a>
         </div>
         <a href="tel:+919096522533" class="btn btn-white" style="padding: 8px 16px; font-size: 13px; border: 1px solid #e2e8f0;">
             📞 Call Us
