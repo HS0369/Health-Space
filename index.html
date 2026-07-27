@@ -71,12 +71,21 @@
         }
 
         /* जुना .logo-icon बदलून हा ठेवा */
-        .logo-img {
-        height: 40px;          /* गरजेनुसार हायट कमी/जास्त करू शकता */
-        width: auto;
-        object-fit: contain;
-        display: block;
-        }
+        /* लोगोचा साईझ वाढवण्यासाठी आणि डॅशबोर्डमध्ये व्हाईट बॅकग्राउंड देण्यासाठी */
+.logo-img {
+    height: 52px;          /* साईझ वाढवून ५२px केली आहे */
+    width: auto;
+    object-fit: contain;
+    display: block;
+}
+
+/* डॅशबोर्ड मधील लोगोसाठी व्हाईट बॅकग्राउंड */
+.drawer-logo-bg {
+    background-color: #ffffff;
+    padding: 6px 14px;
+    border-radius: 10px;    /* थोडे राउंडेड कॉर्नर्स */
+    display: inline-block;
+}
 
         /* Drawer Overlay */
         .drawer-overlay {
@@ -468,6 +477,56 @@
         }
 
         .footer-col h4 { color: white; font-size: 16px; margin-bottom: 14px; }
+
+        /* Health Supplements Separate Section Styling */
+.supplements-section {
+    margin-top: 25px;
+}
+
+.supplements-card {
+    background: linear-gradient(135deg, #ffffff 0%, #f0f9ff 100%);
+    border: 2px dashed #0284c7;
+    border-radius: var(--radius);
+    padding: 30px 20px 25px;
+    text-align: center;
+    position: relative;
+    box-shadow: var(--shadow);
+}
+
+.coming-soon-badge {
+    position: absolute;
+    top: -14px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(135deg, #f97316, #ea580c);
+    color: white;
+    font-size: 11px;
+    font-weight: 800;
+    padding: 5px 18px;
+    border-radius: 20px;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 10px rgba(249, 115, 22, 0.3);
+}
+
+.supplement-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+    max-width: 750px;
+    margin: 0 auto;
+}
+
+.tag {
+    background: #ffffff;
+    color: var(--primary-dark);
+    border: 1px solid #bae6fd;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 12.5px;
+    font-weight: 600;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+}
     </style>
 </head>
 <body>
@@ -478,7 +537,9 @@
     <!-- Navigation Drawer (Dashboard) -->
     <div class="nav-drawer" id="navDrawer">
         <div class="drawer-header">
-    <img src="logo.png" alt="Health Space Logo" class="logo-img">
+    <div class="drawer-logo-bg">
+        <img src="logo.png" alt="Health Space Logo" class="logo-img">
+    </div>
 </div>
         <ul class="drawer-menu">
             <li><a href="#home" onclick="toggleDrawer()">Home</a></li>
@@ -517,41 +578,59 @@
     </section>
 
     <!-- Services Section -->
-    <section class="services-section" id="services">
-        <div class="section-header">
-            <h2>Our Healthcare Services</h2>
-            <p>Comprehensive health diagnostics & premium wellness care at home</p>
-        </div>
+<section class="services-section" id="services">
+    <div class="section-header">
+        <h2>Our Healthcare Services</h2>
+        <p>Comprehensive health diagnostics & premium wellness care at home</p>
+    </div>
 
-        <div class="services-grid">
-            <div class="service-card">
-                <div class="service-icon">🩸</div>
-                <h3>Home Collection</h3>
-                <p>Hassle-free blood sample collection by certified phlebotomists.</p>
-            </div>
-            <div class="service-card">
-                <div class="service-icon">🔬</div>
-                <h3>Advanced Testing</h3>
-                <p>Cutting-edge lab technology delivering 100% accurate results.</p>
-            </div>
-            <div class="service-card">
-                <div class="service-icon">📋</div>
-                <h3>Quick Reports</h3>
-                <p>Digital medical reports sent directly to your WhatsApp & Email.</p>
-            </div>
-            <div class="service-card">
-                <div class="service-icon">🏥</div>
-                <h3>Diagnostic Tests</h3>
-                <p>Individual pathology tests available with door pickup options.</p>
-            </div>
-            <div class="service-card">
-                <div class="service-icon">💊</div>
-                <h3>Health Supplements</h3>
-                <p>Multivitamins, Health Detox, Joint Care & Protein Powders.</p>
+    <!-- मुख्य ४ सर्व्हिसेस (Parallel Grid) -->
+    <div class="services-grid">
+        <div class="service-card">
+            <div class="service-icon">🩸</div>
+            <h3>Home Collection</h3>
+            <p>Hassle-free blood sample collection by certified phlebotomists.</p>
+        </div>
+        <div class="service-card">
+            <div class="service-icon">🔬</div>
+            <h3>Advanced Testing</h3>
+            <p>Cutting-edge lab technology delivering 100% accurate results.</p>
+        </div>
+        <div class="service-card">
+            <div class="service-icon">📋</div>
+            <h3>Quick Reports</h3>
+            <p>Digital medical reports sent directly to your WhatsApp & Email.</p>
+        </div>
+        <div class="service-card">
+            <div class="service-icon">🏥</div>
+            <h3>Diagnostic Tests</h3>
+            <p>Individual pathology tests available with door pickup options.</p>
+        </div>
+    </div>
+
+    <!-- ५ वा: हेल्थ सप्लीमेंटचा स्वतंत्र (Parallel Below) सेक्शन -->
+    <div class="supplements-section">
+        <div class="supplements-card">
+            <div class="coming-soon-badge">🚀 COMING SOON</div>
+            <div class="service-icon" style="margin: 0 auto 15px;">💊</div>
+            <h3 style="font-size: 20px; font-weight: 800; color: var(--dark); margin-bottom: 10px;">Health Supplements</h3>
+            <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 18px;">
+                High-quality Wellness & Nutrition products launching soon for your complete daily health needs:
+            </p>
+            
+            <div class="supplement-tags">
+                <span class="tag">Multivitamins</span>
+                <span class="tag">Blood Detox</span>
+                <span class="tag">Easy Detox</span>
+                <span class="tag">Joint Care</span>
+                <span class="tag">Muscular Cream</span>
+                <span class="tag">Men's Protein</span>
+                <span class="tag">Women's Protein</span>
+                <span class="tag">Kids Protein Powder</span>
             </div>
         </div>
-    </section>
-
+    </div>
+</section>
     <!-- Packages Section (ALL PACKAGES FROM IMAGES) -->
     <section class="container" id="packages">
         
