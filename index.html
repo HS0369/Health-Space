@@ -271,19 +271,22 @@
             gap: 20px;
         }
 
-        .pkg-card {
-            background: white;
-            border-radius: 20px;
-            padding: 22px;
-            box-shadow: var(--shadow);
-            border: 1px solid #e2e8f0;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            position: relative;
-            overflow: hidden;
-            height: 410px;
-        }
+        /* कार्डचा बॉक्स लहान (Compact Height) करण्यासाठी */
+.pkg-card {
+    background: white;
+    border-radius: 16px;
+    padding: 16px;                     /* पॅडिंग कमी केले */
+    box-shadow: var(--shadow);
+    border: 1px solid #e2e8f0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    overflow: hidden;
+    height: 310px;                      /* हायट लहान केली (आधी 410px होती) */
+}
+
+
 
         .pkg-card.metro-card {
             border: 1.5px solid #a7f3d0;
@@ -329,12 +332,22 @@
         .pkg-price-metro { color: var(--metro-green); }
         .pkg-mrp { font-size: 13.5px; color: #94a3b8; text-decoration: line-through; }
 
-        .pkg-scroll-area {
-            max-height: 190px;
-            overflow-y: auto;
-            padding-right: 5px;
-            margin-bottom: 10px;
-        }
+        /* टेस्ट्स स्क्रोल करण्यासाठी स्क्रोल एरिया */
+.pkg-scroll-area {
+    height: 120px;                      /* स्क्रोल एरियाची हायट फिक्स केली */
+    overflow-y: auto;
+    padding-right: 6px;
+    margin-bottom: 8px;
+}
+
+/* स्क्रोलबार दिसायला सुंदर करण्यासाठी कस्टम स्क्रोलबार */
+.pkg-scroll-area::-webkit-scrollbar {
+    width: 4px;
+}
+.pkg-scroll-area::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 4px;
+}
 
         .pkg-list { list-style: none; }
         .pkg-list li {
@@ -635,361 +648,381 @@
     <section class="container" id="packages">
         
         <!-- HealthSpace Special Packages -->
-        <div class="section-header">
-            <h2>HealthSpace Packages</h2>
-            <p>Schedule your checkup today with special offer prices</p>
+<div class="packages-grid" style="margin-bottom: 50px;">
+    
+    <!-- 1. HealthSpace Maximum -->
+    <div class="pkg-card">
+        <div class="popular-badge">Popular</div>
+        <div>
+            <h3 class="pkg-title">HealthSpace Maximum</h3>
+            <div class="pkg-price-box">
+                <span class="pkg-price">₹1,369/-</span>
+                <span class="pkg-mrp">₹7,200</span>
+            </div>
+            <div class="pkg-scroll-area">
+                <ul class="pkg-list">
+                    <li>Complete Blood Count (18 Tests)</li>
+                    <li>ESR (1 Test), Liver Function Test (11 Tests)</li>
+                    <li>Kidney Function Test (7 Tests)</li>
+                    <li>Thyroid Function Test (3 Tests)</li>
+                    <li>Lipid Profile (7 Tests), Urine R/M (20 Tests)</li>
+                    <li>Sugar Profile (5 Tests), Iron Test (1 Test)</li>
+                    <li>Vitamin (B12 & D)</li>
+                </ul>
+            </div>
         </div>
+        <button class="btn btn-primary" onclick="openBookingModal('HealthSpace Maximum', 1369)">Book Now</button>
+    </div>
 
-        <div class="packages-grid" style="margin-bottom: 50px;">
-            
-            <div class="pkg-card">
-                <div class="popular-badge">Popular</div>
-                <div>
-                    <h3 class="pkg-title">HealthSpace Maximum</h3>
-                    <div class="pkg-price-box">
-                        <span class="pkg-price">₹1,800/-</span>
-                        <span class="pkg-mrp">₹7,200</span>
-                    </div>
-                    <div class="pkg-scroll-area">
-                        <ul class="pkg-list">
-                            <li>Complete Blood Count (18 Tests)</li>
-                            <li>ESR (1 Test), Liver Function Test (11 Tests)</li>
-                            <li>Kidney Function Test (7 Tests)</li>
-                            <li>Thyroid Function Test (3 Tests)</li>
-                            <li>Lipid Profile (7 Tests), Urine R/M (20 Tests)</li>
-                            <li>Sugar Profile (5 Tests), Iron Test (1 Test)</li>
-                            <li>Magnesium (1 Test), Vitamin (B12 & D)</li>
-                        </ul>
-                    </div>
-                </div>
-                <button class="btn btn-primary" onclick="openBookingModal('HealthSpace Maximum', 1800)">Book Now</button>
+    <!-- 2. HealthSpace General -->
+    <div class="pkg-card">
+        <div class="popular-badge">Popular</div>
+        <div>
+            <h3 class="pkg-title">HealthSpace General</h3>
+            <div class="pkg-price-box">
+                <span class="pkg-price">₹963/-</span>
+                <span class="pkg-mrp">₹3,500</span>
             </div>
-
-            <div class="pkg-card">
-                <div class="popular-badge">Popular</div>
-                <div>
-                    <h3 class="pkg-title">HealthSpace General</h3>
-                    <div class="pkg-price-box">
-                        <span class="pkg-price">₹1,050/-</span>
-                        <span class="pkg-mrp">₹3,500</span>
-                    </div>
-                    <div class="pkg-scroll-area">
-                        <ul class="pkg-list">
-                            <li>Complete Blood Count (18 Tests)</li>
-                            <li>Lipid Profile (7 Tests)</li>
-                            <li>Liver Function Test (10 Tests)</li>
-                            <li>Kidney Function Test (7 Tests)</li>
-                            <li>Thyroid Function Test (3 Tests)</li>
-                            <li>Fasting Blood Glucose (3 Tests)</li>
-                            <li>Urine R/M (20 Tests)</li>
-                        </ul>
-                    </div>
-                </div>
-                <button class="btn btn-primary" onclick="openBookingModal('HealthSpace General', 1050)">Book Now</button>
+            <div class="pkg-scroll-area">
+                <ul class="pkg-list">
+                    <li>Complete Blood Count (18 Tests)</li>
+                    <li>Lipid Profile (7 Tests)</li>
+                    <li>Liver Function Test (10 Tests)</li>
+                    <li>Kidney Function Test (7 Tests)</li>
+                    <li>Thyroid Function Test (3 Tests)</li>
+                    <li>Fasting Blood Glucose (3 Tests)</li>
+                    <li>Urine R/M (20 Tests)</li>
+                </ul>
             </div>
-
-            <div class="pkg-card">
-                <div>
-                    <h3 class="pkg-title">Diabetes Care</h3>
-                    <div class="pkg-price-box">
-                        <span class="pkg-price">₹550/-</span>
-                        <span class="pkg-mrp">₹1,050</span>
-                    </div>
-                    <div class="pkg-scroll-area">
-                        <ul class="pkg-list">
-                            <li>Complete Blood Count (18 Tests)</li>
-                            <li>Blood Glucose Level (2 Tests)</li>
-                            <li>Glycated Hemoglobin (2 Tests / HbA1c)</li>
-                        </ul>
-                    </div>
-                </div>
-                <button class="btn btn-primary" onclick="openBookingModal('Diabetes Care', 550)">Book Now</button>
-            </div>
-
-            <div class="pkg-card">
-                <div>
-                    <h3 class="pkg-title">Healthy Heart</h3>
-                    <div class="pkg-price-box">
-                        <span class="pkg-price">₹1,150/-</span>
-                        <span class="pkg-mrp">₹3,800</span>
-                    </div>
-                    <div class="pkg-scroll-area">
-                        <ul class="pkg-list">
-                            <li>Complete Blood Count (18 Tests)</li>
-                            <li>Serum Creatine Phosphokinase (CPK)</li>
-                            <li>Lactate Dehydrogenase (LDH)</li>
-                            <li>Liver Function Test (10 Tests)</li>
-                            <li>Kidney Function Test (7 Tests)</li>
-                        </ul>
-                    </div>
-                </div>
-                <button class="btn btn-primary" onclick="openBookingModal('Healthy Heart', 1150)">Book Now</button>
-            </div>
-
-            <div class="pkg-card">
-                <div>
-                    <h3 class="pkg-title">Arthritis Care</h3>
-                    <div class="pkg-price-box">
-                        <span class="pkg-price">₹1,000/-</span>
-                        <span class="pkg-mrp">₹3,000</span>
-                    </div>
-                    <div class="pkg-scroll-area">
-                        <ul class="pkg-list">
-                            <li>Complete Blood Count (18 Tests)</li>
-                            <li>ESR (1 Test)</li>
-                            <li>Rheumatoid Arthritis Factor (1 Test)</li>
-                            <li>C-Reactive Protein (1 Test)</li>
-                            <li>Anti Nuclear Antibody (1 Test)</li>
-                        </ul>
-                    </div>
-                </div>
-                <button class="btn btn-primary" onclick="openBookingModal('Arthritis Care', 1000)">Book Now</button>
-            </div>
-
-            <div class="pkg-card">
-                <div>
-                    <h3 class="pkg-title">Bone Care</h3>
-                    <div class="pkg-price-box">
-                        <span class="pkg-price">₹1,660/-</span>
-                        <span class="pkg-mrp">₹3,500</span>
-                    </div>
-                    <div class="pkg-scroll-area">
-                        <ul class="pkg-list">
-                            <li>Complete Blood Count</li>
-                            <li>ESR, Calcium, Phosphorus</li>
-                            <li>TSH, Alkaline Phosphatase</li>
-                            <li>Vitamins (B12 & D)</li>
-                        </ul>
-                    </div>
-                </div>
-                <button class="btn btn-primary" onclick="openBookingModal('Bone Care', 1660)">Book Now</button>
-            </div>
-
-            <div class="pkg-card">
-                <div>
-                    <h3 class="pkg-title">Hair Care</h3>
-                    <div class="pkg-price-box">
-                        <span class="pkg-price">₹2,200/-</span>
-                        <span class="pkg-mrp">₹4,000</span>
-                    </div>
-                    <div class="pkg-scroll-area">
-                        <ul class="pkg-list">
-                            <li>Complete Blood Count</li>
-                            <li>SR. Ferritin</li>
-                            <li>Vitamin B12 & Vitamin D</li>
-                            <li>TSH</li>
-                        </ul>
-                    </div>
-                </div>
-                <button class="btn btn-primary" onclick="openBookingModal('Hair Care', 2200)">Book Now</button>
-            </div>
-
-            <div class="pkg-card">
-                <div>
-                    <h3 class="pkg-title">Self Care</h3>
-                    <div class="pkg-price-box">
-                        <span class="pkg-price">₹1,050/-</span>
-                        <span class="pkg-mrp">₹2,600</span>
-                    </div>
-                    <div class="pkg-scroll-area">
-                        <ul class="pkg-list">
-                            <li>Complete Blood Count</li>
-                            <li>Lipid Profile</li>
-                            <li>HbA1c & TSH</li>
-                            <li>Vitamin B12</li>
-                        </ul>
-                    </div>
-                </div>
-                <button class="btn btn-primary" onclick="openBookingModal('Self Care', 1050)">Book Now</button>
-            </div>
-
-            <div class="pkg-card">
-                <div>
-                    <h3 class="pkg-title">PCOD Care</h3>
-                    <div class="pkg-price-box">
-                        <span class="pkg-price">₹3,300/-</span>
-                        <span class="pkg-mrp">₹6,800</span>
-                    </div>
-                    <div class="pkg-scroll-area">
-                        <ul class="pkg-list">
-                            <li>Complete Blood Count</li>
-                            <li>FSH, LH, Prolactin</li>
-                            <li>Testosterone</li>
-                            <li>Sr. Ferritin</li>
-                            <li>Vitamins (B12 & D)</li>
-                        </ul>
-                    </div>
-                </div>
-                <button class="btn btn-primary" onclick="openBookingModal('PCOD Care', 3300)">Book Now</button>
-            </div>
-
         </div>
+        <button class="btn btn-primary" onclick="openBookingModal('HealthSpace General', 963)">Book Now</button>
+    </div>
 
+    <!-- 3. Diabetes Care -->
+    <div class="pkg-card">
+        <div>
+            <h3 class="pkg-title">Diabetes Care</h3>
+            <div class="pkg-price-box">
+                <span class="pkg-price">₹369/-</span>
+                <span class="pkg-mrp">₹1,050</span>
+            </div>
+            <div class="pkg-scroll-area">
+                <ul class="pkg-list">
+                    <li>Complete Blood Count (18 Tests)</li>
+                    <li>Blood Glucose Level (2 Tests)</li>
+                    <li>Glycated Hemoglobin (2 Tests / HbA1c)</li>
+                </ul>
+            </div>
+        </div>
+        <button class="btn btn-primary" onclick="openBookingModal('Diabetes Care', 369)">Book Now</button>
+    </div>
+
+    <!-- 4. Healthy Heart -->
+    <div class="pkg-card">
+        <div>
+            <h3 class="pkg-title">Healthy Heart</h3>
+            <div class="pkg-price-box">
+                <span class="pkg-price">₹1,150/-</span>
+                <span class="pkg-mrp">₹3,800</span>
+            </div>
+            <div class="pkg-scroll-area">
+                <ul class="pkg-list">
+                    <li>Complete Blood Count (18 Tests)</li>
+                    <li>Serum Creatine Phosphokinase (CPK)</li>
+                    <li>Lactate Dehydrogenase (LDH)</li>
+                    <li>Liver Function Test (10 Tests)</li>
+                    <li>Kidney Function Test (7 Tests)</li>
+                </ul>
+            </div>
+        </div>
+        <button class="btn btn-primary" onclick="openBookingModal('Healthy Heart', 1150)">Book Now</button>
+    </div>
+
+    <!-- 5. Arthritis Care -->
+    <div class="pkg-card">
+        <div>
+            <h3 class="pkg-title">Arthritis Care</h3>
+            <div class="pkg-price-box">
+                <span class="pkg-price">₹1,000/-</span>
+                <span class="pkg-mrp">₹3,000</span>
+            </div>
+            <div class="pkg-scroll-area">
+                <ul class="pkg-list">
+                    <li>Complete Blood Count (18 Tests)</li>
+                    <li>ESR (1 Test)</li>
+                    <li>Rheumatoid Arthritis Factor (1 Test)</li>
+                    <li>C-Reactive Protein (1 Test)</li>
+                    <li>Anti Nuclear Antibody (1 Test)</li>
+                </ul>
+            </div>
+        </div>
+        <button class="btn btn-primary" onclick="openBookingModal('Arthritis Care', 1000)">Book Now</button>
+    </div>
+
+    <!-- 6. Bone Care -->
+    <div class="pkg-card">
+        <div>
+            <h3 class="pkg-title">Bone Care</h3>
+            <div class="pkg-price-box">
+                <span class="pkg-price">₹963/-</span>
+                <span class="pkg-mrp">₹3,500</span>
+            </div>
+            <div class="pkg-scroll-area">
+                <ul class="pkg-list">
+                    <li>Complete Blood Count</li>
+                    <li>ESR, Calcium, Phosphorus</li>
+                    <li>TSH, Alkaline Phosphatase</li>
+                    <li>Vitamins (B12 & D)</li>
+                </ul>
+            </div>
+        </div>
+        <button class="btn btn-primary" onclick="openBookingModal('Bone Care', 963)">Book Now</button>
+    </div>
+
+    <!-- 7. Hair Care -->
+    <div class="pkg-card">
+        <div>
+            <h3 class="pkg-title">Hair Care</h3>
+            <div class="pkg-price-box">
+                <span class="pkg-price">₹1,369/-</span>
+                <span class="pkg-mrp">₹4,000</span>
+            </div>
+            <div class="pkg-scroll-area">
+                <ul class="pkg-list">
+                    <li>Complete Blood Count</li>
+                    <li>SR. Ferritin</li>
+                    <li>Vitamin B12 & Vitamin D</li>
+                    <li>TSH</li>
+                </ul>
+            </div>
+        </div>
+        <button class="btn btn-primary" onclick="openBookingModal('Hair Care', 1369)">Book Now</button>
+    </div>
+
+    <!-- 8. Self Care -->
+    <div class="pkg-card">
+        <div>
+            <h3 class="pkg-title">Self Care</h3>
+            <div class="pkg-price-box">
+                <span class="pkg-price">₹963/-</span>
+                <span class="pkg-mrp">₹2,600</span>
+            </div>
+            <div class="pkg-scroll-area">
+                <ul class="pkg-list">
+                    <li>Complete Blood Count</li>
+                    <li>Lipid Profile</li>
+                    <li>HbA1c & TSH</li>
+                    <li>Vitamin B12</li>
+                </ul>
+            </div>
+        </div>
+        <button class="btn btn-primary" onclick="openBookingModal('Self Care', 963)">Book Now</button>
+    </div>
+
+    <!-- 9. PCOD Care -->
+    <div class="pkg-card">
+        <div>
+            <h3 class="pkg-title">PCOD Care</h3>
+            <div class="pkg-price-box">
+                <span class="pkg-price">₹2,369/-</span>
+                <span class="pkg-mrp">₹6,800</span>
+            </div>
+            <div class="pkg-scroll-area">
+                <ul class="pkg-list">
+                    <li>Complete Blood Count</li>
+                    <li>FSH, LH, Prolactin</li>
+                    <li>Testosterone</li>
+                    <li>Sr. Ferritin</li>
+                    <li>Vitamins (B12 & D)</li>
+                </ul>
+            </div>
+        </div>
+        <button class="btn btn-primary" onclick="openBookingModal('PCOD Care', 2369)">Book Now</button>
+    </div>
+
+</div>
         <!-- Metropolis TruHealth Packages -->
-        <div class="section-header">
-            <h2>Metropolis TruHealth Packages</h2>
-            <p>Advanced diagnostic checkups powered by Metropolis Healthcare Laboratories</p>
+<div class="packages-grid">
+
+    <!-- 1. TruHealth Essential -->
+    <div class="pkg-card metro-card">
+        <div class="metro-badge">Metropolis</div>
+        <div>
+            <h3 class="pkg-title">TruHealth Essential</h3>
+            <div class="pkg-price-box">
+                <span class="pkg-price pkg-price-metro">₹1,900/-</span>
+                <span class="pkg-mrp">₹6,780</span>
+            </div>
+            <div class="pkg-scroll-area">
+                <ul class="pkg-list">
+                    <li>48 Parameters Included</li>
+                    <li>CBC, HbA1c, ESR</li>
+                    <li>Liver Function Profile</li>
+                    <li>Kidney Function Profile</li>
+                    <li>Thyroid Function Profile</li>
+                    <li>Heart & Bone Profile</li>
+                </ul>
+            </div>
         </div>
+        <button class="btn btn-metro" onclick="openBookingModal('TruHealth Essential (Metropolis)', 1900)">Book Now</button>
+    </div>
 
-        <div class="packages-grid">
-
-            <div class="pkg-card metro-card">
-                <div class="metro-badge">Metropolis</div>
-                <div>
-                    <h3 class="pkg-title">TruHealth Essential</h3>
-                    <div class="pkg-price-box">
-                        <span class="pkg-price pkg-price-metro">₹1,900/-</span>
-                        <span class="pkg-mrp">₹6,780</span>
-                    </div>
-                    <div class="pkg-scroll-area">
-                        <ul class="pkg-list">
-                            <li>48 Parameters Included</li>
-                            <li>CBC, HbA1c, ESR</li>
-                            <li>Liver, Kidney, Thyroid, Heart, Bone Profiles</li>
-                        </ul>
-                    </div>
-                </div>
-                <button class="btn btn-metro" onclick="openBookingModal('TruHealth Essential (Metropolis)', 1900)">Book Now</button>
+    <!-- 2. TruHealth Vital -->
+    <div class="pkg-card metro-card">
+        <div class="metro-badge">Metropolis</div>
+        <div>
+            <h3 class="pkg-title">TruHealth Vital</h3>
+            <div class="pkg-price-box">
+                <span class="pkg-price pkg-price-metro">₹2,900/-</span>
+                <span class="pkg-mrp">₹9,065</span>
             </div>
-
-            <div class="pkg-card metro-card">
-                <div class="metro-badge">Metropolis</div>
-                <div>
-                    <h3 class="pkg-title">TruHealth Vital</h3>
-                    <div class="pkg-price-box">
-                        <span class="pkg-price pkg-price-metro">₹2,900/-</span>
-                        <span class="pkg-mrp">₹9,065</span>
-                    </div>
-                    <div class="pkg-scroll-area">
-                        <ul class="pkg-list">
-                            <li>55 Parameters Included</li>
-                            <li>CBC, Vit B-12, HbA1c, ESR</li>
-                            <li>Full Organ Functioning Profiles</li>
-                        </ul>
-                    </div>
-                </div>
-                <button class="btn btn-metro" onclick="openBookingModal('TruHealth Vital (Metropolis)', 2900)">Book Now</button>
+            <div class="pkg-scroll-area">
+                <ul class="pkg-list">
+                    <li>55 Parameters Included</li>
+                    <li>CBC, Vit B-12, HbA1c, ESR</li>
+                    <li>Full Organ Functioning Profiles</li>
+                    <li>Lipid & Glucose Testing</li>
+                    <li>Kidney & Liver Care</li>
+                </ul>
             </div>
-
-            <div class="pkg-card metro-card">
-                <div class="metro-badge">Metropolis</div>
-                <div>
-                    <h3 class="pkg-title">TruHealth Vital Plus</h3>
-                    <div class="pkg-price-box">
-                        <span class="pkg-price pkg-price-metro">₹3,300/-</span>
-                        <span class="pkg-mrp">₹10,090</span>
-                    </div>
-                    <div class="pkg-scroll-area">
-                        <ul class="pkg-list">
-                            <li>66 Parameters Included</li>
-                            <li>1+1 Offer Available @ ₹5,610</li>
-                            <li>CBC, Vit B-12, HbA1c, Liver, Kidney, Thyroid, Heart & Bone</li>
-                        </ul>
-                    </div>
-                </div>
-                <button class="btn btn-metro" onclick="openBookingModal('TruHealth Vital Plus (Metropolis)', 3300)">Book Now</button>
-            </div>
-
-            <div class="pkg-card metro-card">
-                <div class="metro-badge">Metropolis</div>
-                <div>
-                    <h3 class="pkg-title">TruHealth Active</h3>
-                    <div class="pkg-price-box">
-                        <span class="pkg-price pkg-price-metro">₹4,400/-</span>
-                        <span class="pkg-mrp">₹14,885</span>
-                    </div>
-                    <div class="pkg-scroll-area">
-                        <ul class="pkg-list">
-                            <li>97 (M) / 88 (F) Parameters</li>
-                            <li>1+1 Offer Available @ ₹7,450</li>
-                            <li>Complete Full Body Master Screening</li>
-                        </ul>
-                    </div>
-                </div>
-                <button class="btn btn-metro" onclick="openBookingModal('TruHealth Active (Metropolis)', 4400)">Book Now</button>
-            </div>
-
-            <div class="pkg-card metro-card">
-                <div class="metro-badge">Metropolis</div>
-                <div>
-                    <h3 class="pkg-title">TruHealth ProActive</h3>
-                    <div class="pkg-price-box">
-                        <span class="pkg-price pkg-price-metro">₹5,400/-</span>
-                        <span class="pkg-mrp">₹18,345</span>
-                    </div>
-                    <div class="pkg-scroll-area">
-                        <ul class="pkg-list">
-                            <li>103 (M) / 103 (F) Parameters</li>
-                            <li>1+1 Offer Available @ ₹9,150</li>
-                            <li>Includes Cardiac & Allergy Screenings</li>
-                        </ul>
-                    </div>
-                </div>
-                <button class="btn btn-metro" onclick="openBookingModal('TruHealth ProActive (Metropolis)', 5400)">Book Now</button>
-            </div>
-
-            <div class="pkg-card metro-card">
-                <div class="metro-badge">Metropolis</div>
-                <div>
-                    <h3 class="pkg-title">TruHealth Expert</h3>
-                    <div class="pkg-price-box">
-                        <span class="pkg-price pkg-price-metro">₹6,700/-</span>
-                        <span class="pkg-mrp">₹22,510</span>
-                    </div>
-                    <div class="pkg-scroll-area">
-                        <ul class="pkg-list">
-                            <li>109 (M) / 110 (F) Parameters</li>
-                            <li>1+1 Offer Available @ ₹10,850</li>
-                            <li>Includes Cancer Screening & Hormones</li>
-                        </ul>
-                    </div>
-                </div>
-                <button class="btn btn-metro" onclick="openBookingModal('TruHealth Expert (Metropolis)', 6700)">Book Now</button>
-            </div>
-
-            <div class="pkg-card metro-card">
-                <div class="metro-badge">Metropolis</div>
-                <div>
-                    <h3 class="pkg-title">TruHealth Elite</h3>
-                    <div class="pkg-price-box">
-                        <span class="pkg-price pkg-price-metro">₹10,000/-</span>
-                        <span class="pkg-mrp">₹33,235</span>
-                    </div>
-                    <div class="pkg-scroll-area">
-                        <ul class="pkg-list">
-                            <li>116 (M) / 118 (F) Parameters</li>
-                            <li>1+1 Offer Available @ ₹18,000</li>
-                            <li>Ultimate Comprehensive Health Checkup</li>
-                        </ul>
-                    </div>
-                </div>
-                <button class="btn btn-metro" onclick="openBookingModal('TruHealth Elite (Metropolis)', 10000)">Book Now</button>
-            </div>
-
         </div>
+        <button class="btn btn-metro" onclick="openBookingModal('TruHealth Vital (Metropolis)', 2900)">Book Now</button>
+    </div>
 
+    <!-- 3. TruHealth Vital Plus -->
+    <div class="pkg-card metro-card">
+        <div class="metro-badge">Metropolis</div>
+        <div>
+            <h3 class="pkg-title">TruHealth Vital Plus</h3>
+            <div class="pkg-price-box">
+                <span class="pkg-price pkg-price-metro">₹3,300/-</span>
+                <span class="pkg-mrp">₹10,090</span>
+            </div>
+            <div class="pkg-scroll-area">
+                <ul class="pkg-list">
+                    <li>66 Parameters Included</li>
+                    <li>1+1 Offer Available @ ₹5,610</li>
+                    <li>CBC, Vit B-12, HbA1c, ESR</li>
+                    <li>Liver, Kidney, Thyroid Profiles</li>
+                    <li>Heart & Bone Health Screening</li>
+                </ul>
+            </div>
+        </div>
+        <button class="btn btn-metro" onclick="openBookingModal('TruHealth Vital Plus (Metropolis)', 3300)">Book Now</button>
+    </div>
+
+    <!-- 4. TruHealth Active -->
+    <div class="pkg-card metro-card">
+        <div class="metro-badge">Metropolis</div>
+        <div>
+            <h3 class="pkg-title">TruHealth Active</h3>
+            <div class="pkg-price-box">
+                <span class="pkg-price pkg-price-metro">₹4,400/-</span>
+                <span class="pkg-mrp">₹14,885</span>
+            </div>
+            <div class="pkg-scroll-area">
+                <ul class="pkg-list">
+                    <li>97 (M) / 88 (F) Parameters</li>
+                    <li>1+1 Offer Available @ ₹7,450</li>
+                    <li>Complete Full Body Master Screening</li>
+                    <li>Anemia & Diabetes Assessment</li>
+                    <li>Vitamin & Hormone Check</li>
+                </ul>
+            </div>
+        </div>
+        <button class="btn btn-metro" onclick="openBookingModal('TruHealth Active (Metropolis)', 4400)">Book Now</button>
+    </div>
+
+    <!-- 5. TruHealth ProActive -->
+    <div class="pkg-card metro-card">
+        <div class="metro-badge">Metropolis</div>
+        <div>
+            <h3 class="pkg-title">TruHealth ProActive</h3>
+            <div class="pkg-price-box">
+                <span class="pkg-price pkg-price-metro">₹5,400/-</span>
+                <span class="pkg-mrp">₹18,345</span>
+            </div>
+            <div class="pkg-scroll-area">
+                <ul class="pkg-list">
+                    <li>103 (M) / 103 (F) Parameters</li>
+                    <li>1+1 Offer Available @ ₹9,150</li>
+                    <li>Includes Cardiac & Allergy Screenings</li>
+                    <li>Advanced Vitamin & Iron Studies</li>
+                    <li>Comprehensive Organ Panels</li>
+                </ul>
+            </div>
+        </div>
+        <button class="btn btn-metro" onclick="openBookingModal('TruHealth ProActive (Metropolis)', 5400)">Book Now</button>
+    </div>
+
+    <!-- 6. TruHealth Expert -->
+    <div class="pkg-card metro-card">
+        <div class="metro-badge">Metropolis</div>
+        <div>
+            <h3 class="pkg-title">TruHealth Expert</h3>
+            <div class="pkg-price-box">
+                <span class="pkg-price pkg-price-metro">₹6,700/-</span>
+                <span class="pkg-mrp">₹22,510</span>
+            </div>
+            <div class="pkg-scroll-area">
+                <ul class="pkg-list">
+                    <li>109 (M) / 110 (F) Parameters</li>
+                    <li>1+1 Offer Available @ ₹10,850</li>
+                    <li>Includes Cancer Screening (CEA, PSA, CA-125)</li>
+                    <li>Hormones & Pancreas Profile</li>
+                    <li>Full Advanced Diagnostic Care</li>
+                </ul>
+            </div>
+        </div>
+        <button class="btn btn-metro" onclick="openBookingModal('TruHealth Expert (Metropolis)', 6700)">Book Now</button>
+    </div>
+
+    <!-- 7. TruHealth Elite -->
+    <div class="pkg-card metro-card">
+        <div class="metro-badge">Metropolis</div>
+        <div>
+            <h3 class="pkg-title">TruHealth Elite</h3>
+            <div class="pkg-price-box">
+                <span class="pkg-price pkg-price-metro">₹10,000/-</span>
+                <span class="pkg-mrp">₹33,235</span>
+            </div>
+            <div class="pkg-scroll-area">
+                <ul class="pkg-list">
+                    <li>116 (M) / 118 (F) Parameters</li>
+                    <li>1+1 Offer Available @ ₹18,000</li>
+                    <li>Ultimate Comprehensive Health Checkup</li>
+                    <li>Cancer, Cardiac, Pancreas & Hormones</li>
+                    <li>Complete Executive Body Health Profile</li>
+                </ul>
+            </div>
+        </div>
+        <button class="btn btn-metro" onclick="openBookingModal('TruHealth Elite (Metropolis)', 10000)">Book Now</button>
+    </div>
+
+</div>
     </section>
 
     <!-- HealthSpace Membership Section -->
-    <section class="container" id="membership">
-        <div class="membership-card-box">
-            <span class="membership-badge">ANNUAL HEALTH MEMBERSHIP</span>
-            <h2 style="font-size: 26px; font-weight: 800; margin-bottom: 10px;">HealthSpace Membership</h2>
-            <p style="font-size: 14px; opacity: 0.9; margin-bottom: 20px;">Join HealthSpace annual membership program and save big on all healthcare needs for your entire family in Nashik.</p>
-            
-            <div style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 16px; margin-bottom: 20px;">
-                <h3 style="font-size: 32px; color: #f97316; font-weight: 800; margin-bottom: 10px;">₹369 / Year</h3>
-                <ul style="list-style: none; text-align: left; font-size: 14px; line-height: 2; max-width: 400px; margin: 0 auto;">
-                    <li>🔥 <strong>25% Discount</strong> on Individual Tests</li>
-                    <li>🔥 <strong>10% Extra Discount</strong> on Packages</li>
-                    <li>🩸 Free Home Sample Collection</li>
-                </ul>
-            </div>
-
-            <button class="btn btn-white" onclick="openBookingModal('HealthSpace Membership', 369, true)">Get Membership @ ₹369</button>
+<section class="container" id="membership">
+    <div class="membership-card-box">
+        <span class="membership-badge">ANNUAL HEALTH MEMBERSHIP</span>
+        <h2 style="font-size: 26px; font-weight: 800; margin-bottom: 10px;">HealthSpace Membership</h2>
+        <p style="font-size: 14px; opacity: 0.9; margin-bottom: 20px;">Join HealthSpace annual membership program and save big on all healthcare needs for your entire family in Nashik.</p>
+        
+        <div style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 16px; margin-bottom: 20px;">
+            <h3 style="font-size: 32px; color: #f97316; font-weight: 800; margin-bottom: 10px;">₹369 / Year</h3>
+            <ul style="list-style: none; text-align: left; font-size: 14px; line-height: 2.2; max-width: 420px; margin: 0 auto;">
+                <li>🔥 <strong>25% Discount</strong> on Individual Tests</li>
+                <li>🔥 <strong>10% Extra Discount</strong> on Packages</li>
+                <li>💊 <strong>25% Discount</strong> on Health Supplements</li>
+                <li>🩸 Free Home Sample Collection</li>
+            </ul>
         </div>
-    </section>
 
+        <button class="btn btn-white" onclick="openBookingModal('HealthSpace Membership', 369, true)">Get Membership @ ₹369</button>
+    </div>
+</section>
+    
     <!-- Testimonials Section -->
     <section class="container" id="testimonials">
         <div class="section-header">
