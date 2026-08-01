@@ -6,6 +6,9 @@
     <title>HealthSpace Nashik - Doorstep Healthcare Services</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
+    <!-- Leaflet.js Free Map CSS and JS -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <style>
         :root {
             --primary: #0284c7;
@@ -1001,7 +1004,23 @@
 
 </div>
     </section>
+<!-- Live Phlebo Tracking Section -->
+<section class="container" id="live-tracking" style="margin-top: 40px; margin-bottom: 40px;">
+    <div style="background: white; border-radius: 16px; padding: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); border: 1px solid #e2e8f0;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; flex-wrap: wrap; gap: 10px;">
+            <div>
+                <span style="background: #e0f2fe; color: #0284c7; font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 20px;">LIVE TRACKING</span>
+                <h3 style="margin-top: 5px; font-size: 20px; font-weight: 800; color: #1e293b;">Track Your Phlebo</h3>
+            </div>
+            <div style="font-size: 14px; font-weight: 600; color: #16a34a;">
+                🟢 Sample Collection Partner On The Way
+            </div>
+        </div>
 
+        <!-- हा आहे मॅप दाखवण्याचा बॉक्स -->
+        <div id="map" style="height: 350px; width: 100%; border-radius: 12px; border: 1px solid #cbd5e1; z-index: 1;"></div>
+    </div>
+</section>
     <!-- HealthSpace Membership Section -->
 <section class="container" id="membership">
     <div class="membership-card-box">
@@ -1357,5 +1376,24 @@
             document.getElementById('step3').style.display = 'block';
         }
     </script>
+<script>
+    // १. नाशिकचे लोकेशन (इंदिरानगर / रुंगता हब) सेंटर ठेवून मॅप लोड करणे
+    var map = L.map('map').setView([19.9678, 73.7788], 14);
+
+    // २. फ्री OpenStreetMap लोड करणे
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '© OpenStreetMap'
+    }).addTo(map);
+
+    // ३. पेशंटच्या घराचे ठिकाण (Example Pin)
+    var patientMarker = L.marker([19.9678, 73.7788]).addTo(map)
+        .bindPopup('<b>Patient Address</b><br>Shop 2073, Rungta Hub, Nashik')
+        .openPopup();
+
+    // ४. Phlebo चे लोकेशन (Sample Collection Boy)
+    var phleboMarker = L.marker([19.9620, 73.7720]).addTo(map)
+        .bindPopup('<b>Phlebo (Rahul)</b><br>Status: On the way');
+</script>
 </body>
 </html>
