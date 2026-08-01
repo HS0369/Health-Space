@@ -1680,56 +1680,80 @@
         }
         var cart = [];
 
-// कार्टमध्ये सप्लीमेंट किंवा ब्लड टेस्ट ॲड करण्याचे फंक्शन
+// कार्ट मध्ये आयटम ॲड करण्याचे फंक्शन
 function addToCart(itemName, price, type) {
     cart.push({ name: itemName, price: price, type: type });
     updateCartUI();
     alert(itemName + " added to your cart!");
 }
 
-// कार्ट अपडेट करून फॉर्म ओपन करणे
-function openCartModal() {
-    if(cart.length === 0) {
-        alert("Your cart is empty! Please add a blood test or supplement first.");
-        return;
-    }
-    updateCartUI();
-    document.getElementById('bookingModal').style.display = 'block';
-}
-
+// कार्ट UI आणि Floating Badge अपडेट करणे
 function updateCartUI() {
+    // 1. Update Cart Badge Count
+    var badge = document.getElementById('cartCountBadge');
+    if(badge) {
+        badge.innerText = cart.length;
+    }
+
+    // 2. Update Cart Items inside Modal Form
     var listHtml = "";
     var total = 0;
     
-    cart.forEach(function(item, index) {
-        listHtml += "<li>" + item.name + " (" + item.type + ") - ₹" + item.price + "</li>";
-        total += item.price;
-    });
+    if(cart.length === 0) {
+        listHtml = "<li>No items added yet.</li>";
+    } else {
+        cart.forEach(function(item, index) {
+            listHtml += "<li style='margin-bottom: 4px;'>" + item.name + " (" + item.type + ") - <b>₹" + item.price + "</b></li>";
+            total += item.price;
+        });
+    }
 
-    if(document.getElementById('cartList')) {
-        document.getElementById('cartList').innerHTML = listHtml;
-        document.getElementById('cartTotal').innerText = "Total: ₹" + total;
+    var listElem = document.getElementById('cartList');
+    var totalElem = document.getElementById('cartTotal');
+    
+    if(listElem) listElem.innerHTML = listHtml;
+    if(totalElem) totalElem.innerText = "Total: ₹" + total;
+}
+
+// सेफ्टीसह Modal उघडणे (Null Check Fix)
+function openBookingModal() {
+    var modal = document.getElementById('bookingModal');
+    if(modal) {
+        if(cart.length === 0) {
+            alert("Your cart is empty! Please select a Blood Test or Supplement first.");
+            return;
+        }
+        updateCartUI();
+        modal.style.display = 'block';
+    } else {
+        console.error("Error: Element with ID 'bookingModal' not found in HTML!");
     }
 }
 
+// Modal बंद करणे
 function closeModal() {
-    document.getElementById('bookingModal').style.display = 'none';
+    var modal = document.getElementById('bookingModal');
+    if(modal) {
+        modal.style.display = 'none';
+    }
 }
 
+// बुकिंग सबमिट करणे
 function submitBooking() {
-    var name = document.getElementById('patientName').value;
-    var phone = document.getElementById('patientPhone').value;
-    var date = document.getElementById('bookingDate').value;
-    var time = document.getElementById('bookingTime').value;
-    var address = document.getElementById('patientAddress').value;
+    var name = document.getElementById('patientName') ? document.getElementById('patientName').value : '';
+    var phone = document.getElementById('patientPhone') ? document.getElementById('patientPhone').value : '';
+    var date = document.getElementById('bookingDate') ? document.getElementById('bookingDate').value : '';
+    var time = document.getElementById('bookingTime') ? document.getElementById('bookingTime').value : '';
+    var address = document.getElementById('patientAddress') ? document.getElementById('patientAddress').value : '';
 
     if(!name || !phone || !date || !time || !address) {
-        alert("Please fill all fields!");
+        alert("Please fill all details correctly!");
         return;
     }
 
     alert("Booking Confirmed for " + name + " on " + date + " (" + time + ")");
-    cart = []; // Clear Cart
+    cart = []; // Empty cart after booking
+    updateCartUI();
     closeModal();
 }
     </script>
@@ -1752,5 +1776,60 @@ function submitBooking() {
     var phleboMarker = L.marker([19.9620, 73.7720]).addTo(map)
         .bindPopup('<b>Phlebo (Rahul)</b><br>Status: On the way');
 </script>
+    <!-- FLOATING CART BUTTON FOR DASHBOARD / NAVIGATION -->
+<div id="cartFloatingBtn" onclick="openBookingModal()" style="position: fixed; bottom: 30px; right: 30px; background: #16a34a; color: white; padding: 14px 22px; border-radius: 50px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); cursor: pointer; z-index: 999; display: flex; align-items: center; gap: 10px; font-weight: bold; font-size: 15px;">
+    <span>🛒 Cart</span>
+    <span id="cartCountBadge" style="background: #ffffff; color: #16a34a; border-radius: 50%; padding: 2px 8px; font-size: 12px; font-weight: 800;">0</span>
+</div>
+
+<!-- UNIFIED BOOKING FORM MODAL -->
+<div id="bookingModal" class="modal" style="display:none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 1000; overflow-y: auto;">
+    <div style="background: #fff; width: 90%; max-width: 500px; margin: 30px auto; padding: 25px; border-radius: 16px; position: relative;">
+        <h3 style="margin-bottom: 15px; font-weight: 800; color: #0f172a;">Complete Your Booking</h3>
+        
+        <!-- Selected Items Summary -->
+        <div id="cartSummary" style="background: #f8fafc; padding: 12px; border-radius: 8px; margin-bottom: 15px; font-size: 13px; border: 1px solid #e2e8f0;">
+            <strong>Selected Items:</strong>
+            <ul id="cartList" style="margin-top: 5px; padding-left: 18px;"></ul>
+            <div style="margin-top: 8px; font-weight: 800; text-align: right; color: #16a34a; font-size: 15px;" id="cartTotal">Total: ₹0</div>
+        </div>
+
+        <form id="unifiedForm">
+            <div style="margin-bottom: 12px;">
+                <label style="font-size: 12px; font-weight: 700;">Full Name</label>
+                <input type="text" id="patientName" placeholder="Enter Full Name" required style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;">
+            </div>
+            
+            <div style="margin-bottom: 12px;">
+                <label style="font-size: 12px; font-weight: 700;">Mobile Number</label>
+                <input type="tel" id="patientPhone" placeholder="Enter 10-digit Mobile Number" required style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;">
+            </div>
+
+            <div style="margin-bottom: 12px;">
+                <label style="font-size: 12px; font-weight: 700;">Preferred Booking Date</label>
+                <input type="date" id="bookingDate" required style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;">
+            </div>
+
+            <div style="margin-bottom: 12px;">
+                <label style="font-size: 12px; font-weight: 700;">Preferred Time Slot</label>
+                <select id="bookingTime" required style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;">
+                    <option value="">Select Time Slot</option>
+                    <option value="07:00 AM - 09:00 AM">07:00 AM - 09:00 AM</option>
+                    <option value="09:00 AM - 11:00 AM">09:00 AM - 11:00 AM</option>
+                    <option value="11:00 AM - 01:00 PM">11:00 AM - 01:00 PM</option>
+                    <option value="04:00 PM - 06:00 PM">04:00 PM - 06:00 PM</option>
+                </select>
+            </div>
+
+            <div style="margin-bottom: 15px;">
+                <label style="font-size: 12px; font-weight: 700;">Complete Address</label>
+                <textarea id="patientAddress" placeholder="Enter Full Address with Landmark" required style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;" rows="2"></textarea>
+            </div>
+
+            <button type="button" onclick="submitBooking()" style="width: 100%; background: #16a34a; color: white; border: none; padding: 12px; border-radius: 8px; font-weight: 800; cursor: pointer;">Confirm Booking</button>
+            <button type="button" onclick="closeModal()" style="width: 100%; background: #ef4444; color: white; border: none; padding: 8px; border-radius: 8px; font-weight: 700; margin-top: 8px; cursor: pointer;">Cancel</button>
+        </form>
+    </div>
+</div>
 </body>
 </html>
