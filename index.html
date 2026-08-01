@@ -618,8 +618,9 @@
     margin-left: 6px;
 }
 
-.btn-buy-now {
-    background: #16a34a;
+/* Add to Cart Button Styling */
+.btn-add-cart {
+    background: #0284c7;
     color: white;
     border: none;
     padding: 10px;
@@ -631,8 +632,15 @@
     transition: background 0.2s ease;
 }
 
-.btn-buy-now:hover {
-    background: #15803d;
+.btn-add-cart:hover {
+    background: #0369a1;
+}
+
+.product-img {
+    width: 100%;
+    height: 140px;
+    object-fit: contain;
+    margin: 20px 0 10px 0;
 }
         /* Awareness Banners Styling */
 .awareness-grid {
@@ -757,15 +765,15 @@
             <a href="#packages" class="btn btn-white">Book Test Package</a>
         </div>
     </section>
-<!-- 1. HEALTH AWARENESS & EMPATHY BANNERS -->
+<!-- 1. HEALTH AWARENESS BANNERS (English) -->
 <section class="container awareness-section" style="margin: 30px auto;">
     <div class="awareness-grid">
         <!-- Banner 1: Daily Hydration -->
         <div class="awareness-card card-water">
             <div class="awareness-icon">💧</div>
             <div class="awareness-content">
-                <h4>हायड्रेटेड राहा!</h4>
-                <p>रोज किमान ३-४ लिटर पाणी प्या. योग्य हायड्रेशनमुळे शरीरातील टॉक्सिन्स बाहेर पडतात आणि रक्तप्रवाह सुधारतो.</p>
+                <h4>Stay Hydrated!</h4>
+                <p>Drink at least 3-4 liters of water daily to flush out toxins and improve blood circulation.</p>
             </div>
         </div>
 
@@ -773,8 +781,8 @@
         <div class="awareness-card card-diabetes">
             <div class="awareness-icon">🩸</div>
             <div class="awareness-content">
-                <h4>डायबिटीसची काळजी घ्या</h4>
-                <p>वेळेवर जेवण, नियमित चालणे आणि दर ३ महिन्यांनी Fasting & HbA1c टेस्ट करून शुगर लेव्हल नियंत्रणात ठेवा.</p>
+                <h4>Monitor Diabetes</h4>
+                <p>Maintain healthy sugar levels with timely meals, daily walks, and regular HbA1c tests.</p>
             </div>
         </div>
 
@@ -782,8 +790,8 @@
         <div class="awareness-card card-thyroid">
             <div class="awareness-icon">🦋</div>
             <div class="awareness-content">
-                <h4>थायरॉईड व थकवा</h4>
-                <p>सतत येणारा थकवा किंवा वजनात अचानक होणारे बदल याकडे दुर्लक्ष करू नका. TSH टेस्टद्वारे थायरॉईड तपासून घ्या.</p>
+                <h4>Thyroid & Energy</h4>
+                <p>Don't ignore fatigue or sudden weight changes. Track your thyroid health with a TSH test.</p>
             </div>
         </div>
     </div>
@@ -819,7 +827,7 @@
         </div>
     </div>
 
-   <!-- HEALTH SUPPLEMENTS SECTION (Unified Cart & English UI) -->
+   <!-- HEALTH SUPPLEMENTS SECTION -->
 <section class="container" id="supplements" style="margin: 40px auto;">
     <div class="supplements-wrapper">
         <div class="supplements-header">
@@ -828,133 +836,133 @@
             <p>High-quality Wellness & Nutrition products launching for your complete daily health needs.</p>
         </div>
 
-        <!-- Supplements Grid -->
         <div class="supplements-grid">
             
             <!-- 1. Protein For Women -->
             <div class="product-card">
                 <span class="discount-tag">25% OFF</span>
                 <span class="category-badge badge-women">FOR WOMEN</span>
-                <img src="women-protein.png" alt="Naturamore For Women" class="product-img" onerror="this.src='https://via.placeholder.com/150?text=For+Women';">
+                <img src="Naturamore WOMAN Protein Powder .png" alt="Naturamore For Women" class="product-img" onerror="this.src='https://via.placeholder.com/150?text=For+Women';">
                 <h3>Naturamore For Women</h3>
                 <p>Supports energy and immunity (French Vanilla / Masala Milk)</p>
                 <div class="product-price">
                     <span class="price">₹1,181/-</span> 
                     <span class="mrp">₹1,575</span>
                 </div>
-                <button class="btn-buy-now" onclick="addToCart('Naturamore For Women', 1181, 'Supplement')">Add to Cart / Buy Now</button>
+                <button class="btn-add-cart" onclick="addToCart('Naturamore For Women', 1181, 'Supplement')">🛒 Add to Cart</button>
             </div>
 
             <!-- 2. Protein Active -->
             <div class="product-card">
                 <span class="discount-tag">25% OFF</span>
                 <span class="category-badge badge-active">ACTIVE</span>
-                <img src="active-protein.png" alt="Naturamore Active" class="product-img" onerror="this.src='https://via.placeholder.com/150?text=Active';">
+                <img src="Naturamore Active Protein Powder .png" alt="Naturamore Active" class="product-img" onerror="this.src='https://via.placeholder.com/150?text=Active';">
                 <h3>Naturamore Active</h3>
                 <p>Daily strength and vitality (Chocolate Flavour)</p>
                 <div class="product-price">
                     <span class="price">₹1,088/-</span> 
                     <span class="mrp">₹1,450</span>
                 </div>
-                <button class="btn-buy-now" onclick="addToCart('Naturamore Active', 1088, 'Supplement')">Add to Cart / Buy Now</button>
+                <button class="btn-add-cart" onclick="addToCart('Naturamore Active', 1088, 'Supplement')">🛒 Add to Cart</button>
             </div>
 
             <!-- 3. Protein For Kids -->
             <div class="product-card">
                 <span class="discount-tag">25% OFF</span>
                 <span class="category-badge badge-kids">FOR KIDS</span>
-                <img src="kids-protein.png" alt="Naturamore For Kids" class="product-img" onerror="this.src='https://via.placeholder.com/150?text=For+Kids';">
+                <img src="Naturamore KIDS Protein Powder .png" alt="Naturamore For Kids" class="product-img" onerror="this.src='https://via.placeholder.com/150?text=For+Kids';">
                 <h3>Naturamore For Kids</h3>
                 <p>Healthy growth and development (Chocolate Cookie)</p>
                 <div class="product-price">
                     <span class="price">₹1,088/-</span> 
                     <span class="mrp">₹1,450</span>
                 </div>
-                <button class="btn-buy-now" onclick="addToCart('Naturamore For Kids', 1088, 'Supplement')">Add to Cart / Buy Now</button>
+                <button class="btn-add-cart" onclick="addToCart('Naturamore For Kids', 1088, 'Supplement')">🛒 Add to Cart</button>
             </div>
 
             <!-- 4. Nutritional Supplement Original -->
             <div class="product-card">
                 <span class="discount-tag">25% OFF</span>
                 <span class="category-badge badge-original">ORIGINAL</span>
-                <img src="original-protein.png" alt="Naturamore Original" class="product-img" onerror="this.src='https://via.placeholder.com/150?text=Original';">
+                <img src="Naturamore GENERAL Protein Powder .png" alt="Naturamore Original" class="product-img" onerror="this.src='https://via.placeholder.com/150?text=Original';">
                 <h3>Naturamore Original</h3>
                 <p>Comprehensive nutritional boost (Vanilla Rice Flavour)</p>
                 <div class="product-price">
                     <span class="price">₹1,088/-</span> 
                     <span class="mrp">₹1,450</span>
                 </div>
-                <button class="btn-buy-now" onclick="addToCart('Naturamore Original', 1088, 'Supplement')">Add to Cart / Buy Now</button>
+                <button class="btn-add-cart" onclick="addToCart('Naturamore Original', 1088, 'Supplement')">🛒 Add to Cart</button>
             </div>
 
             <!-- 5. Easy Detox -->
             <div class="product-card">
                 <span class="discount-tag">25% OFF</span>
-                <img src="easy-detox.png" alt="Easy Detox" class="product-img" onerror="this.src='https://via.placeholder.com/150?text=Easy+Detox';">
+                <img src="Easy Detox.png" alt="Easy Detox" class="product-img" onerror="this.src='https://via.placeholder.com/150?text=Easy+Detox';">
                 <h3>Easy Detox</h3>
                 <p>Cleanses and supports digestion (Amla & Senna)</p>
                 <div class="product-price">
                     <span class="price">₹338/-</span> 
                     <span class="mrp">₹450</span>
                 </div>
-                <button class="btn-buy-now" onclick="addToCart('Easy Detox', 338, 'Supplement')">Add to Cart / Buy Now</button>
+                <button class="btn-add-cart" onclick="addToCart('Easy Detox', 338, 'Supplement')">🛒 Add to Cart</button>
             </div>
 
             <!-- 6. Joint Care -->
             <div class="product-card">
                 <span class="discount-tag">25% OFF</span>
-                <img src="joint-care.png" alt="Joint Care" class="product-img" onerror="this.src='https://via.placeholder.com/150?text=Joint+Care';">
+                <img src="Joint Care.png" alt="Joint Care" class="product-img" onerror="this.src='https://via.placeholder.com/150?text=Joint+Care';">
                 <h3>Joint Care</h3>
                 <p>Promotes joint flexibility (Salai & Guggal)</p>
                 <div class="product-price">
                     <span class="price">₹334/-</span> 
                     <span class="mrp">₹445</span>
                 </div>
-                <button class="btn-buy-now" onclick="addToCart('Joint Care', 334, 'Supplement')">Add to Cart / Buy Now</button>
+                <button class="btn-add-cart" onclick="addToCart('Joint Care', 334, 'Supplement')">🛒 Add to Cart</button>
             </div>
 
             <!-- 7. Multi-Vitamin For Men -->
             <div class="product-card">
                 <span class="discount-tag">25% OFF</span>
-                <img src="multivitamin-men.png" alt="Multi-Vitamin For Men" class="product-img" onerror="this.src='https://via.placeholder.com/150?text=Men+Multivitamin';">
+                <img src="Multivitamin For MEN.png" alt="Multi-Vitamin For Men" class="product-img" onerror="this.src='https://via.placeholder.com/150?text=Men+Multivitamin';">
                 <h3>Multi-Vitamin For Men</h3>
                 <p>Men's vital nutrient balance, minerals & antioxidants</p>
                 <div class="product-price">
                     <span class="price">₹281/-</span> 
                     <span class="mrp">₹375</span>
                 </div>
-                <button class="btn-buy-now" onclick="addToCart('Multi-Vitamin For Men', 281, 'Supplement')">Add to Cart / Buy Now</button>
+                <button class="btn-add-cart" onclick="addToCart('Multi-Vitamin For Men', 281, 'Supplement')">🛒 Add to Cart</button>
             </div>
 
             <!-- 8. Multi-Vitamin For Women -->
             <div class="product-card">
                 <span class="discount-tag">25% OFF</span>
-                <img src="multivitamin-women.png" alt="Multi-Vitamin For Women" class="product-img" onerror="this.src='https://via.placeholder.com/150?text=Women+Multivitamin';">
+                <img src="Multivitamin For WOMEN.png" alt="Multi-Vitamin For Women" class="product-img" onerror="this.src='https://via.placeholder.com/150?text=Women+Multivitamin';">
                 <h3>Multi-Vitamin For Women</h3>
                 <p>Women's hormonal support & overall wellness</p>
                 <div class="product-price">
                     <span class="price">₹281/-</span> 
                     <span class="mrp">₹375</span>
                 </div>
-                <button class="btn-buy-now" onclick="addToCart('Multi-Vitamin For Women', 281, 'Supplement')">Add to Cart / Buy Now</button>
+                <button class="btn-add-cart" onclick="addToCart('Multi-Vitamin For Women', 281, 'Supplement')">🛒 Add to Cart</button>
             </div>
 
             <!-- 9. Blood Detox -->
             <div class="product-card">
                 <span class="discount-tag">25% OFF</span>
-                <img src="blood-detox.png" alt="Blood Detox" class="product-img" onerror="this.src='https://via.placeholder.com/150?text=Blood+Detox';">
+                <img src="Easy Detox.png" alt="Blood Detox" class="product-img" onerror="this.src='https://via.placeholder.com/150?text=Blood+Detox';">
                 <h3>Blood Detox</h3>
                 <p>Purifies blood and detoxifies body naturally</p>
                 <div class="product-price">
                     <span class="price">₹300/-</span> 
                     <span class="mrp">₹400</span>
                 </div>
-                <button class="btn-buy-now" onclick="addToCart('Blood Detox', 300, 'Supplement')">Add to Cart / Buy Now</button>
+                <button class="btn-add-cart" onclick="addToCart('Blood Detox', 300, 'Supplement')">🛒 Add to Cart</button>
             </div>
 
         </div>
     </div>
 </section>
+
     <!-- Packages Section (ALL PACKAGES FROM IMAGES) -->
     <section class="container" id="packages">
         
@@ -1393,49 +1401,47 @@
         </div>
     </section>
 
-    <!-- Booking Modal -->
-    <div class="modal-overlay" id="bookingModal">
-        <div class="modal-card">
-            <button class="modal-close" onclick="closeModal()">✕</button>
+   
+<!-- BOOKING FORM MODAL (WITH DATE SELECTION) -->
+<div id="bookingModal" class="modal" style="display:none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 1000; overflow-y: auto;">
+    <div style="background: #fff; width: 90%; max-width: 500px; margin: 30px auto; padding: 25px; border-radius: 16px;">
+        <h3 style="margin-bottom: 15px; font-weight: 800; color: #0f172a;">Complete Your Booking</h3>
+        
+        <!-- Cart Summary Display -->
+        <div id="cartSummary" style="background: #f8fafc; padding: 12px; border-radius: 8px; margin-bottom: 15px; font-size: 13px;">
+            <strong>Selected Items:</strong>
+            <ul id="cartList" style="margin-top: 5px; padding-left: 18px;"></ul>
+            <div style="margin-top: 8px; font-weight: 800; text-align: right;" id="cartTotal">Total: ₹0</div>
+        </div>
 
-            <!-- Step 1: Form -->
-            <div id="step1">
-                <h3 style="font-size: 20px; color: var(--dark); margin-bottom: 5px;" id="modalPkgTitle">Book Package</h3>
-                <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 18px;">Enter details to proceed</p>
+        <form id="unifiedForm">
+            <div style="margin-bottom: 12px;">
+                <label style="font-size: 12px; font-weight: 700;">Full Name</label>
+                <input type="text" id="patientName" required style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;">
+            </div>
+            
+            <div style="margin-bottom: 12px;">
+                <label style="font-size: 12px; font-weight: 700;">Mobile Number</label>
+                <input type="tel" id="patientPhone" required style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;">
+            </div>
 
-                <form id="patientForm" onsubmit="goToPaymentStep(event)">
-                    <div class="form-group">
-                        <label>Full Patient Name *</label>
-                        <input type="text" id="patientName" class="form-control" placeholder="Enter patient full name" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Mobile Number *</label>
-                        <input type="tel" id="patientPhone" class="form-control" placeholder="10-digit mobile number" pattern="[0-9]{10}" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Email Address *</label>
-                        <input type="email" id="patientEmail" class="form-control" placeholder="patient@gmail.com" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Address *</label>
-                        <textarea id="patientAddress" class="form-control" rows="2" placeholder="House no, Area, Landmark, Nashik" required></textarea>
-                    </div>
-                    
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-                        
-                        <div class="form-group" id="timeSlotContainer">
-                            <label>Time Slot (6AM-12PM) *</label>
-                            <select id="timeSlot" class="form-control">
-                                <option value="06:00 AM">06:00 AM - 07:00 AM</option>
-                                <option value="07:00 AM">07:00 AM - 08:00 AM</option>
-                                <option value="08:00 AM">08:00 AM - 09:00 AM</option>
-                                <option value="09:00 AM">09:00 AM - 10:00 AM</option>
-                                <option value="10:00 AM">10:00 AM - 11:00 AM</option>
-                                <option value="11:00 AM">11:00 AM - 12:00 PM</option>
-                            </select>
-                        </div>
-                    </div>
+            <!-- Date Selection Field -->
+            <div style="margin-bottom: 12px;">
+                <label style="font-size: 12px; font-weight: 700;">Preferred Booking Date</label>
+                <input type="date" id="bookingDate" required style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;">
+            </div>
 
+            <!-- Time Slot Selection -->
+            <div style="margin-bottom: 12px;">
+                <label style="font-size: 12px; font-weight: 700;">Preferred Time Slot</label>
+                <select id="bookingTime" required style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;">
+                    <option value="">Select Time Slot</option>
+                    <option value="07:00 AM - 09:00 AM">07:00 AM - 09:00 AM</option>
+                    <option value="09:00 AM - 11:00 AM">09:00 AM - 11:00 AM</option>
+                    <option value="11:00 AM - 01:00 PM">11:00 AM - 01:00 PM</option>
+                    <option value="04:00 PM - 06:00 PM">04:00 PM - 06:00 PM</option>
+                </select>
+            </div>
                     <!-- 1+1 Offer Discount -->
                     <div class="one-plus-one-box" id="onePlusOneBox" onclick="toggleOnePlusOne()">
                         <input type="checkbox" id="onePlusOneCheck" style="width: 18px; height: 18px; cursor: pointer;">
@@ -1674,17 +1680,57 @@
         }
         var cart = [];
 
+// कार्टमध्ये सप्लीमेंट किंवा ब्लड टेस्ट ॲड करण्याचे फंक्शन
 function addToCart(itemName, price, type) {
     cart.push({ name: itemName, price: price, type: type });
+    updateCartUI();
     alert(itemName + " added to your cart!");
-    
-    // कार्ट मधील एकूण आयटम्स आणि फॉर्म ओपन करण्यासाठी कॉमन बुकिंग फंक्शन कॉल करू शकता:
-    openUnifiedBookingModal();
 }
 
-function openUnifiedBookingModal() {
-    // इथे ब्लड टेस्ट आणि सप्लीमेंट्स एकत्र करून QR Code, Patient Details, Mobile Number चा फॉर्म ओपन होईल.
-    // आणि हा सर्व डेटा एकाच वेळी तुमच्या Backend Excel Sheet मध्ये सेव्ह होईल.
+// कार्ट अपडेट करून फॉर्म ओपन करणे
+function openCartModal() {
+    if(cart.length === 0) {
+        alert("Your cart is empty! Please add a blood test or supplement first.");
+        return;
+    }
+    updateCartUI();
+    document.getElementById('bookingModal').style.display = 'block';
+}
+
+function updateCartUI() {
+    var listHtml = "";
+    var total = 0;
+    
+    cart.forEach(function(item, index) {
+        listHtml += "<li>" + item.name + " (" + item.type + ") - ₹" + item.price + "</li>";
+        total += item.price;
+    });
+
+    if(document.getElementById('cartList')) {
+        document.getElementById('cartList').innerHTML = listHtml;
+        document.getElementById('cartTotal').innerText = "Total: ₹" + total;
+    }
+}
+
+function closeModal() {
+    document.getElementById('bookingModal').style.display = 'none';
+}
+
+function submitBooking() {
+    var name = document.getElementById('patientName').value;
+    var phone = document.getElementById('patientPhone').value;
+    var date = document.getElementById('bookingDate').value;
+    var time = document.getElementById('bookingTime').value;
+    var address = document.getElementById('patientAddress').value;
+
+    if(!name || !phone || !date || !time || !address) {
+        alert("Please fill all fields!");
+        return;
+    }
+
+    alert("Booking Confirmed for " + name + " on " + date + " (" + time + ")");
+    cart = []; // Clear Cart
+    closeModal();
 }
     </script>
 <script>
