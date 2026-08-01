@@ -494,11 +494,14 @@
 
         .footer-col h4 { color: white; font-size: 16px; margin-bottom: 14px; }
 
-   /* =========================================================
-   HEALTH SPACE - HEALTH SUPPLEMENTS SECTION (COMPLETE CSS)
-   ========================================================= */
+ /* Product Image Styling */
+.product-img {
+    width: 100%;
+    height: 140px;
+    object-fit: contain;
+    margin: 20px 0 10px 0;
+}
 
-/* सप्लीमेंट्सचा मुख्य बॉक्स wrapper */
 .supplements-wrapper {
     background: #ffffff;
     border: 1px solid #e2e8f0;
@@ -507,10 +510,21 @@
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
 }
 
-/* हेडर आणि बॅनर */
 .supplements-header {
     text-align: center;
     margin-bottom: 25px;
+}
+
+.supplements-header h2 {
+    font-size: 26px;
+    color: #0f172a;
+    margin-top: 10px;
+    font-weight: 800;
+}
+
+.supplements-header p {
+    color: #64748b;
+    font-size: 14px;
 }
 
 .badge-available {
@@ -524,22 +538,12 @@
     display: inline-block;
 }
 
-.delivery-note {
-    color: #0284c7;
-    font-weight: 600;
-    display: block;
-    margin-top: 8px;
-    font-size: 12px;
-}
-
-/* प्रॉडक्ट्सची ग्रीड लेआउट (Grid) */
 .supplements-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: 16px;
 }
 
-/* इंडिव्हिज्युअल प्रॉडक्ट कार्ड (Product Card) */
 .product-card {
     background: #ffffff;
     border: 1px solid #e2e8f0;
@@ -550,7 +554,6 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
@@ -559,7 +562,6 @@
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
 }
 
-/* २५% OFF डिस्काउंट टॅग (डाव्या बाजूला) */
 .discount-tag {
     position: absolute;
     top: 10px;
@@ -572,7 +574,6 @@
     border-radius: 6px;
 }
 
-/* कॅटेगरी बॅजेस (उजव्या बाजूला) */
 .category-badge {
     position: absolute;
     top: 10px;
@@ -582,19 +583,12 @@
     padding: 3px 8px;
     border-radius: 4px;
     color: white;
-    letter-spacing: 0.3px;
 }
 
 .badge-women { background: #be185d; }
 .badge-active { background: #d97706; }
 .badge-kids { background: #7c2d12; }
 .badge-original { background: #1e3a8a; }
-
-/* आयकॉन, टायटल आणि डिस्क्रिप्शन */
-.product-icon {
-    font-size: 36px;
-    margin: 22px 0 8px;
-}
 
 .product-card h3 {
     font-size: 15px;
@@ -610,7 +604,6 @@
     line-height: 1.4;
 }
 
-/* प्राईस बॉक्स (Offer Price & MRP) */
 .product-price {
     font-size: 17px;
     font-weight: 800;
@@ -623,10 +616,8 @@
     color: #94a3b8;
     text-decoration: line-through;
     margin-left: 6px;
-    font-weight: 500;
 }
 
-/* Buy Now बटण */
 .btn-buy-now {
     background: #16a34a;
     color: white;
@@ -636,8 +627,8 @@
     font-size: 13px;
     font-weight: 700;
     cursor: pointer;
-    transition: background 0.2s ease;
     width: 100%;
+    transition: background 0.2s ease;
 }
 
 .btn-buy-now:hover {
@@ -828,138 +819,137 @@
         </div>
     </div>
 
-    <!-- UPDATE: HEALTH SUPPLEMENTS SECTION (Live Store Mode - Buy Now Enabled) -->
+   <!-- HEALTH SUPPLEMENTS SECTION (Unified Cart & English UI) -->
 <section class="container" id="supplements" style="margin: 40px auto;">
     <div class="supplements-wrapper">
         <div class="supplements-header">
-            <span class="badge-available">🛍️ NOW AVAILABLE</span>
-            <h2 style="font-size: 26px; color: #0f172a; margin-top: 10px; font-weight: 800;">Health & Wellness Supplements</h2>
-            <p style="color: #64748b; font-size: 14px;">High-quality Wellness & Nutrition products delivered straight to your doorstep.</p>
-            <small class="delivery-note" style="color: #0284c7; font-weight: 600; display: block; margin-top: 8px;">🚚 *टीप: हेल्थ सप्लीमेंट्सची डिलिव्हरी कुरियरद्वारे स्वतंत्रपणे तुमच्या पत्त्यावर पाठवली जाईल.*</small>
+            <span class="badge-available">🛍️ AVAILABLE NOW</span>
+            <h2>Health & Wellness Supplements</h2>
+            <p>High-quality Wellness & Nutrition products launching for your complete daily health needs.</p>
         </div>
 
-        <!-- इंडिव्हिज्युअल प्रॉडक्ट्स ग्रिड -->
+        <!-- Supplements Grid -->
         <div class="supplements-grid">
             
             <!-- 1. Protein For Women -->
             <div class="product-card">
                 <span class="discount-tag">25% OFF</span>
                 <span class="category-badge badge-women">FOR WOMEN</span>
-                <div class="product-icon">🥛</div>
+                <img src="women-protein.png" alt="Naturamore For Women" class="product-img" onerror="this.src='https://via.placeholder.com/150?text=For+Women';">
                 <h3>Naturamore For Women</h3>
                 <p>Supports energy and immunity (French Vanilla / Masala Milk)</p>
                 <div class="product-price">
                     <span class="price">₹1,181/-</span> 
                     <span class="mrp">₹1,575</span>
                 </div>
-                <button class="btn-buy-now" onclick="orderSupplement('Naturamore For Women', 1181)">Buy Now</button>
+                <button class="btn-buy-now" onclick="addToCart('Naturamore For Women', 1181, 'Supplement')">Add to Cart / Buy Now</button>
             </div>
 
             <!-- 2. Protein Active -->
             <div class="product-card">
                 <span class="discount-tag">25% OFF</span>
                 <span class="category-badge badge-active">ACTIVE</span>
-                <div class="product-icon">🍫</div>
+                <img src="active-protein.png" alt="Naturamore Active" class="product-img" onerror="this.src='https://via.placeholder.com/150?text=Active';">
                 <h3>Naturamore Active</h3>
                 <p>Daily strength and vitality (Chocolate Flavour)</p>
                 <div class="product-price">
                     <span class="price">₹1,088/-</span> 
                     <span class="mrp">₹1,450</span>
                 </div>
-                <button class="btn-buy-now" onclick="orderSupplement('Naturamore Active', 1088)">Buy Now</button>
+                <button class="btn-buy-now" onclick="addToCart('Naturamore Active', 1088, 'Supplement')">Add to Cart / Buy Now</button>
             </div>
 
             <!-- 3. Protein For Kids -->
             <div class="product-card">
                 <span class="discount-tag">25% OFF</span>
                 <span class="category-badge badge-kids">FOR KIDS</span>
-                <div class="product-icon">🧒</div>
+                <img src="kids-protein.png" alt="Naturamore For Kids" class="product-img" onerror="this.src='https://via.placeholder.com/150?text=For+Kids';">
                 <h3>Naturamore For Kids</h3>
                 <p>Healthy growth and development (Chocolate Cookie)</p>
                 <div class="product-price">
                     <span class="price">₹1,088/-</span> 
                     <span class="mrp">₹1,450</span>
                 </div>
-                <button class="btn-buy-now" onclick="orderSupplement('Naturamore For Kids', 1088)">Buy Now</button>
+                <button class="btn-buy-now" onclick="addToCart('Naturamore For Kids', 1088, 'Supplement')">Add to Cart / Buy Now</button>
             </div>
 
             <!-- 4. Nutritional Supplement Original -->
             <div class="product-card">
                 <span class="discount-tag">25% OFF</span>
                 <span class="category-badge badge-original">ORIGINAL</span>
-                <div class="product-icon">🥤</div>
+                <img src="original-protein.png" alt="Naturamore Original" class="product-img" onerror="this.src='https://via.placeholder.com/150?text=Original';">
                 <h3>Naturamore Original</h3>
                 <p>Comprehensive nutritional boost (Vanilla Rice Flavour)</p>
                 <div class="product-price">
                     <span class="price">₹1,088/-</span> 
                     <span class="mrp">₹1,450</span>
                 </div>
-                <button class="btn-buy-now" onclick="orderSupplement('Naturamore Original', 1088)">Buy Now</button>
+                <button class="btn-buy-now" onclick="addToCart('Naturamore Original', 1088, 'Supplement')">Add to Cart / Buy Now</button>
             </div>
 
             <!-- 5. Easy Detox -->
             <div class="product-card">
                 <span class="discount-tag">25% OFF</span>
-                <div class="product-icon" style="margin-top:25px;">🌿</div>
+                <img src="easy-detox.png" alt="Easy Detox" class="product-img" onerror="this.src='https://via.placeholder.com/150?text=Easy+Detox';">
                 <h3>Easy Detox</h3>
                 <p>Cleanses and supports digestion (Amla & Senna)</p>
                 <div class="product-price">
                     <span class="price">₹338/-</span> 
                     <span class="mrp">₹450</span>
                 </div>
-                <button class="btn-buy-now" onclick="orderSupplement('Easy Detox', 338)">Buy Now</button>
+                <button class="btn-buy-now" onclick="addToCart('Easy Detox', 338, 'Supplement')">Add to Cart / Buy Now</button>
             </div>
 
             <!-- 6. Joint Care -->
             <div class="product-card">
                 <span class="discount-tag">25% OFF</span>
-                <div class="product-icon" style="margin-top:25px;">🦴</div>
+                <img src="joint-care.png" alt="Joint Care" class="product-img" onerror="this.src='https://via.placeholder.com/150?text=Joint+Care';">
                 <h3>Joint Care</h3>
                 <p>Promotes joint flexibility (Salai & Guggal)</p>
                 <div class="product-price">
                     <span class="price">₹334/-</span> 
                     <span class="mrp">₹445</span>
                 </div>
-                <button class="btn-buy-now" onclick="orderSupplement('Joint Care', 334)">Buy Now</button>
+                <button class="btn-buy-now" onclick="addToCart('Joint Care', 334, 'Supplement')">Add to Cart / Buy Now</button>
             </div>
 
             <!-- 7. Multi-Vitamin For Men -->
             <div class="product-card">
                 <span class="discount-tag">25% OFF</span>
-                <div class="product-icon" style="margin-top:25px;">💊</div>
+                <img src="multivitamin-men.png" alt="Multi-Vitamin For Men" class="product-img" onerror="this.src='https://via.placeholder.com/150?text=Men+Multivitamin';">
                 <h3>Multi-Vitamin For Men</h3>
                 <p>Men's vital nutrient balance, minerals & antioxidants</p>
                 <div class="product-price">
                     <span class="price">₹281/-</span> 
                     <span class="mrp">₹375</span>
                 </div>
-                <button class="btn-buy-now" onclick="orderSupplement('Multi-Vitamin For Men', 281)">Buy Now</button>
+                <button class="btn-buy-now" onclick="addToCart('Multi-Vitamin For Men', 281, 'Supplement')">Add to Cart / Buy Now</button>
             </div>
 
             <!-- 8. Multi-Vitamin For Women -->
             <div class="product-card">
                 <span class="discount-tag">25% OFF</span>
-                <div class="product-icon" style="margin-top:25px;">👩</div>
+                <img src="multivitamin-women.png" alt="Multi-Vitamin For Women" class="product-img" onerror="this.src='https://via.placeholder.com/150?text=Women+Multivitamin';">
                 <h3>Multi-Vitamin For Women</h3>
                 <p>Women's hormonal support & overall wellness</p>
                 <div class="product-price">
                     <span class="price">₹281/-</span> 
                     <span class="mrp">₹375</span>
                 </div>
-                <button class="btn-buy-now" onclick="orderSupplement('Multi-Vitamin For Women', 281)">Buy Now</button>
+                <button class="btn-buy-now" onclick="addToCart('Multi-Vitamin For Women', 281, 'Supplement')">Add to Cart / Buy Now</button>
             </div>
 
             <!-- 9. Blood Detox -->
             <div class="product-card">
                 <span class="discount-tag">25% OFF</span>
-                <div class="product-icon" style="margin-top:25px;">🩸</div>
+                <img src="blood-detox.png" alt="Blood Detox" class="product-img" onerror="this.src='https://via.placeholder.com/150?text=Blood+Detox';">
                 <h3>Blood Detox</h3>
                 <p>Purifies blood and detoxifies body naturally</p>
                 <div class="product-price">
                     <span class="price">₹300/-</span> 
                     <span class="mrp">₹400</span>
                 </div>
-                <button class="btn-buy-now" onclick="orderSupplement('Blood Detox', 300)">Buy Now</button>
+                <button class="btn-buy-now" onclick="addToCart('Blood Detox', 300, 'Supplement')">Add to Cart / Buy Now</button>
             </div>
 
         </div>
@@ -1506,24 +1496,21 @@
             </div>
         </div>
     </div>
-
-    <!-- Footer Details -->
-    <!-- 3. FOOTER / CONTACT INFO (Plain Text without Location Link) -->
+<!-- UPDATED FOOTER / CONTACT INFO -->
 <footer class="contact-footer" style="background: #0f172a; color: white; padding: 40px 20px;">
     <div class="container" style="max-width: 800px; margin: 0 auto; text-align: center;">
-        <h3 style="color: #f97316; margin-bottom: 20px; font-size: 22px;">Contact Info</h3>
+        <h3 style="color: #f97316; margin-bottom: 20px; font-size: 22px;">Contact Details</h3>
         
         <div style="line-height: 2; font-size: 15px; color: #cbd5e1;">
-            <p><strong>🏢 Address:</strong> Shop No. 2073, Rungta Shopping Hub, Indira Nagar, Nashik</p>
-            <p><strong>📞 Phone:</strong> +91 XXXXXXXXXX | +91 XXXXXXXXXX</p>
-            <p><strong>✉️ Email:</strong> support@healthspace.com</p>
+            <p><strong>🏢 Address:</strong> Shop no. 2073, Roongta Shoping Hub, Indira Nagar, Nashik.</p>
+            <p><strong>📞 Phone:</strong> +91 9096522533 | 02534038004</p>
+            <p><strong>✉️ Email:</strong> Healthspacensk@gmail.com</p>
         </div>
         
         <hr style="border: 0; border-top: 1px solid #334155; margin: 25px 0;">
         <p style="font-size: 12px; color: #94a3b8;">&copy; HealthSpace Diagnostic Services. All rights reserved.</p>
     </div>
 </footer>
-
     <!-- Script Logic -->
     <script>
         const GOOGLE_SHEET_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbzDHuowRFqr63Pxnm4Lk_DWjT3oUZIDBqAAYnyGf1qu_UqF8RILKn1qYmXAWIVm7jvH/exec";
@@ -1685,6 +1672,20 @@
             document.getElementById('step2').style.display = 'none';
             document.getElementById('step3').style.display = 'block';
         }
+        var cart = [];
+
+function addToCart(itemName, price, type) {
+    cart.push({ name: itemName, price: price, type: type });
+    alert(itemName + " added to your cart!");
+    
+    // कार्ट मधील एकूण आयटम्स आणि फॉर्म ओपन करण्यासाठी कॉमन बुकिंग फंक्शन कॉल करू शकता:
+    openUnifiedBookingModal();
+}
+
+function openUnifiedBookingModal() {
+    // इथे ब्लड टेस्ट आणि सप्लीमेंट्स एकत्र करून QR Code, Patient Details, Mobile Number चा फॉर्म ओपन होईल.
+    // आणि हा सर्व डेटा एकाच वेळी तुमच्या Backend Excel Sheet मध्ये सेव्ह होईल.
+}
     </script>
 <script>
     // १. नाशिकचे लोकेशन (इंदिरानगर / रुंगता हब) सेंटर ठेवून मॅप लोड करणे
