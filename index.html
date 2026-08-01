@@ -1,126 +1,95 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="mr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Health Space Diagnostics - Doorstep Healthcare in Nashik</title>
-
-    <!-- Leaflet CSS for Live Tracking Map -->
+    <title>HealthSpace Nashik - Doorstep Healthcare Services</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
+    
+    <!-- Leaflet.js Free Map CSS and JS -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    <!-- QRCode JS Library -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-    <!-- Leaflet JS Library -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-
+    
     <style>
         :root {
             --primary: #0284c7;
             --primary-dark: #0369a1;
-            --primary-light: #f0f9ff;
-            --secondary: #16a34a;
+            --primary-light: #e0f2fe;
+            --secondary: #f97316;
+            --metro-green: #059669;
             --dark: #0f172a;
+            --light-bg: #f8fafc;
+            --text-main: #334155;
             --text-muted: #64748b;
-            --bg-light: #f8fafc;
+            --radius: 16px;
+            --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            scroll-behavior: smooth;
         }
 
         body {
-            background-color: var(--bg-light);
-            color: var(--dark);
-            line-height: 1.5;
+            background-color: var(--light-bg);
+            color: var(--text-main);
+            line-height: 1.6;
         }
 
-        /* Container & Grid */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .section-header h2 {
-            font-size: 26px;
-            color: var(--dark);
-            margin-bottom: 8px;
-        }
-
-        .section-header p {
-            color: var(--text-muted);
-            font-size: 14px;
-        }
-
-        /* Navigation Header */
+        /* Header */
         header {
-            background: #ffffff;
-            border-bottom: 1px solid #e2e8f0;
             position: sticky;
             top: 0;
-            z-index: 900;
-        }
-
-        .navbar {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            padding: 12px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            height: 70px;
         }
 
-        .logo {
-            font-size: 22px;
-            font-weight: 800;
-            color: var(--primary-dark);
-            text-decoration: none;
-        }
-
-        .logo span {
-            color: var(--secondary);
-        }
-
-        .nav-links {
+        .nav-left {
             display: flex;
-            gap: 20px;
-            list-style: none;
+            align-items: center;
+            gap: 15px;
         }
 
-        .nav-links a {
-            text-decoration: none;
-            color: var(--dark);
-            font-weight: 600;
-            font-size: 14px;
-        }
-
-        .menu-toggle {
-            display: none;
-            font-size: 24px;
-            cursor: pointer;
+        .menu-btn {
             background: none;
             border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--primary-dark);
         }
 
-        /* Mobile Nav Drawer */
-        .nav-drawer {
-            position: fixed;
-            top: 0;
-            left: -280px;
-            width: 280px;
-            height: 100%;
-            background: white;
-            z-index: 1001;
-            box-shadow: 2px 0 12px rgba(0,0,0,0.15);
-            transition: left 0.3s ease;
-            padding: 20px;
+        .logo-box {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
         }
 
+        .logo-img {
+            height: 52px;
+            width: auto;
+            object-fit: contain;
+            display: block;
+        }
+
+        .drawer-logo-bg {
+            background-color: #ffffff;
+            padding: 6px 14px;
+            border-radius: 10px;
+            display: inline-block;
+        }
+
+        /* Drawer Overlay */
         .drawer-overlay {
             position: fixed;
             top: 0;
@@ -128,539 +97,1739 @@
             width: 100%;
             height: 100%;
             background: rgba(0,0,0,0.5);
-            z-index: 1000;
+            z-index: 999;
             display: none;
         }
 
-        /* Buttons */
-        .btn {
-            display: inline-block;
-            padding: 10px 20px;
-            border-radius: 8px;
-            font-weight: 700;
-            text-decoration: none;
-            cursor: pointer;
-            border: none;
-            text-align: center;
-            font-size: 14px;
+        .nav-drawer {
+            position: fixed;
+            top: 0;
+            left: -280px;
+            width: 280px;
+            height: 100%;
+            background: white;
+            z-index: 1000;
+            transition: left 0.3s ease;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
         }
 
-        .btn-primary {
-            background: var(--primary);
-            color: white;
-        }
-
-        .btn-primary:hover {
+        .drawer-header {
             background: var(--primary-dark);
-        }
-
-        .btn-secondary {
-            background: var(--secondary);
             color: white;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
-        /* Hero Banner */
+        .drawer-menu {
+            list-style: none;
+            padding: 15px 0;
+        }
+
+        .drawer-menu li a {
+            display: block;
+            padding: 12px 25px;
+            color: var(--dark);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 15px;
+            transition: background 0.2s;
+        }
+
+        .drawer-menu li a:hover {
+            background: var(--primary-light);
+            color: var(--primary-dark);
+        }
+
+        .drawer-btn-box {
+            padding: 20px;
+            margin-top: auto;
+        }
+
+        /* Hero Section */
         .hero {
-            background: linear-gradient(135deg, #0284c7 0%, #0f172a 100%);
+            background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
             color: white;
-            padding: 60px 0;
+            padding: 45px 20px 55px;
             text-align: center;
+            border-radius: 0 0 28px 28px;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 6px 16px;
+            border-radius: 50px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 15px;
         }
 
         .hero h1 {
-            font-size: 32px;
-            margin-bottom: 12px;
+            font-size: 28px;
+            font-weight: 800;
+            line-height: 1.25;
+            margin-bottom: 15px;
         }
 
         .hero p {
-            font-size: 16px;
-            opacity: 0.9;
-            margin-bottom: 24px;
+            font-size: 14px;
+            opacity: 0.92;
+            max-width: 500px;
+            margin: 0 auto 25px;
         }
 
-        /* Responsive Breakpoints */
-        @media (max-width: 768px) {
-            .nav-links { display: none; }
-            .menu-toggle { display: block; }
-            .hero h1 { font-size: 26px; }
+        .btn {
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 14px;
+            text-decoration: none;
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-white { background: white; color: var(--primary-dark); }
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            width: 100%;
+            padding: 12px;
+            border-radius: 12px;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+        .btn-metro {
+            background: linear-gradient(135deg, #059669, #047857);
+            color: white;
+            width: 100%;
+            padding: 12px;
+            border-radius: 12px;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+
+        /* Services Grid */
+        .services-section {
+            padding: 35px 20px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .service-card {
+            background: white;
+            padding: 20px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            text-align: center;
+            border: 1px solid #f1f5f9;
+        }
+
+        .service-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--primary-light);
+            color: var(--primary);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 12px;
+            font-size: 22px;
+        }
+
+        .service-card h3 { font-size: 15px; margin-bottom: 6px; color: var(--dark); font-weight: 700; }
+        .service-card p { font-size: 12px; color: var(--text-muted); }
+
+        /* Container & Grid */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 30px 20px;
+        }
+
+        .section-header { text-align: center; margin-bottom: 25px; }
+        .section-header h2 { font-size: 24px; color: var(--dark); font-weight: 800; }
+        .section-header p { font-size: 14px; color: var(--text-muted); }
+
+        .packages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .pkg-card {
+            background: white;
+            border-radius: 16px;
+            padding: 16px;
+            box-shadow: var(--shadow);
+            border: 1px solid #e2e8f0;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            overflow: hidden;
+            height: 310px;
+        }
+
+        .pkg-card.metro-card {
+            border: 1.5px solid #a7f3d0;
+            background: #fafdfb;
+        }
+
+        .popular-badge {
+            position: absolute;
+            top: 15px;
+            right: -32px;
+            background: linear-gradient(135deg, #f97316, #ea580c);
+            color: white;
+            font-size: 10px;
+            font-weight: 800;
+            padding: 4px 32px;
+            transform: rotate(45deg);
+        }
+
+        .metro-badge {
+            position: absolute;
+            top: 15px;
+            right: -35px;
+            background: linear-gradient(135deg, #059669, #047857);
+            color: white;
+            font-size: 9.5px;
+            font-weight: 800;
+            padding: 4px 35px;
+            transform: rotate(45deg);
+        }
+
+        .pkg-title { font-size: 18px; font-weight: 800; color: var(--dark); margin-bottom: 8px; }
+
+        .pkg-price-box {
+            display: flex;
+            align-items: baseline;
+            gap: 10px;
+            margin-bottom: 12px;
+            padding-bottom: 10px;
+            border-bottom: 1px dashed #e2e8f0;
+        }
+
+        .pkg-price { font-size: 24px; font-weight: 800; color: var(--primary-dark); }
+        .pkg-price-metro { color: var(--metro-green); }
+        .pkg-mrp { font-size: 13.5px; color: #94a3b8; text-decoration: line-through; }
+
+        .pkg-scroll-area {
+            height: 120px;
+            overflow-y: auto;
+            padding-right: 6px;
+            margin-bottom: 8px;
+        }
+
+        .pkg-scroll-area::-webkit-scrollbar {
+            width: 4px;
+        }
+        .pkg-scroll-area::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+
+        .pkg-list { list-style: none; }
+        .pkg-list li {
+            font-size: 12.5px;
+            color: var(--text-main);
+            margin-bottom: 6px;
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+        }
+        .pkg-list li::before { content: "✓"; color: #10b981; font-weight: 900; }
+
+        /* Membership Box */
+        .membership-card-box {
+            background: linear-gradient(135deg, #0f172a, #1e293b);
+            color: white;
+            border-radius: 24px;
+            padding: 30px;
+            box-shadow: var(--shadow);
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .membership-badge {
+            background: var(--secondary);
+            color: white;
+            font-size: 12px;
+            font-weight: 800;
+            padding: 4px 14px;
+            border-radius: 20px;
+            display: inline-block;
+            margin-bottom: 12px;
+        }
+
+        /* Testimonials */
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .testimonial-card {
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: var(--shadow);
+            border: 1px solid #f1f5f9;
+        }
+
+        .patient-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-top: 15px;
+            border-top: 1px solid #f1f5f9;
+            padding-top: 12px;
+        }
+
+        .patient-img {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--primary-light);
+        }
+
+        /* Modal Overlay */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 23, 42, 0.65);
+            backdrop-filter: blur(4px);
+            z-index: 1000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            padding: 15px;
+        }
+
+        .modal-card {
+            background: white;
+            border-radius: 24px;
+            width: 100%;
+            max-width: 460px;
+            padding: 25px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            position: relative;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 18px;
+            right: 18px;
+            background: #f1f5f9;
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .form-group { margin-bottom: 14px; text-align: left; }
+        .form-group label { display: block; font-size: 13px; font-weight: 700; margin-bottom: 5px; }
+        .form-control { width: 100%; padding: 12px; border: 1.5px solid #cbd5e1; border-radius: 10px; font-size: 14px; outline: none; }
+
+        .one-plus-one-box {
+            background: #f0fdf4;
+            border: 1.5px dashed #22c55e;
+            padding: 12px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+        }
+
+        /* Footer */
+        footer {
+            background: #0f172a;
+            color: #94a3b8;
+            padding: 40px 20px 20px;
+            margin-top: 50px;
+            font-size: 13.5px;
+        }
+
+        .footer-content {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 30px;
+        }
+
+        .footer-col h4 { color: white; font-size: 16px; margin-bottom: 14px; }
+
+        /* Product Image Styling */
+        .product-img {
+            width: 100%;
+            height: 140px;
+            object-fit: contain;
+            margin: 20px 0 10px 0;
+        }
+
+        .supplements-wrapper {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+        }
+
+        .supplements-header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .supplements-header h2 {
+            font-size: 26px;
+            color: #0f172a;
+            margin-top: 10px;
+            font-weight: 800;
+        }
+
+        .supplements-header p {
+            color: #64748b;
+            font-size: 14px;
+        }
+
+        .badge-available {
+            background: #16a34a;
+            color: white;
+            padding: 5px 14px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            display: inline-block;
+        }
+
+        .supplements-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 16px;
+        }
+
+        .product-card {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 16px;
+            position: relative;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .discount-tag {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: #dc2626;
+            color: white;
+            font-size: 10px;
+            font-weight: 800;
+            padding: 3px 8px;
+            border-radius: 6px;
+        }
+
+        .category-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 9px;
+            font-weight: 800;
+            padding: 3px 8px;
+            border-radius: 4px;
+            color: white;
+        }
+
+        .badge-women { background: #be185d; }
+        .badge-active { background: #d97706; }
+        .badge-kids { background: #7c2d12; }
+        .badge-original { background: #1e3a8a; }
+
+        .product-card h3 {
+            font-size: 15px;
+            color: #0f172a;
+            margin-bottom: 6px;
+            font-weight: 700;
+        }
+
+        .product-card p {
+            font-size: 11px;
+            color: #64748b;
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+
+        .product-price {
+            font-size: 17px;
+            font-weight: 800;
+            color: #0f172a;
+            margin-bottom: 12px;
+        }
+
+        .product-price .mrp {
+            font-size: 12px;
+            color: #94a3b8;
+            text-decoration: line-through;
+            margin-left: 6px;
+        }
+
+        /* Add to Cart Button Styling */
+        .btn-add-cart {
+            background: #0284c7;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+            transition: background 0.2s ease;
+        }
+
+        .btn-add-cart:hover {
+            background: #0369a1;
+        }
+
+        /* Awareness Banners Styling */
+        .awareness-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+        .awareness-card {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 16px;
+            border-radius: 12px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+        }
+        .card-water { border-left: 5px solid #0284c7; background: #f0f9ff; }
+        .card-diabetes { border-left: 5px solid #ef4444; background: #fef2f2; }
+        .card-thyroid { border-left: 5px solid #8b5cf6; background: #f5f3ff; }
+
+        .awareness-icon { font-size: 28px; }
+        .awareness-content h4 { font-size: 15px; margin-bottom: 4px; color: #0f172a; font-weight: 700; }
+        .awareness-content p { font-size: 12px; color: #475569; margin: 0; line-height: 1.4; }
+
+        /* LIVE GPS TRACKING SECTION STYLING */
+        .gps-tracking-section {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 20px;
+            padding: 20px;
+            margin: 30px auto;
+            box-shadow: var(--shadow);
+        }
+
+        .gps-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .gps-status-badge {
+            background: #dcfce7;
+            color: #15803d;
+            font-size: 12px;
+            font-weight: 800;
+            padding: 6px 14px;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .gps-pulse-dot {
+            width: 8px;
+            height: 8px;
+            background: #22c55e;
+            border-radius: 50%;
+            box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
+            animation: pulse-green 1.5s infinite;
+        }
+
+        @keyframes pulse-green {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 8px rgba(34, 197, 94, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+        }
+
+        #trackMap {
+            width: 100%;
+            height: 320px;
+            border-radius: 14px;
+            border: 1px solid #cbd5e1;
+            z-index: 1;
+        }
+
+        .phlebo-info-card {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #f8fafc;
+            padding: 12px 16px;
+            border-radius: 12px;
+            margin-top: 12px;
+            border: 1px solid #e2e8f0;
         }
     </style>
 </head>
 <body>
 
-    <!-- Header Navigation -->
-    <header>
-        <div class="container navbar">
-            <a href="#" class="logo">Health<span>Space</span></a>
-            <ul class="nav-links">
-                <li><a href="#packages">Health Packages</a></li>
-                <li><a href="#membership">Membership</a></li>
-                <li><a href="#tracking">Live Phlebo Track</a></li>
-                <li><a href="#contact">Contact Us</a></li>
-            </ul>
-            <button class="menu-toggle" onclick="toggleDrawer()">☰</button>
-        </div>
-    </header>
+ <!-- Drawer Overlay -->
+    <div class="drawer-overlay" id="drawerOverlay" onclick="toggleDrawer()"></div>
 
-    <!-- Navigation Drawer & Overlay -->
-    <div class="drawer-overlay" id="drawerOverlay" onclick="toggleDrawer()"></div>
-    <div class="nav-drawer" id="navDrawer">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
-            <h3 style="color: var(--primary-dark);">Navigation</h3>
-            <button onclick="toggleDrawer()" style="background: none; border: none; font-size: 20px; cursor: pointer;">✕</button>
-        </div>
-        <ul style="list-style: none; display: flex; flex-direction: column; gap: 15px;">
-            <li><a href="#packages" onclick="toggleDrawer()" style="text-decoration: none; color: var(--dark); font-weight: 600;">Health Packages</a></li>
-            <li><a href="#membership" onclick="toggleDrawer()" style="text-decoration: none; color: var(--dark); font-weight: 600;">Membership Plan</a></li>
-            <li><a href="#tracking" onclick="toggleDrawer()" style="text-decoration: none; color: var(--dark); font-weight: 600;">Live Sample Tracking</a></li>
-            <li><a href="#contact" onclick="toggleDrawer()" style="text-decoration: none; color: var(--dark); font-weight: 600;">Contact Us</a></li>
-        </ul>
-    </div>
+    <!-- Navigation Drawer (Dashboard) -->
+    <div class="nav-drawer" id="navDrawer">
+        <div class="drawer-header">
+    <div class="drawer-logo-bg">
+        <img src="logo.png" alt="Health Space Logo" class="logo-img">
+    </div>
+</div>
+        <ul class="drawer-menu">
+            <li><a href="#home" onclick="toggleDrawer()">Home</a></li>
+            <li><a href="#services" onclick="toggleDrawer()">Services</a></li>
+            <li><a href="#packages" onclick="toggleDrawer()">Packages</a></li>
+            <li><a href="#membership" onclick="toggleDrawer()">Membership</a></li>
+            <li><a href="#testimonials" onclick="toggleDrawer()">Testimonials</a></li>
+            <li><a href="#contact" onclick="toggleDrawer()">Contact</a></li>
+        </ul>
+        <div class="drawer-btn-box">
+            <a href="#packages" onclick="toggleDrawer()" class="btn btn-primary">Book Test Now</a>
+        </div>
+    </div>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="container">
-            <h1>Certified Doorstep Healthcare in Nashik</h1>
-            <p>Accurate Lab Tests & Home Blood Sample Collection at Your Convenience</p>
-            <button class="btn btn-secondary" onclick="openBookingModal('General Health Checkup', 499)">Book Home Collection</button>
-        </div>
-    </section>    
-    <!-- Health Packages Section -->
-    <section class="container" id="packages" style="margin-top: 50px;">
-        <div class="section-header">
-            <h2>Popular Diagnostic Packages</h2>
-            <p>Select a health package for doorstep collection in Nashik</p>
-        </div>
+    <!-- Header Navigation -->
+    <header>
+        <div class="nav-left">
+            <button class="menu-btn" onclick="toggleDrawer()">☰</button>
+            <a href="#home" class="logo-box">
+    <img src="logo.png" alt="Health Space Logo" class="logo-img">
+</a>
+        </div>
+        <a href="tel:+919096522533" class="btn btn-white" style="padding: 8px 16px; font-size: 13px; border: 1px solid #e2e8f0;">
+            📞 Call Us
+        </a>
+    </header>
 
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
-            <!-- Package Card 1 -->
-            <div style="background: white; border-radius: 12px; border: 1px solid #e2e8f0; padding: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.02);">
-                <h3 style="font-size: 18px; color: var(--dark); margin-bottom: 8px;">Basic Health Checkup</h3>
-                <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 12px;">Includes CBC, Blood Sugar, Cholesterol & Kidney Function Test</p>
-                <div style="font-size: 22px; font-weight: 800; color: var(--primary-dark); margin-bottom: 15px;">₹499</div>
-                <button class="btn btn-primary" style="width: 100%;" onclick="addToCart('Basic Health Checkup', 499, 'Package')">Add to Cart</button>
-            </div>
+    <!-- Home Hero Section -->
+    <section class="hero" id="home">
+        <span class="hero-badge">🏥 Premium Doorstep Healthcare Nashik</span>
+        <h1>Accurate Health Testing<br>at Your Doorstep</h1>
+        <p>Reliable diagnostic testing with HealthSpace Nashik. Certified home sample collection and quick digital reports.</p>
+        <div>
+            <a href="#packages" class="btn btn-white">Book Test Package</a>
+        </div>
+    </section>
+<!-- 1. HEALTH AWARENESS BANNERS (English) -->
+<section class="container awareness-section" style="margin: 30px auto;">
+    <div class="awareness-grid">
+        <!-- Banner 1: Daily Hydration -->
+        <div class="awareness-card card-water">
+            <div class="awareness-icon">💧</div>
+            <div class="awareness-content">
+                <h4>Stay Hydrated!</h4>
+                <p>Drink at least 3-4 liters of water daily to flush out toxins and improve blood circulation.</p>
+            </div>
+        </div>
 
-            <!-- Package Card 2 -->
-            <div style="background: white; border-radius: 12px; border: 1px solid #e2e8f0; padding: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.02);">
-                <h3 style="font-size: 18px; color: var(--dark); margin-bottom: 8px;">Full Body Profile</h3>
-                <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 12px;">Includes Liver, Thyroid, Lipid, Vitamin D3 & B12, Complete Blood Count</p>
-                <div style="font-size: 22px; font-weight: 800; color: var(--primary-dark); margin-bottom: 15px;">₹999</div>
-                <button class="btn btn-primary" style="width: 100%;" onclick="addToCart('Full Body Profile', 999, 'Package')">Add to Cart</button>
-            </div>
+        <!-- Banner 2: Diabetes Care -->
+        <div class="awareness-card card-diabetes">
+            <div class="awareness-icon">🩸</div>
+            <div class="awareness-content">
+                <h4>Monitor Diabetes</h4>
+                <p>Maintain healthy sugar levels with timely meals, daily walks, and regular HbA1c tests.</p>
+            </div>
+        </div>
 
-            <!-- Package Card 3 -->
-            <div style="background: white; border-radius: 12px; border: 1px solid #e2e8f0; padding: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.02);">
-                <h3 style="font-size: 18px; color: var(--dark); margin-bottom: 8px;">Senior Citizen Package</h3>
-                <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 12px;">Comprehensive 60+ parameters, Cardiac markers & HbA1c</p>
-                <div style="font-size: 22px; font-weight: 800; color: var(--primary-dark); margin-bottom: 15px;">₹1,499</div>
-                <button class="btn btn-primary" style="width: 100%;" onclick="addToCart('Senior Citizen Package', 1499, 'Package')">Add to Cart</button>
-            </div>
-        </div>
-    </section>
+        <!-- Banner 3: Thyroid Awareness -->
+        <div class="awareness-card card-thyroid">
+            <div class="awareness-icon">🦋</div>
+            <div class="awareness-content">
+                <h4>Thyroid & Energy</h4>
+                <p>Don't ignore fatigue or sudden weight changes. Track your thyroid health with a TSH test.</p>
+            </div>
+        </div>
+    </div>
+</section>
+    <!-- Services Section -->
+<section class="services-section" id="services">
+    <div class="section-header">
+        <h2>Our Healthcare Services</h2>
+        <p>Comprehensive health diagnostics & premium wellness care at home</p>
+    </div>
 
-    <!-- Membership Plan Section -->
-    <section class="container" id="membership" style="margin-top: 50px;">
-        <div class="section-header">
-            <h2>Health Space Membership</h2>
-            <p>Exclusive benefits & flat discounts for families across Nashik</p>
-        </div>
+    <!-- मुख्य ४ सर्व्हिसेस (Parallel Grid) -->
+    <div class="services-grid">
+        <div class="service-card">
+            <div class="service-icon">🩸</div>
+            <h3>Home Collection</h3>
+            <p>Hassle-free blood sample collection by certified phlebotomists.</p>
+        </div>
+        <div class="service-card">
+            <div class="service-icon">🔬</div>
+            <h3>Advanced Testing</h3>
+            <p>Cutting-edge lab technology delivering 100% accurate results.</p>
+        </div>
+        <div class="service-card">
+            <div class="service-icon">📋</div>
+            <h3>Quick Reports</h3>
+            <p>Digital medical reports sent directly to your WhatsApp & Email.</p>
+        </div>
+        <div class="service-card">
+            <div class="service-icon">🏥</div>
+            <h3>Diagnostic Tests</h3>
+            <p>Individual pathology tests available with door pickup options.</p>
+        </div>
+    </div>
 
-        <div style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); color: white; border-radius: 16px; padding: 30px; max-width: 600px; margin: 0 auto; text-align: center;">
-            <h3 style="font-size: 22px; color: #38bdf8; margin-bottom: 10px;">Annual Family Healthcare Pass</h3>
-            <p style="font-size: 14px; opacity: 0.8; margin-bottom: 20px;">Free home collection, priority report delivery & 20% discount on all lab tests for 1 year.</p>
-            <div style="font-size: 32px; font-weight: 800; color: #4ade80; margin-bottom: 20px;">₹999 / year</div>
-            <button class="btn btn-secondary" onclick="openBookingModal('Annual Family Membership', 999, true)">Join Membership</button>
-        </div>
-    </section>
+   <!-- HEALTH SUPPLEMENTS SECTION -->
+<section class="container" id="supplements" style="margin: 40px auto;">
+    <div class="supplements-wrapper">
+        <div class="supplements-header">
+            <span class="badge-available">🛍️ AVAILABLE NOW</span>
+            <h2>Health & Wellness Supplements</h2>
+            <p>High-quality Wellness & Nutrition products launching for your complete daily health needs.</p>
+        </div>
 
-    <!-- Live Tracking Map Section -->
-    <section class="container" id="tracking" style="margin-top: 50px; margin-bottom: 40px;">
-        <div class="section-header">
-            <h2>Live Phlebotomist Tracking</h2>
-            <p>Track sample collection status in real-time</p>
-        </div>
+        <div class="supplements-grid">
+            
+            <!-- 1. Protein For Women -->
+            <div class="product-card">
+                <span class="discount-tag">25% OFF</span>
+                <span class="category-badge badge-women">FOR WOMEN</span>
+                <img src="Naturamore WOMAN Protein Powder .png" alt="Naturamore For Women" class="product-img" onerror="this.src='https://via.placeholder.com/150?text=For+Women';">
+                <h3>Naturamore For Women</h3>
+                <p>Supports energy and immunity (French Vanilla / Masala Milk)</p>
+                <div class="product-price">
+                    <span class="price">₹1,181/-</span> 
+                    <span class="mrp">₹1,575</span>
+                </div>
+                <button class="btn-add-cart" onclick="addToCart('Naturamore For Women', 1181, 'Supplement')">🛒 Add to Cart</button>
+            </div>
 
-        <div id="map" style="width: 100%; height: 350px; border-radius: 12px; border: 1px solid #cbd5e1; box-shadow: 0 4px 6px rgba(0,0,0,0.05);"></div>
-    </section>
-    <!-- UNIFIED BOOKING FORM MODAL -->
-    <div id="bookingModal" class="modal" style="display:none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 1000; overflow-y: auto;">
-        <div style="background: #fff; width: 90%; max-width: 500px; margin: 30px auto; padding: 25px; border-radius: 16px; position: relative;">
-            <h3 id="modalPkgTitle" style="margin-bottom: 15px; font-weight: 800; color: #0f172a;">Complete Your Booking</h3>
-            
-            <!-- Selected Items Summary -->
-            <div id="cartSummary" style="background: #f8fafc; padding: 12px; border-radius: 8px; margin-bottom: 15px; font-size: 13px; border: 1px solid #e2e8f0;">
-                <strong>Selected Items:</strong>
-                <ul id="cartList" style="margin-top: 5px; padding-left: 18px; list-style: square;"></ul>
-                <div style="margin-top: 8px; font-weight: 800; text-align: right; color: #16a34a; font-size: 15px;" id="cartTotal">Total: ₹0</div>
-            </div>
+            <!-- 2. Protein Active -->
+            <div class="product-card">
+                <span class="discount-tag">25% OFF</span>
+                <span class="category-badge badge-active">ACTIVE</span>
+                <img src="Naturamore Active Protein Powder .png" alt="Naturamore Active" class="product-img" onerror="this.src='https://via.placeholder.com/150?text=Active';">
+                <h3>Naturamore Active</h3>
+                <p>Daily strength and vitality (Chocolate Flavour)</p>
+                <div class="product-price">
+                    <span class="price">₹1,088/-</span> 
+                    <span class="mrp">₹1,450</span>
+                </div>
+                <button class="btn-add-cart" onclick="addToCart('Naturamore Active', 1088, 'Supplement')">🛒 Add to Cart</button>
+            </div>
 
-            <!-- Step 1: Patient Details Form -->
-            <div id="step1">
-                <form id="patientForm" onsubmit="goToPaymentStep(event)">
-                    <div style="margin-bottom: 12px;">
-                        <label style="font-size: 12px; font-weight: 700; display: block; margin-bottom: 4px;">Full Name *</label>
-                        <input type="text" id="patientName" placeholder="Enter Full Name" required style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 14px;">
-                    </div>
-                    
-                    <div style="margin-bottom: 12px;">
-                        <label style="font-size: 12px; font-weight: 700; display: block; margin-bottom: 4px;">Mobile Number *</label>
-                        <input type="tel" id="patientPhone" placeholder="Enter 10-digit Mobile Number" required pattern="[0-9]{10}" style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 14px;">
-                    </div>
+            <!-- 3. Protein For Kids -->
+            <div class="product-card">
+                <span class="discount-tag">25% OFF</span>
+                <span class="category-badge badge-kids">FOR KIDS</span>
+                <img src="Naturamore KIDS Protein Powder .png" alt="Naturamore For Kids" class="product-img" onerror="this.src='https://via.placeholder.com/150?text=For+Kids';">
+                <h3>Naturamore For Kids</h3>
+                <p>Healthy growth and development (Chocolate Cookie)</p>
+                <div class="product-price">
+                    <span class="price">₹1,088/-</span> 
+                    <span class="mrp">₹1,450</span>
+                </div>
+                <button class="btn-add-cart" onclick="addToCart('Naturamore For Kids', 1088, 'Supplement')">🛒 Add to Cart</button>
+            </div>
 
-                    <div style="margin-bottom: 12px;">
-                        <label style="font-size: 12px; font-weight: 700; display: block; margin-bottom: 4px;">Email Address</label>
-                        <input type="email" id="patientEmail" placeholder="Enter Email Address" style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 14px;">
-                    </div>
+            <!-- 4. Nutritional Supplement Original -->
+            <div class="product-card">
+                <span class="discount-tag">25% OFF</span>
+                <span class="category-badge badge-original">ORIGINAL</span>
+                <img src="Naturamore GENERAL Protein Powder .png" alt="Naturamore Original" class="product-img" onerror="this.src='https://via.placeholder.com/150?text=Original';">
+                <h3>Naturamore Original</h3>
+                <p>Comprehensive nutritional boost (Vanilla Rice Flavour)</p>
+                <div class="product-price">
+                    <span class="price">₹1,088/-</span> 
+                    <span class="mrp">₹1,450</span>
+                </div>
+                <button class="btn-add-cart" onclick="addToCart('Naturamore Original', 1088, 'Supplement')">🛒 Add to Cart</button>
+            </div>
 
-                    <div style="margin-bottom: 12px;">
-                        <label style="font-size: 12px; font-weight: 700; display: block; margin-bottom: 4px;">Preferred Booking Date *</label>
-                        <input type="date" id="bookingDate" required style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 14px;">
-                    </div>
+            <!-- 5. Easy Detox -->
+            <div class="product-card">
+                <span class="discount-tag">25% OFF</span>
+                <img src="Easy Detox.png" alt="Easy Detox" class="product-img" onerror="this.src='https://via.placeholder.com/150?text=Easy+Detox';">
+                <h3>Easy Detox</h3>
+                <p>Cleanses and supports digestion (Amla & Senna)</p>
+                <div class="product-price">
+                    <span class="price">₹338/-</span> 
+                    <span class="mrp">₹450</span>
+                </div>
+                <button class="btn-add-cart" onclick="addToCart('Easy Detox', 338, 'Supplement')">🛒 Add to Cart</button>
+            </div>
 
-                    <div id="timeSlotContainer" style="margin-bottom: 12px;">
-                        <label style="font-size: 12px; font-weight: 700; display: block; margin-bottom: 4px;">Preferred Time Slot *</label>
-                        <select id="bookingTime" style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 14px;">
-                            <option value="">Select Time Slot</option>
-                            <option value="07:00 AM - 09:00 AM">07:00 AM - 09:00 AM</option>
-                            <option value="09:00 AM - 11:00 AM">09:00 AM - 11:00 AM</option>
-                            <option value="11:00 AM - 01:00 PM">11:00 AM - 01:00 PM</option>
-                            <option value="04:00 PM - 06:00 PM">04:00 PM - 06:00 PM</option>
-                        </select>
-                    </div>
+            <!-- 6. Joint Care -->
+            <div class="product-card">
+                <span class="discount-tag">25% OFF</span>
+                <img src="Joint Care.png" alt="Joint Care" class="product-img" onerror="this.src='https://via.placeholder.com/150?text=Joint+Care';">
+                <h3>Joint Care</h3>
+                <p>Promotes joint flexibility (Salai & Guggal)</p>
+                <div class="product-price">
+                    <span class="price">₹334/-</span> 
+                    <span class="mrp">₹445</span>
+                </div>
+                <button class="btn-add-cart" onclick="addToCart('Joint Care', 334, 'Supplement')">🛒 Add to Cart</button>
+            </div>
 
-                    <div style="margin-bottom: 15px;">
-                        <label style="font-size: 12px; font-weight: 700; display: block; margin-bottom: 4px;">Complete Address in Nashik *</label>
-                        <textarea id="patientAddress" placeholder="Enter Full Address with Landmark" required style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 14px;" rows="2"></textarea>
-                    </div>
+            <!-- 7. Multi-Vitamin For Men -->
+            <div class="product-card">
+                <span class="discount-tag">25% OFF</span>
+                <img src="Multivitamin For MEN.png" alt="Multi-Vitamin For Men" class="product-img" onerror="this.src='https://via.placeholder.com/150?text=Men+Multivitamin';">
+                <h3>Multi-Vitamin For Men</h3>
+                <p>Men's vital nutrient balance, minerals & antioxidants</p>
+                <div class="product-price">
+                    <span class="price">₹281/-</span> 
+                    <span class="mrp">₹375</span>
+                </div>
+                <button class="btn-add-cart" onclick="addToCart('Multi-Vitamin For Men', 281, 'Supplement')">🛒 Add to Cart</button>
+            </div>
 
-                    <!-- 1+1 Offer Discount -->
-                    <div class="one-plus-one-box" id="onePlusOneBox" onclick="toggleOnePlusOne()" style="display: flex; gap: 10px; align-items: center; background: #f0fdf4; border: 1px dashed #16a34a; padding: 10px; border-radius: 8px; margin-bottom: 15px; cursor: pointer;">
-                        <input type="checkbox" id="onePlusOneCheck" style="width: 18px; height: 18px; cursor: pointer;" onclick="event.stopPropagation(); toggleOnePlusOne();">
-                        <div>
-                            <strong style="font-size: 13px; color: #15803d;">Add 1+1 Offer (2 Persons)</strong>
-                            <p style="font-size: 11px; color: #166534; margin: 0;">Get Extra 5% OFF on total price!</p>
-                        </div>
-                    </div>
+            <!-- 8. Multi-Vitamin For Women -->
+            <div class="product-card">
+                <span class="discount-tag">25% OFF</span>
+                <img src="Multivitamin For WOMEN.png" alt="Multi-Vitamin For Women" class="product-img" onerror="this.src='https://via.placeholder.com/150?text=Women+Multivitamin';">
+                <h3>Multi-Vitamin For Women</h3>
+                <p>Women's hormonal support & overall wellness</p>
+                <div class="product-price">
+                    <span class="price">₹281/-</span> 
+                    <span class="mrp">₹375</span>
+                </div>
+                <button class="btn-add-cart" onclick="addToCart('Multi-Vitamin For Women', 281, 'Supplement')">🛒 Add to Cart</button>
+            </div>
 
-                    <div style="background: #f1f5f9; padding: 12px; border-radius: 10px; font-weight: 700; font-size: 14px; display: flex; justify-content: space-between; margin-bottom: 15px;">
-                        <span>Payable Amount:</span>
-                        <span style="color: #0f172a;" id="modalPkgPrice">₹0</span>
-                    </div>
+            <!-- 9. Blood Detox -->
+            <div class="product-card">
+                <span class="discount-tag">25% OFF</span>
+                <img src="Easy Detox.png" alt="Blood Detox" class="product-img" onerror="this.src='https://via.placeholder.com/150?text=Blood+Detox';">
+                <h3>Blood Detox</h3>
+                <p>Purifies blood and detoxifies body naturally</p>
+                <div class="product-price">
+                    <span class="price">₹300/-</span> 
+                    <span class="mrp">₹400</span>
+                </div>
+                <button class="btn-add-cart" onclick="addToCart('Blood Detox', 300, 'Supplement')">🛒 Add to Cart</button>
+            </div>
 
-                    <button type="submit" class="btn btn-primary" style="width: 100%; background: #16a34a; color: white; border: none; padding: 12px; border-radius: 8px; font-weight: 800; cursor: pointer;">Proceed to Pay via UPI QR</button>
-                    <button type="button" onclick="closeModal()" style="width: 100%; background: #e2e8f0; color: #475569; border: none; padding: 8px; border-radius: 8px; font-weight: 700; margin-top: 8px; cursor: pointer;">Cancel</button>
-                </form>
-            </div>
+        </div>
+    </div>
+</section>
 
-            <!-- Step 2: Payment -->
-            <div id="step2" style="display: none; text-align: center;">
-                <h3 style="font-size: 18px; color: #0f172a; margin-bottom: 4px;">Scan UPI QR Code to Pay</h3>
-                <p style="font-size: 13px; color: #64748b; margin-bottom: 10px;">Scan via PhonePe, Google Pay, or Paytm</p>
+    <!-- Packages Section (ALL PACKAGES FROM IMAGES) -->
+    <section class="container" id="packages">
+        
+        <!-- HealthSpace Special Packages -->
+<div class="packages-grid" style="margin-bottom: 50px;">
+    
+    <!-- 1. HealthSpace Maximum -->
+    <div class="pkg-card">
+        <div class="popular-badge">Popular</div>
+        <div>
+            <h3 class="pkg-title">HealthSpace Maximum</h3>
+            <div class="pkg-price-box">
+                <span class="pkg-price">₹1,369/-</span>
+                <span class="pkg-mrp">₹7,200</span>
+            </div>
+            <div class="pkg-scroll-area">
+                <ul class="pkg-list">
+                    <li>Complete Blood Count (18 Tests)</li>
+                    <li>ESR (1 Test), Liver Function Test (11 Tests)</li>
+                    <li>Kidney Function Test (7 Tests)</li>
+                    <li>Thyroid Function Test (3 Tests)</li>
+                    <li>Lipid Profile (7 Tests), Urine R/M (20 Tests)</li>
+                    <li>Sugar Profile (5 Tests), Iron Test (1 Test)</li>
+                    <li>Vitamin (B12 & D)</li>
+                </ul>
+            </div>
+        </div>
+        <button class="btn btn-primary" onclick="openBookingModal('HealthSpace Maximum', 1369)">Book Now</button>
+    </div>
 
-                <div style="padding: 5px 0;">
-                    <div style="background: #f8fafc; border: 2px dashed #cbd5e1; border-radius: 16px; padding: 15px; display: inline-block; margin: 5px 0;">
-                        <div id="qrcodeCanvas"></div>
-                    </div>
-                    <div style="background: #f0f9ff; border-radius: 10px; padding: 10px; font-size: 13px; color: #0369a1; font-weight: 600; margin-bottom: 15px;">
-                        Amount to Pay: <span id="qrAmountDisplay" style="font-size: 16px; font-weight: 800; color: #0284c7;">₹0</span><br>
-                        <small>UPI ID: healthspace@ybl</small>
-                    </div>
-                </div>
+    <!-- 2. HealthSpace General -->
+    <div class="pkg-card">
+        <div class="popular-badge">Popular</div>
+        <div>
+            <h3 class="pkg-title">HealthSpace General</h3>
+            <div class="pkg-price-box">
+                <span class="pkg-price">₹963/-</span>
+                <span class="pkg-mrp">₹3,500</span>
+            </div>
+            <div class="pkg-scroll-area">
+                <ul class="pkg-list">
+                    <li>Complete Blood Count (18 Tests)</li>
+                    <li>Lipid Profile (7 Tests)</li>
+                    <li>Liver Function Test (10 Tests)</li>
+                    <li>Kidney Function Test (7 Tests)</li>
+                    <li>Thyroid Function Test (3 Tests)</li>
+                    <li>Fasting Blood Glucose (3 Tests)</li>
+                    <li>Urine R/M (20 Tests)</li>
+                </ul>
+            </div>
+        </div>
+        <button class="btn btn-primary" onclick="openBookingModal('HealthSpace General', 963)">Book Now</button>
+    </div>
 
-                <div style="text-align: left; margin-bottom: 15px;">
-                    <label style="font-size: 12px; font-weight: 700; display: block; margin-bottom: 4px;">Enter Last 4 Digits of UTR / Ref No *</label>
-                    <input type="text" id="utrNumber" placeholder="e.g. 8412" maxlength="4" pattern="[0-9]{4}" style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 14px;">
-                </div>
+    <!-- 3. Diabetes Care -->
+    <div class="pkg-card">
+        <div>
+            <h3 class="pkg-title">Diabetes Care</h3>
+            <div class="pkg-price-box">
+                <span class="pkg-price">₹369/-</span>
+                <span class="pkg-mrp">₹1,050</span>
+            </div>
+            <div class="pkg-scroll-area">
+                <ul class="pkg-list">
+                    <li>Complete Blood Count (18 Tests)</li>
+                    <li>Blood Glucose Level (2 Tests)</li>
+                    <li>Glycated Hemoglobin (2 Tests / HbA1c)</li>
+                </ul>
+            </div>
+        </div>
+        <button class="btn btn-primary" onclick="openBookingModal('Diabetes Care', 369)">Book Now</button>
+    </div>
 
-                <button class="btn btn-primary" onclick="submitBookingToExcel()" id="confirmBtn" style="width: 100%; background: #16a34a; color: white; border: none; padding: 12px; border-radius: 8px; font-weight: 800; cursor: pointer;">Confirm Payment & Complete Booking</button>
-            </div>
+    <!-- 4. Healthy Heart -->
+    <div class="pkg-card">
+        <div>
+            <h3 class="pkg-title">Healthy Heart</h3>
+            <div class="pkg-price-box">
+                <span class="pkg-price">₹1,150/-</span>
+                <span class="pkg-mrp">₹3,800</span>
+            </div>
+            <div class="pkg-scroll-area">
+                <ul class="pkg-list">
+                    <li>Complete Blood Count (18 Tests)</li>
+                    <li>Serum Creatine Phosphokinase (CPK)</li>
+                    <li>Lactate Dehydrogenase (LDH)</li>
+                    <li>Liver Function Test (10 Tests)</li>
+                    <li>Kidney Function Test (7 Tests)</li>
+                </ul>
+            </div>
+        </div>
+        <button class="btn btn-primary" onclick="openBookingModal('Healthy Heart', 1150)">Book Now</button>
+    </div>
 
-            <!-- Step 3: Success Screen -->
-            <div id="step3" style="display: none; text-align: center; padding: 10px;">
-                <div style="width: 54px; height: 54px; background: #dcfce7; color: #16a34a; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; margin: 0 auto 12px;">✓</div>
-                <h3 style="font-size: 20px; color: #0f172a; margin-bottom: 5px;">Booking Recorded!</h3>
-                <p style="font-size: 13px; color: #64748b; margin-bottom: 15px;">
-                    Thank you, <strong id="successPatientName"></strong>.
-                </p>
-                <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 12px; font-size: 13px; text-align: left; margin-bottom: 20px; line-height: 1.6;">
-                    📌 <strong>Booking Details:</strong><br>
-                    • Items: <span id="successPackage"></span><br>
-                    • Scheduled: <span id="successDateTime"></span><br>
-                    • Email: <span id="successEmail"></span><br>
-                    • UTR (Last 4 Digits): <strong id="successUtr"></strong><br>
-                    • Status: <span style="color: #16a34a; font-weight: 700;">Confirmed</span>
-                </div>
-                <button class="btn btn-primary" onclick="closeModal()" style="width: 100%; background: #0f172a; color: white; border: none; padding: 10px; border-radius: 8px; font-weight: 700; cursor: pointer;">Close</button>
-            </div>
-        </div>
-    </div>
+    <!-- 5. Arthritis Care -->
+    <div class="pkg-card">
+        <div>
+            <h3 class="pkg-title">Arthritis Care</h3>
+            <div class="pkg-price-box">
+                <span class="pkg-price">₹1,000/-</span>
+                <span class="pkg-mrp">₹3,000</span>
+            </div>
+            <div class="pkg-scroll-area">
+                <ul class="pkg-list">
+                    <li>Complete Blood Count (18 Tests)</li>
+                    <li>ESR (1 Test)</li>
+                    <li>Rheumatoid Arthritis Factor (1 Test)</li>
+                    <li>C-Reactive Protein (1 Test)</li>
+                    <li>Anti Nuclear Antibody (1 Test)</li>
+                </ul>
+            </div>
+        </div>
+        <button class="btn btn-primary" onclick="openBookingModal('Arthritis Care', 1000)">Book Now</button>
+    </div>
 
-    <!-- FLOATING CART BUTTON -->
-    <div id="cartFloatingBtn" onclick="openBookingModal()" style="position: fixed; bottom: 30px; right: 30px; background: #16a34a; color: white; padding: 14px 22px; border-radius: 50px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); cursor: pointer; z-index: 999; display: flex; align-items: center; gap: 10px; font-weight: bold; font-size: 15px;">
-        <span>🛒 Cart</span>
-        <span id="cartCountBadge" style="background: #ffffff; color: #16a34a; border-radius: 50%; padding: 2px 8px; font-size: 12px; font-weight: 800;">0</span>
-    </div>
+    <!-- 6. Bone Care -->
+    <div class="pkg-card">
+        <div>
+            <h3 class="pkg-title">Bone Care</h3>
+            <div class="pkg-price-box">
+                <span class="pkg-price">₹963/-</span>
+                <span class="pkg-mrp">₹3,500</span>
+            </div>
+            <div class="pkg-scroll-area">
+                <ul class="pkg-list">
+                    <li>Complete Blood Count</li>
+                    <li>ESR, Calcium, Phosphorus</li>
+                    <li>TSH, Alkaline Phosphatase</li>
+                    <li>Vitamins (B12 & D)</li>
+                </ul>
+            </div>
+        </div>
+        <button class="btn btn-primary" onclick="openBookingModal('Bone Care', 963)">Book Now</button>
+    </div>
 
-    <!-- FOOTER / CONTACT INFO -->
-    <footer class="contact-footer" id="contact" style="background: #0f172a; color: white; padding: 40px 20px;">
-        <div class="container" style="max-width: 800px; margin: 0 auto; text-align: center;">
-            <h3 style="color: #f97316; margin-bottom: 20px; font-size: 22px;">Contact Details</h3>
-            
-            <div style="line-height: 2; font-size: 15px; color: #cbd5e1;">
-                <p><strong>🏢 Address:</strong> Shop no. 2073, Roongta Shopping Hub, Indira Nagar, Nashik.</p>
-                <p><strong>📞 Phone:</strong> +91 9096522533 | 02534038004</p>
-                <p><strong>✉️ Email:</strong> Healthspacensk@gmail.com</p>
-            </div>
-            
-            <hr style="border: 0; border-top: 1px solid #334155; margin: 25px 0;">
-            <p style="font-size: 12px; color: #94a3b8;">&copy; HealthSpace Diagnostic Services. All rights reserved.</p>
-        </div>
-    </footer>
+    <!-- 7. Hair Care -->
+    <div class="pkg-card">
+        <div>
+            <h3 class="pkg-title">Hair Care</h3>
+            <div class="pkg-price-box">
+                <span class="pkg-price">₹1,369/-</span>
+                <span class="pkg-mrp">₹4,000</span>
+            </div>
+            <div class="pkg-scroll-area">
+                <ul class="pkg-list">
+                    <li>Complete Blood Count</li>
+                    <li>SR. Ferritin</li>
+                    <li>Vitamin B12 & Vitamin D</li>
+                    <li>TSH</li>
+                </ul>
+            </div>
+        </div>
+        <button class="btn btn-primary" onclick="openBookingModal('Hair Care', 1369)">Book Now</button>
+    </div>
 
-    <!-- JS Application Script -->
-    <script>
-        const GOOGLE_SHEET_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbzDHuowRFqr63Pxnm4Lk_DWjT3oUZIDBqAAYnyGf1qu_UqF8RILKn1qYmXAWIVm7jvH/exec";
-        const UPI_ID = "healthspace@ybl"; 
+    <!-- 8. Self Care -->
+    <div class="pkg-card">
+        <div>
+            <h3 class="pkg-title">Self Care</h3>
+            <div class="pkg-price-box">
+                <span class="pkg-price">₹963/-</span>
+                <span class="pkg-mrp">₹2,600</span>
+            </div>
+            <div class="pkg-scroll-area">
+                <ul class="pkg-list">
+                    <li>Complete Blood Count</li>
+                    <li>Lipid Profile</li>
+                    <li>HbA1c & TSH</li>
+                    <li>Vitamin B12</li>
+                </ul>
+            </div>
+        </div>
+        <button class="btn btn-primary" onclick="openBookingModal('Self Care', 963)">Book Now</button>
+    </div>
 
-        var cart = [];
-        let isMembershipBooking = false;
-        let currentBooking = {
-            packageName: "",
-            amount: 0,
-            patientName: "",
-            phone: "",
-            email: "",
-            address: "",
-            bookingDate: "",
-            timeSlot: "",
-            utr: "",
-            isOnePlusOne: false
-        };
+    <!-- 9. PCOD Care -->
+    <div class="pkg-card">
+        <div>
+            <h3 class="pkg-title">PCOD Care</h3>
+            <div class="pkg-price-box">
+                <span class="pkg-price">₹2,369/-</span>
+                <span class="pkg-mrp">₹6,800</span>
+            </div>
+            <div class="pkg-scroll-area">
+                <ul class="pkg-list">
+                    <li>Complete Blood Count</li>
+                    <li>FSH, LH, Prolactin</li>
+                    <li>Testosterone</li>
+                    <li>Sr. Ferritin</li>
+                    <li>Vitamins (B12 & D)</li>
+                </ul>
+            </div>
+        </div>
+        <button class="btn btn-primary" onclick="openBookingModal('PCOD Care', 2369)">Book Now</button>
+    </div>
 
-        // Navigation Drawer
-        function toggleDrawer() {
-            const drawer = document.getElementById('navDrawer');
-            const overlay = document.getElementById('drawerOverlay');
-            if (drawer.style.left === '0px') {
-                drawer.style.left = '-280px';
-                overlay.style.display = 'none';
-            } else {
-                drawer.style.left = '0px';
-                overlay.style.display = 'block';
-            }
-        }
+</div>
+        <!-- Metropolis TruHealth Packages -->
+<div class="packages-grid">
 
-        // Set min date to today for booking picker
-        document.addEventListener('DOMContentLoaded', () => {
-            const dateInput = document.getElementById('bookingDate');
-            if(dateInput) {
-                dateInput.min = new Date().toISOString().split('T')[0];
-            }
-        });
+    <!-- 1. TruHealth Essential -->
+    <div class="pkg-card metro-card">
+        <div class="metro-badge">Metropolis</div>
+        <div>
+            <h3 class="pkg-title">TruHealth Essential</h3>
+            <div class="pkg-price-box">
+                <span class="pkg-price pkg-price-metro">₹1,900/-</span>
+                <span class="pkg-mrp">₹6,780</span>
+            </div>
+            <div class="pkg-scroll-area">
+                <ul class="pkg-list">
+                    <li>48 Parameters Included</li>
+                    <li>CBC, HbA1c, ESR</li>
+                    <li>Liver Function Profile</li>
+                    <li>Kidney Function Profile</li>
+                    <li>Thyroid Function Profile</li>
+                    <li>Heart & Bone Profile</li>
+                </ul>
+            </div>
+        </div>
+        <button class="btn btn-metro" onclick="openBookingModal('TruHealth Essential (Metropolis)', 1900)">Book Now</button>
+    </div>
 
-        // Cart Functions
-        function addToCart(itemName, price, type = 'Package') {
-            cart.push({ name: itemName, price: price, type: type });
-            updateCartUI();
-            alert(itemName + " added to your cart!");
-        }
+    <!-- 2. TruHealth Vital -->
+    <div class="pkg-card metro-card">
+        <div class="metro-badge">Metropolis</div>
+        <div>
+            <h3 class="pkg-title">TruHealth Vital</h3>
+            <div class="pkg-price-box">
+                <span class="pkg-price pkg-price-metro">₹2,900/-</span>
+                <span class="pkg-mrp">₹9,065</span>
+            </div>
+            <div class="pkg-scroll-area">
+                <ul class="pkg-list">
+                    <li>55 Parameters Included</li>
+                    <li>CBC, Vit B-12, HbA1c, ESR</li>
+                    <li>Full Organ Functioning Profiles</li>
+                    <li>Lipid & Glucose Testing</li>
+                    <li>Kidney & Liver Care</li>
+                </ul>
+            </div>
+        </div>
+        <button class="btn btn-metro" onclick="openBookingModal('TruHealth Vital (Metropolis)', 2900)">Book Now</button>
+    </div>
 
-        function removeFromCart(index) {
-            cart.splice(index, 1);
-            updateCartUI();
-        }
+    <!-- 3. TruHealth Vital Plus -->
+    <div class="pkg-card metro-card">
+        <div class="metro-badge">Metropolis</div>
+        <div>
+            <h3 class="pkg-title">TruHealth Vital Plus</h3>
+            <div class="pkg-price-box">
+                <span class="pkg-price pkg-price-metro">₹3,300/-</span>
+                <span class="pkg-mrp">₹10,090</span>
+            </div>
+            <div class="pkg-scroll-area">
+                <ul class="pkg-list">
+                    <li>66 Parameters Included</li>
+                    <li>1+1 Offer Available @ ₹5,610</li>
+                    <li>CBC, Vit B-12, HbA1c, ESR</li>
+                    <li>Liver, Kidney, Thyroid Profiles</li>
+                    <li>Heart & Bone Health Screening</li>
+                </ul>
+            </div>
+        </div>
+        <button class="btn btn-metro" onclick="openBookingModal('TruHealth Vital Plus (Metropolis)', 3300)">Book Now</button>
+    </div>
 
-        function updateCartUI() {
-            var badge = document.getElementById('cartCountBadge');
-            if(badge) badge.innerText = cart.length;
+    <!-- 4. TruHealth Active -->
+    <div class="pkg-card metro-card">
+        <div class="metro-badge">Metropolis</div>
+        <div>
+            <h3 class="pkg-title">TruHealth Active</h3>
+            <div class="pkg-price-box">
+                <span class="pkg-price pkg-price-metro">₹4,400/-</span>
+                <span class="pkg-mrp">₹14,885</span>
+            </div>
+            <div class="pkg-scroll-area">
+                <ul class="pkg-list">
+                    <li>97 (M) / 88 (F) Parameters</li>
+                    <li>1+1 Offer Available @ ₹7,450</li>
+                    <li>Complete Full Body Master Screening</li>
+                    <li>Anemia & Diabetes Assessment</li>
+                    <li>Vitamin & Hormone Check</li>
+                </ul>
+            </div>
+        </div>
+        <button class="btn btn-metro" onclick="openBookingModal('TruHealth Active (Metropolis)', 4400)">Book Now</button>
+    </div>
 
-            var listHtml = "";
-            var total = 0;
-            
-            if(cart.length === 0) {
-                listHtml = "<li style='color: #64748b;'>No items selected.</li>";
-            } else {
-                cart.forEach(function(item, index) {
-                    listHtml += `<li style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
-                        <span>${item.name} (${item.type}) - <b>₹${item.price}</b></span>
-                        <button type="button" onclick="removeFromCart(${index})" style="background: none; border: none; color: #ef4444; cursor: pointer; font-weight: bold; margin-left: 8px;">✕</button>
-                    </li>`;
-                    total += item.price;
-                });
-            }
+    <!-- 5. TruHealth ProActive -->
+    <div class="pkg-card metro-card">
+        <div class="metro-badge">Metropolis</div>
+        <div>
+            <h3 class="pkg-title">TruHealth ProActive</h3>
+            <div class="pkg-price-box">
+                <span class="pkg-price pkg-price-metro">₹5,400/-</span>
+                <span class="pkg-mrp">₹18,345</span>
+            </div>
+            <div class="pkg-scroll-area">
+                <ul class="pkg-list">
+                    <li>103 (M) / 103 (F) Parameters</li>
+                    <li>1+1 Offer Available @ ₹9,150</li>
+                    <li>Includes Cardiac & Allergy Screenings</li>
+                    <li>Advanced Vitamin & Iron Studies</li>
+                    <li>Comprehensive Organ Panels</li>
+                </ul>
+            </div>
+        </div>
+        <button class="btn btn-metro" onclick="openBookingModal('TruHealth ProActive (Metropolis)', 5400)">Book Now</button>
+    </div>
 
-            var listElem = document.getElementById('cartList');
-            var totalElem = document.getElementById('cartTotal');
-            
-            if(listElem) listElem.innerHTML = listHtml;
-            
-            // Re-calculate with 1+1 discount if applied
-            let finalTotal = total;
-            if(!isMembershipBooking && currentBooking.isOnePlusOne) {
-                finalTotal = Math.round((total * 2) * 0.95);
-            }
-            
-            currentBooking.amount = finalTotal;
-            if(totalElem) {
-                totalElem.innerText = "Total: ₹" + finalTotal + (currentBooking.isOnePlusOne ? " (1+1 & 5% OFF)" : "");
-            }
-            document.getElementById('modalPkgPrice').innerText = "₹" + finalTotal;
-        }
+    <!-- 6. TruHealth Expert -->
+    <div class="pkg-card metro-card">
+        <div class="metro-badge">Metropolis</div>
+        <div>
+            <h3 class="pkg-title">TruHealth Expert</h3>
+            <div class="pkg-price-box">
+                <span class="pkg-price pkg-price-metro">₹6,700/-</span>
+                <span class="pkg-mrp">₹22,510</span>
+            </div>
+            <div class="pkg-scroll-area">
+                <ul class="pkg-list">
+                    <li>109 (M) / 110 (F) Parameters</li>
+                    <li>1+1 Offer Available @ ₹10,850</li>
+                    <li>Includes Cancer Screening (CEA, PSA, CA-125)</li>
+                    <li>Hormones & Pancreas Profile</li>
+                    <li>Full Advanced Diagnostic Care</li>
+                </ul>
+            </div>
+        </div>
+        <button class="btn btn-metro" onclick="openBookingModal('TruHealth Expert (Metropolis)', 6700)">Book Now</button>
+    </div>
 
-        // Modal Open / Close Logic
-        function openBookingModal(singleItemName = null, price = null, isMembership = false) {
-            if (singleItemName && price) {
-                cart = [{ name: singleItemName, price: price, type: isMembership ? 'Membership' : 'Package' }];
-            }
+    <!-- 7. TruHealth Elite -->
+    <div class="pkg-card metro-card">
+        <div class="metro-badge">Metropolis</div>
+        <div>
+            <h3 class="pkg-title">TruHealth Elite</h3>
+            <div class="pkg-price-box">
+                <span class="pkg-price pkg-price-metro">₹10,000/-</span>
+                <span class="pkg-mrp">₹33,235</span>
+            </div>
+            <div class="pkg-scroll-area">
+                <ul class="pkg-list">
+                    <li>116 (M) / 118 (F) Parameters</li>
+                    <li>1+1 Offer Available @ ₹18,000</li>
+                    <li>Ultimate Comprehensive Health Checkup</li>
+                    <li>Cancer, Cardiac, Pancreas & Hormones</li>
+                    <li>Complete Executive Body Health Profile</li>
+                </ul>
+            </div>
+        </div>
+        <button class="btn btn-metro" onclick="openBookingModal('TruHealth Elite (Metropolis)', 10000)">Book Now</button>
+    </div>
 
-            if (cart.length === 0) {
-                alert("Your cart is empty! Please select a Health Package or Service first.");
-                return;
-            }
+</div>
+    </section>
+<!-- Live Phlebo Tracking Section -->
+<section class="container" id="live-tracking" style="margin-top: 40px; margin-bottom: 40px;">
+    <div style="background: white; border-radius: 16px; padding: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); border: 1px solid #e2e8f0;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; flex-wrap: wrap; gap: 10px;">
+            <div>
+                <span style="background: #e0f2fe; color: #0284c7; font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 20px;">LIVE TRACKING</span>
+                <h3 style="margin-top: 5px; font-size: 20px; font-weight: 800; color: #1e293b;">Track Your Phlebo</h3>
+            </div>
+            <div style="font-size: 14px; font-weight: 600; color: #16a34a;">
+                🟢 Sample Collection Partner On The Way
+            </div>
+        </div>
 
-            isMembershipBooking = isMembership;
-            currentBooking.isOnePlusOne = false;
-            document.getElementById('onePlusOneCheck').checked = false;
+        <!-- हा आहे मॅप दाखवण्याचा बॉक्स -->
+        <div id="map" style="height: 350px; width: 100%; border-radius: 12px; border: 1px solid #cbd5e1; z-index: 1;"></div>
+    </div>
+</section>
+    <!-- HealthSpace Membership Section -->
+<section class="container" id="membership">
+    <div class="membership-card-box">
+        <span class="membership-badge">ANNUAL HEALTH MEMBERSHIP</span>
+        <h2 style="font-size: 26px; font-weight: 800; margin-bottom: 10px;">HealthSpace Membership</h2>
+        <p style="font-size: 14px; opacity: 0.9; margin-bottom: 20px;">Join HealthSpace annual membership program and save big on all healthcare needs for your entire family in Nashik.</p>
+        
+        <div style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 16px; margin-bottom: 20px;">
+            <h3 style="font-size: 32px; color: #f97316; font-weight: 800; margin-bottom: 10px;">₹369 / Year</h3>
+            <ul style="list-style: none; text-align: left; font-size: 14px; line-height: 2.2; max-width: 420px; margin: 0 auto;">
+                <li>🔥 <strong>25% Discount</strong> on Individual Tests</li>
+                <li>🔥 <strong>10% Extra Discount</strong> on Packages</li>
+                <li>💊 <strong>25% Discount</strong> on Health Supplements</li>
+                <li>🩸 Free Home Sample Collection</li>
+            </ul>
+        </div>
 
-            const timeSlotContainer = document.getElementById('timeSlotContainer');
-            const timeSlotSelect = document.getElementById('bookingTime');
-            const onePlusOneBox = document.getElementById('onePlusOneBox');
+        <button class="btn btn-white" onclick="openBookingModal('HealthSpace Membership', 369, true)">Get Membership @ ₹369</button>
+    </div>
+</section>
+    
+    <!-- Testimonials Section -->
+    <section class="container" id="testimonials">
+        <div class="section-header">
+            <h2>Patient Testimonials</h2>
+            <p>Feedback from our valued patients across Nashik</p>
+        </div>
 
-            if (isMembershipBooking) {
-                timeSlotContainer.style.display = 'none';
-                timeSlotSelect.removeAttribute('required');
-                onePlusOneBox.style.display = 'none';
-            } else {
-                timeSlotContainer.style.display = 'block';
-                timeSlotSelect.setAttribute('required', 'required');
-                onePlusOneBox.style.display = 'flex';
-            }
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <p style="font-size: 13.5px; font-style: italic;">"Very quick home collection service. The technician arrived right on time in Indira Nagar and reports were sent on WhatsApp."</p>
+                <div class="patient-info">
+                    <img src="https://i.pravatar.cc/100?img=12" alt="Patient" class="patient-img">
+                    <div>
+                        <h4 style="font-size: 14px; font-weight: 700;">Sanjay Kulkarni</h4>
+                        <p style="font-size: 12px; color: var(--text-muted);">Indira Nagar, Nashik</p>
+                    </div>
+                </div>
+            </div>
 
-            updateCartUI();
+            <div class="testimonial-card">
+                <p style="font-size: 13.5px; font-style: italic;">"Booked Diabetes Care package for my parents. Excellent home blood sample service and very economical rates!"</p>
+                <div class="patient-info">
+                    <img src="https://i.pravatar.cc/100?img=47" alt="Patient" class="patient-img">
+                    <div>
+                        <h4 style="font-size: 14px; font-weight: 700;">Priya Sharma</h4>
+                        <p style="font-size: 12px; color: var(--text-muted);">College Road, Nashik</p>
+                    </div>
+                </div>
+            </div>
 
-            document.getElementById('step1').style.display = 'block';
-            document.getElementById('step2').style.display = 'none';
-            document.getElementById('step3').style.display = 'none';
-            document.getElementById('patientForm').reset();
-            document.getElementById('bookingModal').style.display = 'block';
-        }
+            <div class="testimonial-card">
+                <p style="font-size: 13.5px; font-style: italic;">"HealthSpace membership is very useful. Got 25% discount on regular individual tests for my grandmother."</p>
+                <div class="patient-info">
+                    <img src="https://i.pravatar.cc/100?img=33" alt="Patient" class="patient-img">
+                    <div>
+                        <h4 style="font-size: 14px; font-weight: 700;">Rohan Deshmukh</h4>
+                        <p style="font-size: 12px; color: var(--text-muted);">Govind Nagar, Nashik</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-        function closeModal() {
-            document.getElementById('bookingModal').style.display = 'none';
-        }
+   
+<!-- BOOKING FORM MODAL (WITH DATE SELECTION) -->
+<div id="bookingModal" class="modal" style="display:none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 1000; overflow-y: auto;">
+    <div style="background: #fff; width: 90%; max-width: 500px; margin: 30px auto; padding: 25px; border-radius: 16px;">
+        <h3 style="margin-bottom: 15px; font-weight: 800; color: #0f172a;">Complete Your Booking</h3>
+        
+        <!-- Cart Summary Display -->
+        <div id="cartSummary" style="background: #f8fafc; padding: 12px; border-radius: 8px; margin-bottom: 15px; font-size: 13px;">
+            <strong>Selected Items:</strong>
+            <ul id="cartList" style="margin-top: 5px; padding-left: 18px;"></ul>
+            <div style="margin-top: 8px; font-weight: 800; text-align: right;" id="cartTotal">Total: ₹0</div>
+        </div>
+<form id="unifiedForm">
+            <div style="margin-bottom: 12px;">
+                <label style="font-size: 12px; font-weight: 700;">Full Name</label>
+                <input type="text" id="patientName" required style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;">
+            </div>
+            
+            <div style="margin-bottom: 12px;">
+                <label style="font-size: 12px; font-weight: 700;">Mobile Number</label>
+                <input type="tel" id="patientPhone" required style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;">
+            </div>
 
-        function toggleOnePlusOne() {
-            if(isMembershipBooking) return;
-            const chk = document.getElementById('onePlusOneCheck');
-            chk.checked = !chk.checked;
-            currentBooking.isOnePlusOne = chk.checked;
-            updateCartUI();
-        }
+            <!-- Date Selection Field -->
+            <div style="margin-bottom: 12px;">
+                <label style="font-size: 12px; font-weight: 700;">Preferred Booking Date</label>
+                <input type="date" id="bookingDate" required style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;">
+            </div>
 
-        // Payment Processing Step
-        function goToPaymentStep(e) {
-            e.preventDefault();
-            
-            currentBooking.patientName = document.getElementById('patientName').value;
-            currentBooking.phone = document.getElementById('patientPhone').value;
-            currentBooking.email = document.getElementById('patientEmail').value || 'N/A';
-            currentBooking.address = document.getElementById('patientAddress').value;
-            currentBooking.bookingDate = document.getElementById('bookingDate').value;
-            currentBooking.timeSlot = isMembershipBooking ? "N/A (Membership)" : document.getElementById('bookingTime').value;
-            currentBooking.packageName = cart.map(i => i.name).join(', ');
+            <!-- Time Slot Selection -->
+            <div style="margin-bottom: 12px;">
+                <label style="font-size: 12px; font-weight: 700;">Preferred Time Slot</label>
+                <select id="bookingTime" required style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;">
+                    <option value="">Select Time Slot</option>
+                    <option value="07:00 AM - 09:00 AM">07:00 AM - 09:00 AM</option>
+                    <option value="09:00 AM - 11:00 AM">09:00 AM - 11:00 AM</option>
+                    <option value="11:00 AM - 01:00 PM">11:00 AM - 01:00 PM</option>
+                    <option value="04:00 PM - 06:00 PM">04:00 PM - 06:00 PM</option>
+                </select>
+            </div>
+                    <!-- 1+1 Offer Discount -->
+                    <div class="one-plus-one-box" id="onePlusOneBox" onclick="toggleOnePlusOne()">
+                        <input type="checkbox" id="onePlusOneCheck" style="width: 18px; height: 18px; cursor: pointer;">
+                        <div>
+                            <strong style="font-size: 13px; color: #15803d;">Add 1+1 Offer (2 Persons)</strong>
+                            <p style="font-size: 11px; color: #166534;">Get Extra 5% OFF on total price!</p>
+                        </div>
+                    </div>
 
-            const upiString = `upi://pay?pa=${UPI_ID}&pn=HealthSpace%20Nashik&am=${currentBooking.amount}&cu=INR&tn=Booking%20for%20${encodeURIComponent(currentBooking.patientName)}`;
-            
-            const qrContainer = document.getElementById('qrcodeCanvas');
-            qrContainer.innerHTML = '';
-            
-            if (typeof qrcode !== 'undefined') {
-                const qr = qrcode(0, 'L');
-                qr.addData(upiString);
-                qr.make();
-                qrContainer.innerHTML = qr.createImgTag(5);
-            } else {
-                qrContainer.innerHTML = `<img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${encodeURIComponent(upiString)}" alt="UPI QR">`;
-            }
+                    <div style="background: #f1f5f9; padding: 12px; border-radius: 10px; font-weight: 700; font-size: 14px; display: flex; justify-content: space-between; margin-bottom: 15px;">
+                        <span>Total Amount:</span>
+                        <span style="color: var(--primary-dark);" id="modalPkgPrice">₹0</span>
+                    </div>
 
-            document.getElementById('qrAmountDisplay').innerText = "₹" + currentBooking.amount;
-            document.getElementById('step1').style.display = 'none';
-            document.getElementById('step2').style.display = 'block';
-        }
+                    <button type="submit" class="btn btn-primary">Proceed to Pay via UPI QR</button>
+                </form>
+            </div>
 
-        // Finalize Booking & Send Webhook Data
-        function submitBookingToExcel() {
-            const utr = document.getElementById('utrNumber').value;
-            if(!utr || utr.length !== 4) {
-                alert("कृपया UTR नंबरचे शेवटचे ४ अंक टाका (Please enter last 4 digits of UTR)!");
-                return;
-            }
-            currentBooking.utr = utr;
+            <!-- Step 2: Payment -->
+            <div id="step2" style="display: none;">
+                <h3 style="font-size: 18px; color: var(--dark);">Scan UPI QR Code to Pay</h3>
+                <p style="font-size: 13px; color: var(--text-muted);">Scan via PhonePe, Google Pay, Paytm</p>
 
-            const confirmBtn = document.getElementById('confirmBtn');
-            confirmBtn.innerText = "Saving Booking...";
-            confirmBtn.disabled = true;
+                <div style="text-align: center; padding: 10px 0;">
+                    <div style="background: #f8fafc; border: 2px dashed #cbd5e1; border-radius: 16px; padding: 15px; display: inline-block; margin: 10px 0;">
+                        <div id="qrcodeCanvas"></div>
+                    </div>
+                    <div style="background: var(--primary-light); border-radius: 10px; padding: 10px; font-size: 13px; color: var(--primary-dark); font-weight: 600;">
+                        Amount to Pay: <span id="qrAmountDisplay" style="font-size: 16px; font-weight: 800;">₹0</span><br>
+                        <small>UPI ID: healthspace@ybl</small>
+                    </div>
+                </div>
 
-            const payload = {
-                timestamp: new Date().toLocaleString('en-IN'),
-                patientName: currentBooking.patientName,
-                phone: currentBooking.phone,
-                email: currentBooking.email,
-                address: currentBooking.address,
-                packageName: currentBooking.packageName + (currentBooking.isOnePlusOne ? " (1+1 Offer)" : ""),
-                amount: currentBooking.amount,
-                bookingDate: currentBooking.bookingDate,
-                timeSlot: currentBooking.timeSlot,
-                utrLast4: currentBooking.utr
-            };
+                <div class="form-group">
+                    <label>Enter Last 4 Digits of UTR / Ref No *</label>
+                    <input type="text" id="utrNumber" class="form-control" placeholder="e.g. 8412" maxlength="4" pattern="[0-9]{4}" required>
+                </div>
 
-            fetch(GOOGLE_SHEET_WEBHOOK_URL, {
-                method: "POST",
-                mode: "no-cors",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(payload)
-            }).then(() => {
-                showSuccessScreen();
-            }).catch(() => {
-                showSuccessScreen();
-            });
-        }
+                <button class="btn btn-primary" onclick="submitBookingToExcel()" id="confirmBtn">Confirm Payment & Complete Booking</button>
+            </div>
 
-        function showSuccessScreen() {
-            document.getElementById('successPatientName').innerText = currentBooking.patientName;
-            document.getElementById('successPackage').innerText = currentBooking.packageName;
-            document.getElementById('successDateTime').innerText = currentBooking.bookingDate + (isMembershipBooking ? "" : " (" + currentBooking.timeSlot + ")");
-            document.getElementById('successEmail').innerText = currentBooking.email;
-            document.getElementById('successUtr').innerText = "xxxx" + currentBooking.utr;
+            <!-- Step 3: Success -->
+            <div id="step3" style="display: none; text-align: center; padding: 10px;">
+                <div style="width: 54px; height: 54px; background: #dcfce7; color: #16a34a; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; margin: 0 auto 12px;">✓</div>
+                <h3 style="font-size: 20px; color: var(--dark); margin-bottom: 5px;">Payment Recorded!</h3>
+                <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 15px;">
+                    Thank you, <strong id="successPatientName"></strong>.
+                </p>
+                <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 12px; font-size: 13px; text-align: left; margin-bottom: 20px;">
+                    📌 <strong>Booking Details:</strong><br>
+                    • Package/Item: <span id="successPackage"></span><br>
+                    • Date: <span id="successDateTime"></span><br>
+                    • Email: <span id="successEmail"></span><br>
+                    • UTR (Last 4 Digits): <strong id="successUtr"></strong><br>
+                    • Status: <span style="color: #16a34a; font-weight: 700;">Confirmed</span>
+                </div>
+                <button class="btn btn-primary" onclick="closeModal()">Close</button>
+            </div>
+        </div>
+    </div>
+<!-- UPDATED FOOTER / CONTACT INFO -->
+<footer class="contact-footer" style="background: #0f172a; color: white; padding: 40px 20px;">
+    <div class="container" style="max-width: 800px; margin: 0 auto; text-align: center;">
+        <h3 style="color: #f97316; margin-bottom: 20px; font-size: 22px;">Contact Details</h3>
+        
+        <div style="line-height: 2; font-size: 15px; color: #cbd5e1;">
+            <p><strong>🏢 Address:</strong> Shop no. 2073, Roongta Shoping Hub, Indira Nagar, Nashik.</p>
+            <p><strong>📞 Phone:</strong> +91 9096522533 | 02534038004</p>
+            <p><strong>✉️ Email:</strong> Healthspacensk@gmail.com</p>
+        </div>
+        
+        <hr style="border: 0; border-top: 1px solid #334155; margin: 25px 0;">
+        <p style="font-size: 12px; color: #94a3b8;">&copy; HealthSpace Diagnostic Services. All rights reserved.</p>
+    </div>
+</footer>
+    <!-- Script Logic -->
+    <script>
+        const GOOGLE_SHEET_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbzDHuowRFqr63Pxnm4Lk_DWjT3oUZIDBqAAYnyGf1qu_UqF8RILKn1qYmXAWIVm7jvH/exec";
+        const UPI_ID = "healthspace@ybl"; 
 
-            document.getElementById('step2').style.display = 'none';
-            document.getElementById('step3').style.display = 'block';
-            cart = [];
-            updateCartUI();
-        }
-    </script>
+        let basePrice = 0;
+        let isMembershipBooking = false;
+        let currentBooking = {
+            packageName: "",
+            amount: 0,
+            patientName: "",
+            phone: "",
+            email: "",
+            address: "",
+            bookingDate: "",
+            timeSlot: "",
+            utr: "",
+            isOnePlusOne: false
+        };
 
-    <!-- OpenStreetMap Leaflet Script -->
-    <script>
-        window.addEventListener('load', function() {
-            var mapElement = document.getElementById('map');
-            if(mapElement && typeof L !== 'undefined') {
-                var map = L.map('map').setView([19.9678, 73.7788], 14);
+        document.getElementById('bookingDate').min = new Date().toISOString().split('T')[0];
 
-                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                    maxZoom: 19,
-                    attribution: '© OpenStreetMap'
-                }).addTo(map);
+        function toggleDrawer() {
+            const drawer = document.getElementById('navDrawer');
+            const overlay = document.getElementById('drawerOverlay');
+            if (drawer.style.left === '0px') {
+                drawer.style.left = '-280px';
+                overlay.style.display = 'none';
+            } else {
+                drawer.style.left = '0px';
+                overlay.style.display = 'block';
+            }
+        }
 
-                L.marker([19.9678, 73.7788]).addTo(map)
-                    .bindPopup('<b>Health Space Center</b><br>Shop 2073, Roongta Hub, Nashik')
-                    .openPopup();
+        function openBookingModal(packageName, price, isMembership = false) {
+            basePrice = price;
+            isMembershipBooking = isMembership;
+            currentBooking.packageName = packageName;
+            currentBooking.isOnePlusOne = false;
+            document.getElementById('onePlusOneCheck').checked = false;
 
-                L.marker([19.9620, 73.7720]).addTo(map)
-                    .bindPopup('<b>Phlebo Status</b><br>On the way for sample collection');
-            }
-        });
-    </script>
+            // Hide/Show Time Slot & 1+1 Offer for Membership
+            const timeSlotContainer = document.getElementById('timeSlotContainer');
+            const timeSlotSelect = document.getElementById('timeSlot');
+            const onePlusOneBox = document.getElementById('onePlusOneBox');
+
+            if (isMembershipBooking) {
+                timeSlotContainer.style.display = 'none';
+                timeSlotSelect.removeAttribute('required');
+                onePlusOneBox.style.display = 'none';
+            } else {
+                timeSlotContainer.style.display = 'block';
+                timeSlotSelect.setAttribute('required', 'required');
+                onePlusOneBox.style.display = 'flex';
+            }
+
+            updatePayableAmount();
+
+            document.getElementById('modalPkgTitle').innerText = "Get " + packageName;
+            document.getElementById('step1').style.display = 'block';
+            document.getElementById('step2').style.display = 'none';
+            document.getElementById('step3').style.display = 'none';
+            document.getElementById('patientForm').reset();
+
+            document.getElementById('bookingModal').style.display = 'flex';
+        }
+
+        function toggleOnePlusOne() {
+            if(isMembershipBooking) return;
+            const chk = document.getElementById('onePlusOneCheck');
+            chk.checked = !chk.checked;
+            currentBooking.isOnePlusOne = chk.checked;
+            updatePayableAmount();
+        }
+
+        function updatePayableAmount() {
+            if(!isMembershipBooking && currentBooking.isOnePlusOne) {
+                let total = basePrice * 2;
+                currentBooking.amount = Math.round(total * 0.95);
+            } else {
+                currentBooking.amount = basePrice;
+            }
+            document.getElementById('modalPkgPrice').innerText = "₹" + currentBooking.amount + (currentBooking.isOnePlusOne ? " (5% OFF Applied)" : "");
+        }
+
+        function closeModal() {
+            document.getElementById('bookingModal').style.display = 'none';
+        }
+
+        function goToPaymentStep(e) {
+            e.preventDefault();
+            
+            currentBooking.patientName = document.getElementById('patientName').value;
+            currentBooking.phone = document.getElementById('patientPhone').value;
+            currentBooking.email = document.getElementById('patientEmail').value;
+            currentBooking.address = document.getElementById('patientAddress').value;
+            currentBooking.bookingDate = document.getElementById('bookingDate').value;
+            currentBooking.timeSlot = isMembershipBooking ? "N/A (Membership)" : document.getElementById('timeSlot').value;
+
+            const upiString = `upi://pay?pa=${UPI_ID}&pn=HealthSpace%20Nashik&am=${currentBooking.amount}&cu=INR&tn=Booking%20for%20${encodeURIComponent(currentBooking.packageName)}`;
+            
+            const qrContainer = document.getElementById('qrcodeCanvas');
+            qrContainer.innerHTML = '';
+            
+            const qr = qrcode(0, 'L');
+            qr.addData(upiString);
+            qr.make();
+            qrContainer.innerHTML = qr.createImgTag(5);
+
+            document.getElementById('qrAmountDisplay').innerText = "₹" + currentBooking.amount;
+            document.getElementById('step1').style.display = 'none';
+            document.getElementById('step2').style.display = 'block';
+        }
+
+        function submitBookingToExcel() {
+            const utr = document.getElementById('utrNumber').value;
+            if(!utr || utr.length !== 4) {
+                alert("कृपया UTR नंबरचे शेवटचे ४ अंक टाका!");
+                return;
+            }
+            currentBooking.utr = utr;
+
+            const confirmBtn = document.getElementById('confirmBtn');
+            confirmBtn.innerText = "Saving Booking...";
+            confirmBtn.disabled = true;
+
+            const payload = {
+                timestamp: new Date().toLocaleString('en-IN'),
+                patientName: currentBooking.patientName,
+                phone: currentBooking.phone,
+                email: currentBooking.email,
+                address: currentBooking.address,
+                packageName: currentBooking.packageName + (currentBooking.isOnePlusOne ? " (1+1 Offer)" : ""),
+                amount: currentBooking.amount,
+                bookingDate: currentBooking.bookingDate,
+                timeSlot: currentBooking.timeSlot,
+                utrLast4: currentBooking.utr
+            };
+
+            fetch(GOOGLE_SHEET_WEBHOOK_URL, {
+                method: "POST",
+                mode: "no-cors",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload)
+            }).then(() => {
+                showSuccessScreen();
+            }).catch(err => {
+                showSuccessScreen();
+            });
+        }
+
+        function showSuccessScreen() {
+            document.getElementById('successPatientName').innerText = currentBooking.patientName;
+            document.getElementById('successPackage').innerText = currentBooking.packageName;
+            document.getElementById('successDateTime').innerText = currentBooking.bookingDate + (isMembershipBooking ? "" : " (" + currentBooking.timeSlot + ")");
+            document.getElementById('successEmail').innerText = currentBooking.email;
+            document.getElementById('successUtr').innerText = "xxxx" + currentBooking.utr;
+
+            document.getElementById('step2').style.display = 'none';
+            document.getElementById('step3').style.display = 'block';
+        }
+        var cart = [];
+
+// कार्ट मध्ये आयटम ॲड करण्याचे फंक्शन
+function addToCart(itemName, price, type) {
+    cart.push({ name: itemName, price: price, type: type });
+    updateCartUI();
+    alert(itemName + " added to your cart!");
+}
+
+// कार्ट UI आणि Floating Badge अपडेट करणे
+function updateCartUI() {
+    // 1. Update Cart Badge Count
+    var badge = document.getElementById('cartCountBadge');
+    if(badge) {
+        badge.innerText = cart.length;
+    }
+
+    // 2. Update Cart Items inside Modal Form
+    var listHtml = "";
+    var total = 0;
+    
+    if(cart.length === 0) {
+        listHtml = "<li>No items added yet.</li>";
+    } else {
+        cart.forEach(function(item, index) {
+            listHtml += "<li style='margin-bottom: 4px;'>" + item.name + " (" + item.type + ") - <b>₹" + item.price + "</b></li>";
+            total += item.price;
+        });
+    }
+
+    var listElem = document.getElementById('cartList');
+    var totalElem = document.getElementById('cartTotal');
+    
+    if(listElem) listElem.innerHTML = listHtml;
+    if(totalElem) totalElem.innerText = "Total: ₹" + total;
+}
+
+// सेफ्टीसह Modal उघडणे (Null Check Fix)
+function openBookingModal() {
+    var modal = document.getElementById('bookingModal');
+    if(modal) {
+        if(cart.length === 0) {
+            alert("Your cart is empty! Please select a Blood Test or Supplement first.");
+            return;
+        }
+        updateCartUI();
+        modal.style.display = 'block';
+    } else {
+        console.error("Error: Element with ID 'bookingModal' not found in HTML!");
+    }
+}
+
+// Modal बंद करणे
+function closeModal() {
+    var modal = document.getElementById('bookingModal');
+    if(modal) {
+        modal.style.display = 'none';
+    }
+}
+
+// बुकिंग सबमिट करणे
+function submitBooking() {
+    var name = document.getElementById('patientName') ? document.getElementById('patientName').value : '';
+    var phone = document.getElementById('patientPhone') ? document.getElementById('patientPhone').value : '';
+    var date = document.getElementById('bookingDate') ? document.getElementById('bookingDate').value : '';
+    var time = document.getElementById('bookingTime') ? document.getElementById('bookingTime').value : '';
+    var address = document.getElementById('patientAddress') ? document.getElementById('patientAddress').value : '';
+
+    if(!name || !phone || !date || !time || !address) {
+        alert("Please fill all details correctly!");
+        return;
+    }
+
+    alert("Booking Confirmed for " + name + " on " + date + " (" + time + ")");
+    cart = []; // Empty cart after booking
+    updateCartUI();
+    closeModal();
+}
+    </script>
+<script>
+    // १. नाशिकचे लोकेशन (इंदिरानगर / रुंगता हब) सेंटर ठेवून मॅप लोड करणे
+    var map = L.map('map').setView([19.9678, 73.7788], 14);
+
+    // २. फ्री OpenStreetMap लोड करणे
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '© OpenStreetMap'
+    }).addTo(map);
+
+    // ३. पेशंटच्या घराचे ठिकाण (Example Pin)
+    var patientMarker = L.marker([19.9678, 73.7788]).addTo(map)
+        .bindPopup('<b>Patient Address</b><br>Shop 2073, Rungta Hub, Nashik')
+        .openPopup();
+
+    // ४. Phlebo चे लोकेशन (Sample Collection Boy)
+    var phleboMarker = L.marker([19.9620, 73.7720]).addTo(map)
+        .bindPopup('<b>Phlebo (Rahul)</b><br>Status: On the way');
+</script>
+    <!-- FLOATING CART BUTTON FOR DASHBOARD / NAVIGATION -->
+<div id="cartFloatingBtn" onclick="openBookingModal()" style="position: fixed; bottom: 30px; right: 30px; background: #16a34a; color: white; padding: 14px 22px; border-radius: 50px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); cursor: pointer; z-index: 999; display: flex; align-items: center; gap: 10px; font-weight: bold; font-size: 15px;">
+    <span>🛒 Cart</span>
+    <span id="cartCountBadge" style="background: #ffffff; color: #16a34a; border-radius: 50%; padding: 2px 8px; font-size: 12px; font-weight: 800;">0</span>
+</div>
+
+<!-- UNIFIED BOOKING FORM MODAL -->
+<div id="bookingModal" class="modal" style="display:none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 1000; overflow-y: auto;">
+    <div style="background: #fff; width: 90%; max-width: 500px; margin: 30px auto; padding: 25px; border-radius: 16px; position: relative;">
+        <h3 style="margin-bottom: 15px; font-weight: 800; color: #0f172a;">Complete Your Booking</h3>
+        
+        <!-- Selected Items Summary -->
+        <div id="cartSummary" style="background: #f8fafc; padding: 12px; border-radius: 8px; margin-bottom: 15px; font-size: 13px; border: 1px solid #e2e8f0;">
+            <strong>Selected Items:</strong>
+            <ul id="cartList" style="margin-top: 5px; padding-left: 18px;"></ul>
+            <div style="margin-top: 8px; font-weight: 800; text-align: right; color: #16a34a; font-size: 15px;" id="cartTotal">Total: ₹0</div>
+        </div>
+
+        <form id="unifiedForm">
+            <div style="margin-bottom: 12px;">
+                <label style="font-size: 12px; font-weight: 700;">Full Name</label>
+                <input type="text" id="patientName" placeholder="Enter Full Name" required style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;">
+            </div>
+            
+            <div style="margin-bottom: 12px;">
+                <label style="font-size: 12px; font-weight: 700;">Mobile Number</label>
+                <input type="tel" id="patientPhone" placeholder="Enter 10-digit Mobile Number" required style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;">
+            </div>
+
+            <div style="margin-bottom: 12px;">
+                <label style="font-size: 12px; font-weight: 700;">Preferred Booking Date</label>
+                <input type="date" id="bookingDate" required style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;">
+            </div>
+
+            <div style="margin-bottom: 12px;">
+                <label style="font-size: 12px; font-weight: 700;">Preferred Time Slot</label>
+                <select id="bookingTime" required style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;">
+                    <option value="">Select Time Slot</option>
+                    <option value="07:00 AM - 09:00 AM">07:00 AM - 09:00 AM</option>
+                    <option value="09:00 AM - 11:00 AM">09:00 AM - 11:00 AM</option>
+                    <option value="11:00 AM - 01:00 PM">11:00 AM - 01:00 PM</option>
+                    <option value="04:00 PM - 06:00 PM">04:00 PM - 06:00 PM</option>
+                </select>
+            </div>
+
+            <div style="margin-bottom: 15px;">
+                <label style="font-size: 12px; font-weight: 700;">Complete Address</label>
+                <textarea id="patientAddress" placeholder="Enter Full Address with Landmark" required style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px;" rows="2"></textarea>
+            </div>
+
+            <button type="button" onclick="submitBooking()" style="width: 100%; background: #16a34a; color: white; border: none; padding: 12px; border-radius: 8px; font-weight: 800; cursor: pointer;">Confirm Booking</button>
+            <button type="button" onclick="closeModal()" style="width: 100%; background: #ef4444; color: white; border: none; padding: 8px; border-radius: 8px; font-weight: 700; margin-top: 8px; cursor: pointer;">Cancel</button>
+        </form>
+    </div>
+</div>
 </body>
 </html>
