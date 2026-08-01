@@ -494,55 +494,229 @@
 
         .footer-col h4 { color: white; font-size: 16px; margin-bottom: 14px; }
 
-        /* Health Supplements Separate Section Styling */
-.supplements-section {
-    margin-top: 25px;
+   /* =========================================================
+   HEALTH SPACE - HEALTH SUPPLEMENTS SECTION (COMPLETE CSS)
+   ========================================================= */
+
+/* सप्लीमेंट्सचा मुख्य बॉक्स wrapper */
+.supplements-wrapper {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    padding: 25px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
 }
 
-.supplements-card {
-    background: linear-gradient(135deg, #ffffff 0%, #f0f9ff 100%);
-    border: 2px dashed #0284c7;
-    border-radius: var(--radius);
-    padding: 30px 20px 25px;
+/* हेडर आणि बॅनर */
+.supplements-header {
     text-align: center;
-    position: relative;
-    box-shadow: var(--shadow);
+    margin-bottom: 25px;
 }
 
-.coming-soon-badge {
-    position: absolute;
-    top: -14px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: linear-gradient(135deg, #f97316, #ea580c);
+.badge-available {
+    background: #16a34a;
     color: white;
+    padding: 5px 14px;
+    border-radius: 20px;
     font-size: 11px;
     font-weight: 800;
-    padding: 5px 18px;
-    border-radius: 20px;
     letter-spacing: 0.5px;
-    box-shadow: 0 4px 10px rgba(249, 115, 22, 0.3);
+    display: inline-block;
 }
 
-.supplement-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    justify-content: center;
-    max-width: 750px;
-    margin: 0 auto;
-}
-
-.tag {
-    background: #ffffff;
-    color: var(--primary-dark);
-    border: 1px solid #bae6fd;
-    padding: 6px 14px;
-    border-radius: 20px;
-    font-size: 12.5px;
+.delivery-note {
+    color: #0284c7;
     font-weight: 600;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+    display: block;
+    margin-top: 8px;
+    font-size: 12px;
 }
+
+/* प्रॉडक्ट्सची ग्रीड लेआउट (Grid) */
+.supplements-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+}
+
+/* इंडिव्हिज्युअल प्रॉडक्ट कार्ड (Product Card) */
+.product-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 16px;
+    position: relative;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.product-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+}
+
+/* २५% OFF डिस्काउंट टॅग (डाव्या बाजूला) */
+.discount-tag {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: #dc2626;
+    color: white;
+    font-size: 10px;
+    font-weight: 800;
+    padding: 3px 8px;
+    border-radius: 6px;
+}
+
+/* कॅटेगरी बॅजेस (उजव्या बाजूला) */
+.category-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 9px;
+    font-weight: 800;
+    padding: 3px 8px;
+    border-radius: 4px;
+    color: white;
+    letter-spacing: 0.3px;
+}
+
+.badge-women { background: #be185d; }
+.badge-active { background: #d97706; }
+.badge-kids { background: #7c2d12; }
+.badge-original { background: #1e3a8a; }
+
+/* आयकॉन, टायटल आणि डिस्क्रिप्शन */
+.product-icon {
+    font-size: 36px;
+    margin: 22px 0 8px;
+}
+
+.product-card h3 {
+    font-size: 15px;
+    color: #0f172a;
+    margin-bottom: 6px;
+    font-weight: 700;
+}
+
+.product-card p {
+    font-size: 11px;
+    color: #64748b;
+    margin-bottom: 12px;
+    line-height: 1.4;
+}
+
+/* प्राईस बॉक्स (Offer Price & MRP) */
+.product-price {
+    font-size: 17px;
+    font-weight: 800;
+    color: #0f172a;
+    margin-bottom: 12px;
+}
+
+.product-price .mrp {
+    font-size: 12px;
+    color: #94a3b8;
+    text-decoration: line-through;
+    margin-left: 6px;
+    font-weight: 500;
+}
+
+/* Buy Now बटण */
+.btn-buy-now {
+    background: #16a34a;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s ease;
+    width: 100%;
+}
+
+.btn-buy-now:hover {
+    background: #15803d;
+}
+        /* Awareness Banners Styling */
+.awareness-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 15px;
+}
+.awareness-card {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 16px;
+    border-radius: 12px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+}
+.card-water { border-left: 5px solid #0284c7; background: #f0f9ff; }
+.card-diabetes { border-left: 5px solid #ef4444; background: #fef2f2; }
+.card-thyroid { border-left: 5px solid #8b5cf6; background: #f5f3ff; }
+
+.awareness-icon { font-size: 28px; }
+.awareness-content h4 { font-size: 15px; margin-bottom: 4px; color: #0f172a; font-weight: 700; }
+.awareness-content p { font-size: 12px; color: #475569; margin: 0; line-height: 1.4; }
+
+/* Supplements Section Styling */
+.supplements-wrapper {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    padding: 25px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+}
+.supplements-header { text-align: center; margin-bottom: 25px; }
+.badge-coming-soon {
+    background: #f97316; color: white; padding: 4px 12px; border-radius: 20px;
+    font-size: 11px; font-weight: 800; letter-spacing: 0.5px;
+}
+.supplements-header h2 { margin-top: 10px; font-size: 24px; color: #0f172a; }
+.delivery-note { color: #0284c7; font-weight: 600; display: block; margin-top: 8px; }
+
+.supplement-main-banner {
+    width: 100%; text-align: center; margin-bottom: 25px; border-radius: 12px; overflow: hidden;
+}
+.supplement-main-banner img { max-width: 100%; height: auto; border-radius: 12px; }
+.image-placeholder-text {
+    padding: 40px; background: #f1f5f9; border: 2px dashed #cbd5e1;
+    border-radius: 12px; color: #64748b; font-weight: 600;
+}
+
+.supplements-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+}
+.product-card {
+    background: #fff; border: 1px solid #e2e8f0; border-radius: 12px;
+    padding: 15px; position: relative; text-align: center;
+    display: flex; flex-direction: column; justify-content: space-between;
+}
+.discount-tag {
+    position: absolute; top: 10px; left: 10px; background: #16a34a;
+    color: white; font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 10px;
+}
+.product-icon { font-size: 32px; margin: 15px 0 8px; }
+.product-card h3 { font-size: 15px; color: #1e293b; margin-bottom: 5px; }
+.product-card p { font-size: 11px; color: #64748b; margin-bottom: 12px; line-height: 1.3; }
+.product-price { font-size: 16px; font-weight: 800; color: #0f172a; margin-bottom: 10px; }
+.product-price .mrp { font-size: 12px; color: #94a3b8; text-decoration: line-through; margin-left: 5px; }
+
+.btn-select-product {
+    background: #0284c7; color: white; border: none; padding: 8px;
+    border-radius: 8px; font-size: 12px; font-weight: 700; cursor: pointer;
+    transition: 0.2s;
+}
+.btn-select-product:hover { background: #0369a1; }
     </style>
 </head>
 <body>
@@ -592,7 +766,37 @@
             <a href="#packages" class="btn btn-white">Book Test Package</a>
         </div>
     </section>
+<!-- 1. HEALTH AWARENESS & EMPATHY BANNERS -->
+<section class="container awareness-section" style="margin: 30px auto;">
+    <div class="awareness-grid">
+        <!-- Banner 1: Daily Hydration -->
+        <div class="awareness-card card-water">
+            <div class="awareness-icon">💧</div>
+            <div class="awareness-content">
+                <h4>हायड्रेटेड राहा!</h4>
+                <p>रोज किमान ३-४ लिटर पाणी प्या. योग्य हायड्रेशनमुळे शरीरातील टॉक्सिन्स बाहेर पडतात आणि रक्तप्रवाह सुधारतो.</p>
+            </div>
+        </div>
 
+        <!-- Banner 2: Diabetes Care -->
+        <div class="awareness-card card-diabetes">
+            <div class="awareness-icon">🩸</div>
+            <div class="awareness-content">
+                <h4>डायबिटीसची काळजी घ्या</h4>
+                <p>वेळेवर जेवण, नियमित चालणे आणि दर ३ महिन्यांनी Fasting & HbA1c टेस्ट करून शुगर लेव्हल नियंत्रणात ठेवा.</p>
+            </div>
+        </div>
+
+        <!-- Banner 3: Thyroid Awareness -->
+        <div class="awareness-card card-thyroid">
+            <div class="awareness-icon">🦋</div>
+            <div class="awareness-content">
+                <h4>थायरॉईड व थकवा</h4>
+                <p>सतत येणारा थकवा किंवा वजनात अचानक होणारे बदल याकडे दुर्लक्ष करू नका. TSH टेस्टद्वारे थायरॉईड तपासून घ्या.</p>
+            </div>
+        </div>
+    </div>
+</section>
     <!-- Services Section -->
 <section class="services-section" id="services">
     <div class="section-header">
@@ -624,26 +828,140 @@
         </div>
     </div>
 
-    <!-- ५ वा: हेल्थ सप्लीमेंटचा स्वतंत्र (Parallel Below) सेक्शन -->
-    <div class="supplements-section">
-        <div class="supplements-card">
-            <div class="coming-soon-badge">🚀 COMING SOON</div>
-            <div class="service-icon" style="margin: 0 auto 15px;">💊</div>
-            <h3 style="font-size: 20px; font-weight: 800; color: var(--dark); margin-bottom: 10px;">Health Supplements</h3>
-            <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 18px;">
-                High-quality Wellness & Nutrition products launching soon for your complete daily health needs:
-            </p>
+    <!-- UPDATE: HEALTH SUPPLEMENTS SECTION (Live Store Mode - Buy Now Enabled) -->
+<section class="container" id="supplements" style="margin: 40px auto;">
+    <div class="supplements-wrapper">
+        <div class="supplements-header">
+            <span class="badge-available">🛍️ NOW AVAILABLE</span>
+            <h2 style="font-size: 26px; color: #0f172a; margin-top: 10px; font-weight: 800;">Health & Wellness Supplements</h2>
+            <p style="color: #64748b; font-size: 14px;">High-quality Wellness & Nutrition products delivered straight to your doorstep.</p>
+            <small class="delivery-note" style="color: #0284c7; font-weight: 600; display: block; margin-top: 8px;">🚚 *टीप: हेल्थ सप्लीमेंट्सची डिलिव्हरी कुरियरद्वारे स्वतंत्रपणे तुमच्या पत्त्यावर पाठवली जाईल.*</small>
+        </div>
+
+        <!-- इंडिव्हिज्युअल प्रॉडक्ट्स ग्रिड -->
+        <div class="supplements-grid">
             
-            <div class="supplement-tags">
-                <span class="tag">Multivitamins</span>
-                <span class="tag">Blood Detox</span>
-                <span class="tag">Easy Detox</span>
-                <span class="tag">Joint Care</span>
-                <span class="tag">Muscular Cream</span>
-                <span class="tag">Men's Protein</span>
-                <span class="tag">Women's Protein</span>
-                <span class="tag">Kids Protein Powder</span>
+            <!-- 1. Protein For Women -->
+            <div class="product-card">
+                <span class="discount-tag">25% OFF</span>
+                <span class="category-badge badge-women">FOR WOMEN</span>
+                <div class="product-icon">🥛</div>
+                <h3>Naturamore For Women</h3>
+                <p>Supports energy and immunity (French Vanilla / Masala Milk)</p>
+                <div class="product-price">
+                    <span class="price">₹1,181/-</span> 
+                    <span class="mrp">₹1,575</span>
+                </div>
+                <button class="btn-buy-now" onclick="orderSupplement('Naturamore For Women', 1181)">Buy Now</button>
             </div>
+
+            <!-- 2. Protein Active -->
+            <div class="product-card">
+                <span class="discount-tag">25% OFF</span>
+                <span class="category-badge badge-active">ACTIVE</span>
+                <div class="product-icon">🍫</div>
+                <h3>Naturamore Active</h3>
+                <p>Daily strength and vitality (Chocolate Flavour)</p>
+                <div class="product-price">
+                    <span class="price">₹1,088/-</span> 
+                    <span class="mrp">₹1,450</span>
+                </div>
+                <button class="btn-buy-now" onclick="orderSupplement('Naturamore Active', 1088)">Buy Now</button>
+            </div>
+
+            <!-- 3. Protein For Kids -->
+            <div class="product-card">
+                <span class="discount-tag">25% OFF</span>
+                <span class="category-badge badge-kids">FOR KIDS</span>
+                <div class="product-icon">🧒</div>
+                <h3>Naturamore For Kids</h3>
+                <p>Healthy growth and development (Chocolate Cookie)</p>
+                <div class="product-price">
+                    <span class="price">₹1,088/-</span> 
+                    <span class="mrp">₹1,450</span>
+                </div>
+                <button class="btn-buy-now" onclick="orderSupplement('Naturamore For Kids', 1088)">Buy Now</button>
+            </div>
+
+            <!-- 4. Nutritional Supplement Original -->
+            <div class="product-card">
+                <span class="discount-tag">25% OFF</span>
+                <span class="category-badge badge-original">ORIGINAL</span>
+                <div class="product-icon">🥤</div>
+                <h3>Naturamore Original</h3>
+                <p>Comprehensive nutritional boost (Vanilla Rice Flavour)</p>
+                <div class="product-price">
+                    <span class="price">₹1,088/-</span> 
+                    <span class="mrp">₹1,450</span>
+                </div>
+                <button class="btn-buy-now" onclick="orderSupplement('Naturamore Original', 1088)">Buy Now</button>
+            </div>
+
+            <!-- 5. Easy Detox -->
+            <div class="product-card">
+                <span class="discount-tag">25% OFF</span>
+                <div class="product-icon" style="margin-top:25px;">🌿</div>
+                <h3>Easy Detox</h3>
+                <p>Cleanses and supports digestion (Amla & Senna)</p>
+                <div class="product-price">
+                    <span class="price">₹338/-</span> 
+                    <span class="mrp">₹450</span>
+                </div>
+                <button class="btn-buy-now" onclick="orderSupplement('Easy Detox', 338)">Buy Now</button>
+            </div>
+
+            <!-- 6. Joint Care -->
+            <div class="product-card">
+                <span class="discount-tag">25% OFF</span>
+                <div class="product-icon" style="margin-top:25px;">🦴</div>
+                <h3>Joint Care</h3>
+                <p>Promotes joint flexibility (Salai & Guggal)</p>
+                <div class="product-price">
+                    <span class="price">₹334/-</span> 
+                    <span class="mrp">₹445</span>
+                </div>
+                <button class="btn-buy-now" onclick="orderSupplement('Joint Care', 334)">Buy Now</button>
+            </div>
+
+            <!-- 7. Multi-Vitamin For Men -->
+            <div class="product-card">
+                <span class="discount-tag">25% OFF</span>
+                <div class="product-icon" style="margin-top:25px;">💊</div>
+                <h3>Multi-Vitamin For Men</h3>
+                <p>Men's vital nutrient balance, minerals & antioxidants</p>
+                <div class="product-price">
+                    <span class="price">₹281/-</span> 
+                    <span class="mrp">₹375</span>
+                </div>
+                <button class="btn-buy-now" onclick="orderSupplement('Multi-Vitamin For Men', 281)">Buy Now</button>
+            </div>
+
+            <!-- 8. Multi-Vitamin For Women -->
+            <div class="product-card">
+                <span class="discount-tag">25% OFF</span>
+                <div class="product-icon" style="margin-top:25px;">👩</div>
+                <h3>Multi-Vitamin For Women</h3>
+                <p>Women's hormonal support & overall wellness</p>
+                <div class="product-price">
+                    <span class="price">₹281/-</span> 
+                    <span class="mrp">₹375</span>
+                </div>
+                <button class="btn-buy-now" onclick="orderSupplement('Multi-Vitamin For Women', 281)">Buy Now</button>
+            </div>
+
+            <!-- 9. Blood Detox -->
+            <div class="product-card">
+                <span class="discount-tag">25% OFF</span>
+                <div class="product-icon" style="margin-top:25px;">🩸</div>
+                <h3>Blood Detox</h3>
+                <p>Purifies blood and detoxifies body naturally</p>
+                <div class="product-price">
+                    <span class="price">₹300/-</span> 
+                    <span class="mrp">₹400</span>
+                </div>
+                <button class="btn-buy-now" onclick="orderSupplement('Blood Detox', 300)">Buy Now</button>
+            </div>
+
         </div>
     </div>
 </section>
@@ -1190,29 +1508,21 @@
     </div>
 
     <!-- Footer Details -->
-    <footer id="contact">
-        <div class="footer-content">
-            <div class="footer-col">
-                <div class="logo-icon" style="margin-bottom: 10px;">┼</div>
-                <h4 style="font-size: 20px;">HealthSpace Nashik</h4>
-                <p>Your trusted doorstep healthcare diagnostic & lab testing partner across Nashik city.</p>
-            </div>
-            <div class="footer-col">
-                <h4>Contact Info</h4>
-                <p style="margin-top: 10px; line-height: 1.6;">
-    📍 <strong>Address:</strong> 
-    <a href="https://maps.google.com/?q=Rungta+Shopping+Hub+Indira+Nagar+Nashik" target="_blank" style="color: inherit; text-decoration: none; border-bottom: 1px dashed #0284c7;">
-        Shop No. 2073, Rungta Shopping Hub, Indira Nagar, Nashik 📍
-    </a>
-    <br>
-    <small style="color: #0284c7; font-weight: 600;">(लोकेशनसाठी पिनवर क्लिक करा)</small>
-</p>
-            </div>
+    <!-- 3. FOOTER / CONTACT INFO (Plain Text without Location Link) -->
+<footer class="contact-footer" style="background: #0f172a; color: white; padding: 40px 20px;">
+    <div class="container" style="max-width: 800px; margin: 0 auto; text-align: center;">
+        <h3 style="color: #f97316; margin-bottom: 20px; font-size: 22px;">Contact Info</h3>
+        
+        <div style="line-height: 2; font-size: 15px; color: #cbd5e1;">
+            <p><strong>🏢 Address:</strong> Shop No. 2073, Rungta Shopping Hub, Indira Nagar, Nashik</p>
+            <p><strong>📞 Phone:</strong> +91 XXXXXXXXXX | +91 XXXXXXXXXX</p>
+            <p><strong>✉️ Email:</strong> support@healthspace.com</p>
         </div>
-        <div style="text-align: center; padding-top: 25px; margin-top: 30px; border-top: 1px solid #334155; font-size: 12px;">
-            © 2026 HealthSpace Nashik. All rights reserved.
-        </div>
-    </footer>
+        
+        <hr style="border: 0; border-top: 1px solid #334155; margin: 25px 0;">
+        <p style="font-size: 12px; color: #94a3b8;">&copy; HealthSpace Diagnostic Services. All rights reserved.</p>
+    </div>
+</footer>
 
     <!-- Script Logic -->
     <script>
