@@ -1,235 +1,358 @@
 <!DOCTYPE html>
-<html lang="mr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HealthSpace Diagnostics - Patient Dashboard</title>
-    <!-- Tailwind CSS for Modern UI -->
+    <title>HealthSpace Diagnostics - Accurate & Convenient Testing</title>
+    
+    <!-- Tailwind CSS for Modern Standard UI -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- QRCode JS Library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            light: '#f0f9ff',
+                            DEFAULT: '#00a8e8',
+                            dark: '#0077b6',
+                            header: '#0092ca',
+                            footer: '#222f3e'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
     <style>
-        body { font-family: 'Inter', system-ui, -apple-system, sans-serif; background-color: #f8fafc; }
-        .dashboard-card { transition: transform 0.2s, box-shadow 0.2s; }
-        .dashboard-card:hover { transform: translateY(-3px); box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1); }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background-color: #f8fafc; }
     </style>
 </head>
-<body class="text-slate-800 antialiased">
+<body class="text-slate-800 antialiased min-h-screen flex flex-col justify-between">
 
-    <!-- TOP NAVIGATION BAR -->
-    <header class="bg-slate-900 text-white sticky top-0 z-50 shadow-md">
-        <div class="max-w-7xl mx-auto px-4 py-3.5 flex justify-between items-center">
-            <div class="flex items-center space-x-3">
-                <div class="bg-emerald-500 text-slate-900 font-extrabold text-xl w-10 h-10 rounded-xl flex items-center justify-center shadow-lg">HS</div>
-                <div>
-                    <h1 class="text-lg font-bold tracking-tight">HealthSpace <span class="text-emerald-400">Diagnostics</span></h1>
-                    <p class="text-xs text-slate-400">Doorstep Healthcare Service, Nashik</p>
-                </div>
-            </div>
-            <button onclick="openBookingModal('General Diagnostic Test', 0)" class="bg-emerald-600 hover:bg-emerald-500 text-white px-4 py-2 rounded-lg font-semibold text-sm transition flex items-center gap-2 shadow-md">
-                <i class="fa-solid fa-vial"></i> Book a Test
+    <!-- TOP HEADER BAR -->
+    <header class="bg-slate-50 border-b border-slate-200 sticky top-0 z-40">
+        <div class="max-w-md mx-auto px-4 py-3 flex justify-between items-center">
+            <button onclick="toggleDrawer()" class="text-brand-dark p-1 text-xl focus:outline-none">
+                <i class="fa-solid fa-bars"></i>
             </button>
+            <div class="flex items-center gap-2">
+                <!-- HealthSpace Logo Icon -->
+                <div class="w-7 h-7 bg-gradient-to-tr from-sky-400 to-amber-400 rounded-md flex items-center justify-center text-white text-xs font-bold transform rotate-45">
+                    <div class="transform -rotate-45">✦</div>
+                </div>
+                <span class="text-xl font-bold tracking-tight text-slate-900">HealthSpace</span>
+            </div>
+            <div class="w-6"></div> <!-- Spacer for center alignment -->
         </div>
     </header>
 
-    <!-- DASHBOARD MAIN CONTENT -->
-    <main class="max-w-7xl mx-auto px-4 py-8">
-        
-        <!-- Welcome Banner -->
-        <div class="bg-gradient-to-r from-slate-900 via-slate-800 to-emerald-950 text-white rounded-2xl p-6 md:p-8 mb-8 shadow-xl flex flex-col md:flex-row justify-between items-center gap-6">
-            <div>
-                <span class="bg-emerald-500/20 text-emerald-300 text-xs font-bold px-3 py-1 rounded-full border border-emerald-500/30">NASHIK'S TRUSTED LAB</span>
-                <h2 class="text-2xl md:text-3xl font-extrabold mt-3">तुमच्या घरपोच अचूक लॅब चाचण्या</h2>
-                <p class="text-slate-300 text-sm mt-2 max-w-xl">नमुने गोळा करण्यापासून ते रिपोर्ट्स मिळवण्यापर्यंत सर्व सेवा अत्यंत सोप्या पद्धतीने मिळवा.</p>
+    <!-- SIDE NAVIGATION DRAWER OVERLAY -->
+    <div id="drawerOverlay" onclick="toggleDrawer()" class="fixed inset-0 bg-slate-900/50 z-50 hidden transition-opacity"></div>
+
+    <!-- SIDE NAVIGATION DRAWER -->
+    <div id="sideDrawer" class="fixed top-0 left-0 bottom-0 w-72 bg-slate-50 z-50 transform -translate-x-full transition-transform duration-300 ease-in-out flex flex-col shadow-2xl">
+        <!-- Drawer Header -->
+        <div class="bg-brand-header text-white p-5 flex items-center gap-3">
+            <div class="w-9 h-9 bg-white/20 rounded-lg flex items-center justify-center text-white font-bold text-lg border border-white/30">
+                <i class="fa-solid fa-plus"></i>
             </div>
-            <button onclick="openBookingModal('Quick Home Checkup', 499)" class="bg-white text-slate-900 hover:bg-slate-100 font-bold px-6 py-3 rounded-xl text-sm transition shadow-lg shrink-0">
-                <i class="fa-solid fa-calendar-check text-emerald-600 mr-2"></i> Book Home Sample Collection
+            <span class="text-2xl font-bold tracking-tight">HealthSpace</span>
+        </div>
+
+        <!-- Drawer Links -->
+        <nav class="p-5 space-y-5 text-slate-700 font-medium text-base flex-1">
+            <a href="#home" onclick="toggleDrawer()" class="block hover:text-brand transition">Home</a>
+            <a href="#services" onclick="toggleDrawer()" class="block hover:text-brand transition">Services</a>
+            <a href="#packages" onclick="toggleDrawer()" class="block hover:text-brand transition">Packages</a>
+            <a href="#healthcard" onclick="toggleDrawer()" class="block hover:text-brand transition">Health Card</a>
+            <a href="#contact" onclick="toggleDrawer()" class="block hover:text-brand transition">Contact</a>
+        </nav>
+
+        <!-- Drawer Action Button -->
+        <div class="p-5 border-t border-slate-200">
+            <button onclick="toggleDrawer(); openBookingModal('General Health Test', 0);" class="w-full bg-brand hover:bg-brand-dark text-white font-semibold py-3 rounded-full text-center transition shadow-md">
+                Book Now
             </button>
         </div>
+    </div>
 
-        <!-- DASHBOARD SECTIONS GRID -->
-        <h3 class="text-lg font-bold text-slate-800 mb-4 flex items-center gap-2">
-            <i class="fa-solid fa-border-all text-emerald-600"></i> Services Dashboard
-        </h3>
+    <!-- MAIN APP CONTENT -->
+    <main class="max-w-md mx-auto w-full px-5 py-6 flex-1 space-y-8" id="home">
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+        <!-- WHY CHOOSE HEALTHSPACE SECTION -->
+        <section class="space-y-4">
+            <h1 class="text-2xl font-extrabold text-slate-900 tracking-tight leading-snug">
+                Why Choose<br>HealthSpace?
+            </h1>
+            <p class="text-slate-500 text-sm leading-relaxed">
+                We combine cutting-edge technology with compassionate care to deliver the most accurate and convenient healthcare experience.
+            </p>
+
+            <!-- Feature 1 -->
+            <div class="flex items-start gap-4 pt-2">
+                <div class="w-11 h-11 bg-sky-100 text-brand rounded-2xl flex items-center justify-center text-lg shrink-0">
+                    <i class="fa-solid fa-circle-check"></i>
+                </div>
+                <div>
+                    <h3 class="font-bold text-slate-900 text-base">NABL Accredited</h3>
+                    <p class="text-slate-500 text-xs mt-0.5 leading-normal">Certified laboratory ensuring highest quality standards</p>
+                </div>
+            </div>
+
+            <!-- Feature 2 -->
+            <div class="flex items-start gap-4 pt-1">
+                <div class="w-11 h-11 bg-sky-100 text-brand rounded-2xl flex items-center justify-center text-lg shrink-0">
+                    <i class="fa-solid fa-shield-halved"></i>
+                </div>
+                <div>
+                    <h3 class="font-bold text-slate-900 text-base">Data Security</h3>
+                    <p class="text-slate-500 text-xs mt-0.5 leading-normal">Your health data is protected with bank-level encryption</p>
+                </div>
+            </div>
+
+            <!-- Feature 3 -->
+            <div class="flex items-start gap-4 pt-1">
+                <div class="w-11 h-11 bg-sky-100 text-brand rounded-2xl flex items-center justify-center text-lg shrink-0">
+                    <i class="fa-solid fa-headset"></i>
+                </div>
+                <div>
+                    <h3 class="font-bold text-slate-900 text-base">24/7 Support</h3>
+                    <p class="text-slate-500 text-xs mt-0.5 leading-normal">Round-the-clock customer support for all your queries</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- PACKAGES DASHBOARD SECTION -->
+        <section class="space-y-4 pt-4 border-t border-slate-200" id="packages">
+            <h2 class="text-xl font-bold text-slate-900">Popular Diagnostic Packages</h2>
             
-            <!-- Card 1: Basic Health Checkup -->
-            <div class="dashboard-card bg-white rounded-2xl p-6 border border-slate-200 shadow-sm flex flex-col justify-between">
-                <div>
-                    <div class="w-12 h-12 bg-emerald-50 text-emerald-600 rounded-xl flex items-center justify-center text-xl font-bold mb-4">
-                        <i class="fa-solid fa-heart-pulse"></i>
+            <div class="space-y-4">
+                <!-- Package Card 1 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h3 class="font-bold text-slate-900 text-base">Basic Health Checkup</h3>
+                            <p class="text-xs text-slate-500 mt-1">Includes CBC, Blood Sugar, Cholesterol & Kidney Profile</p>
+                        </div>
+                        <span class="text-lg font-extrabold text-brand">₹499</span>
                     </div>
-                    <h4 class="text-lg font-bold text-slate-900">Basic Health Checkup</h4>
-                    <p class="text-xs text-slate-500 mt-1">Includes CBC, Blood Sugar, Cholesterol & Kidney Test Profile.</p>
-                    <div class="mt-4 flex items-baseline gap-2">
-                        <span class="text-2xl font-extrabold text-slate-900">₹499</span>
-                        <span class="text-xs text-slate-400 line-through">₹999</span>
-                    </div>
+                    <button onclick="openBookingModal('Basic Health Checkup', 499)" class="w-full bg-slate-900 hover:bg-slate-800 text-white font-semibold py-2.5 rounded-xl text-xs transition">
+                        Book Package
+                    </button>
                 </div>
-                <button onclick="openBookingModal('Basic Health Checkup', 499)" class="mt-6 w-full bg-slate-900 hover:bg-slate-800 text-white font-semibold py-2.5 rounded-xl text-sm transition">
-                    Book This Package
-                </button>
-            </div>
 
-            <!-- Card 2: Full Body Profile -->
-            <div class="dashboard-card bg-white rounded-2xl p-6 border-2 border-emerald-500 shadow-sm flex flex-col justify-between relative overflow-hidden">
-                <span class="absolute top-0 right-0 bg-emerald-500 text-white text-[10px] font-bold px-3 py-1 rounded-bl-lg uppercase">POPULAR</span>
-                <div>
-                    <div class="w-12 h-12 bg-emerald-50 text-emerald-600 rounded-xl flex items-center justify-center text-xl font-bold mb-4">
-                        <i class="fa-solid fa-user-doctor"></i>
+                <!-- Package Card 2 -->
+                <div class="bg-white p-5 rounded-2xl border-2 border-brand shadow-sm space-y-3 relative overflow-hidden">
+                    <span class="absolute top-0 right-0 bg-brand text-white text-[10px] font-bold px-3 py-0.5 rounded-bl-lg uppercase">POPULAR</span>
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h3 class="font-bold text-slate-900 text-base">Full Body Profile</h3>
+                            <p class="text-xs text-slate-500 mt-1">Complete CBC, Thyroid, Liver, Kidney, Lipid & Vitamins</p>
+                        </div>
+                        <span class="text-lg font-extrabold text-brand">₹999</span>
                     </div>
-                    <h4 class="text-lg font-bold text-slate-900">Full Body Profile</h4>
-                    <p class="text-xs text-slate-500 mt-1">Complete CBC, Thyroid, Liver, Kidney, Lipid & Vitamin Profile.</p>
-                    <div class="mt-4 flex items-baseline gap-2">
-                        <span class="text-2xl font-extrabold text-emerald-600">₹999</span>
-                        <span class="text-xs text-slate-400 line-through">₹1,999</span>
-                    </div>
+                    <button onclick="openBookingModal('Full Body Profile', 999)" class="w-full bg-brand hover:bg-brand-dark text-white font-semibold py-2.5 rounded-xl text-xs transition">
+                        Book Package
+                    </button>
                 </div>
-                <button onclick="openBookingModal('Full Body Profile', 999)" class="mt-6 w-full bg-emerald-600 hover:bg-emerald-500 text-white font-semibold py-2.5 rounded-xl text-sm transition shadow-md">
-                    Book This Package
-                </button>
-            </div>
 
-            <!-- Card 3: Senior Citizen Checkup -->
-            <div class="dashboard-card bg-white rounded-2xl p-6 border border-slate-200 shadow-sm flex flex-col justify-between">
-                <div>
-                    <div class="w-12 h-12 bg-emerald-50 text-emerald-600 rounded-xl flex items-center justify-center text-xl font-bold mb-4">
-                        <i class="fa-solid fa-person-cane"></i>
+                <!-- Package Card 3 -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h3 class="font-bold text-slate-900 text-base">Senior Citizen Package</h3>
+                            <p class="text-xs text-slate-500 mt-1">60+ Vital Parameters, Cardiac Markers & Diabetes HbA1c</p>
+                        </div>
+                        <span class="text-lg font-extrabold text-brand">₹1,499</span>
                     </div>
-                    <h4 class="text-lg font-bold text-slate-900">Senior Citizen Package</h4>
-                    <p class="text-xs text-slate-500 mt-1">60+ Vital Parameters, Cardiac Profile & HbA1c Diabetes Markers.</p>
-                    <div class="mt-4 flex items-baseline gap-2">
-                        <span class="text-2xl font-extrabold text-slate-900">₹1,499</span>
-                        <span class="text-xs text-slate-400 line-through">₹2,999</span>
-                    </div>
+                    <button onclick="openBookingModal('Senior Citizen Package', 1499)" class="w-full bg-slate-900 hover:bg-slate-800 text-white font-semibold py-2.5 rounded-xl text-xs transition">
+                        Book Package
+                    </button>
                 </div>
-                <button onclick="openBookingModal('Senior Citizen Package', 1499)" class="mt-6 w-full bg-slate-900 hover:bg-slate-800 text-white font-semibold py-2.5 rounded-xl text-sm transition">
-                    Book This Package
-                </button>
             </div>
-
-        </div>
+        </section>
 
     </main>
 
-    <!-- UNIFIED BOOKING FORM MODAL -->
-    <div id="bookingModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4 overflow-y-auto">
-        <div class="bg-white w-full max-w-lg rounded-2xl shadow-2xl overflow-hidden my-8">
-            
-            <!-- Modal Header -->
-            <div class="bg-slate-900 px-6 py-4 text-white flex justify-between items-center">
-                <div>
-                    <h3 class="font-bold text-base" id="modalTitle">Book Test / Package</h3>
-                    <p class="text-xs text-slate-400">Enter patient details below</p>
+    <!-- FOOTER SECTION -->
+    <footer class="bg-brand-footer text-white mt-10 py-8 px-5" id="contact">
+        <div class="max-w-md mx-auto space-y-6">
+            <!-- Footer Logo -->
+            <div class="flex items-center gap-3">
+                <div class="w-8 h-8 bg-brand rounded-lg flex items-center justify-center text-white font-bold text-sm">
+                    <i class="fa-solid fa-plus"></i>
                 </div>
-                <button onclick="closeModal()" class="text-slate-400 hover:text-white text-lg font-bold">✕</button>
+                <span class="text-xl font-bold tracking-tight">HealthSpace</span>
             </div>
 
-            <!-- Step 1: Patient Form -->
-            <div id="step1" class="p-6">
-                <form id="bookingForm" onsubmit="goToPaymentStep(event)" class="space-y-4">
+            <p class="text-xs text-slate-400 leading-relaxed">
+                Your trusted partner for accurate and convenient health testing.
+            </p>
+
+            <!-- Services Links -->
+            <div class="space-y-2">
+                <h4 class="font-bold text-sm text-slate-200">Services</h4>
+                <ul class="text-xs text-slate-400 space-y-1.5">
+                    <li>Home Collection</li>
+                    <li>Lab Testing</li>
+                    <li>Health Packages</li>
+                    <li>Reports</li>
+                </ul>
+            </div>
+
+            <!-- Contact Info -->
+            <div class="space-y-3.5 pt-2">
+                <h4 class="font-bold text-sm text-slate-200">Contact Info</h4>
+                
+                <div class="flex items-start gap-3 text-xs text-slate-300">
+                    <i class="fa-solid fa-location-dot mt-0.5 text-brand"></i>
+                    <span>11, Vandana Park 3, Indira Nagar, Nashik, Maharashtra</span>
+                </div>
+                
+                <div class="flex items-center gap-3 text-xs text-slate-300">
+                    <i class="fa-solid fa-phone text-brand"></i>
+                    <span>+91 9096522533</span>
+                </div>
+
+                <div class="flex items-center gap-3 text-xs text-slate-300">
+                    <i class="fa-solid fa-envelope text-brand"></i>
+                    <span>info@healthspacenashik.com</span>
+                </div>
+
+                <div class="flex items-center gap-3 text-xs text-slate-300">
+                    <i class="fa-solid fa-clock text-brand"></i>
+                    <span>Mon-Sun: 6:00 AM - 10:00 PM</span>
+                </div>
+            </div>
+
+            <div class="border-t border-slate-700/60 pt-5 space-y-2 text-center text-[11px] text-slate-400">
+                <p>© 2026 HealthSpace Nashik. All rights reserved.</p>
+                <p class="text-slate-500">Developed by HealthSpace Tech Team</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- UNIFIED BOOKING FORM MODAL -->
+    <div id="bookingModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4 overflow-y-auto">
+        <div class="bg-white w-full max-w-sm rounded-2xl shadow-2xl overflow-hidden my-auto">
+            
+            <!-- Modal Header -->
+            <div class="bg-brand-header px-5 py-4 text-white flex justify-between items-center">
+                <div>
+                    <h3 class="font-bold text-sm" id="modalTitle">Complete Your Booking</h3>
+                    <p class="text-[11px] text-sky-100">Enter patient & appointment details</p>
+                </div>
+                <button onclick="closeModal()" class="text-white/80 hover:text-white text-base font-bold">✕</button>
+            </div>
+
+            <!-- Step 1: Patient Details Form -->
+            <div id="step1" class="p-5">
+                <form id="bookingForm" onsubmit="goToPaymentStep(event)" class="space-y-3.5">
                     
                     <div>
                         <label class="block text-xs font-bold text-slate-700 mb-1">Full Name *</label>
-                        <input type="text" id="patientName" required placeholder="उदा. पंकज काळगुडे" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+                        <input type="text" id="patientName" required placeholder="e.g. Pankaj Kalgude" class="w-full px-3 py-2 rounded-xl border border-slate-300 text-xs focus:ring-2 focus:ring-brand focus:outline-none">
                     </div>
 
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="grid grid-cols-2 gap-2.5">
                         <div>
-                            <label class="block text-xs font-bold text-slate-700 mb-1">Mobile Number *</label>
-                            <input type="tel" id="patientPhone" required pattern="[0-9]{10}" placeholder="10-digit number" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+                            <label class="block text-xs font-bold text-slate-700 mb-1">Mobile *</label>
+                            <input type="tel" id="patientPhone" required pattern="[0-9]{10}" placeholder="10 digits" class="w-full px-3 py-2 rounded-xl border border-slate-300 text-xs focus:ring-2 focus:ring-brand focus:outline-none">
                         </div>
                         <div>
-                            <label class="block text-xs font-bold text-slate-700 mb-1">Email Address</label>
-                            <input type="email" id="patientEmail" placeholder="name@email.com" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+                            <label class="block text-xs font-bold text-slate-700 mb-1">Email</label>
+                            <input type="email" id="patientEmail" placeholder="name@mail.com" class="w-full px-3 py-2 rounded-xl border border-slate-300 text-xs focus:ring-2 focus:ring-brand focus:outline-none">
                         </div>
                     </div>
 
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="grid grid-cols-2 gap-2.5">
                         <div>
-                            <label class="block text-xs font-bold text-slate-700 mb-1">Preferred Date *</label>
-                            <input type="date" id="bookingDate" required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+                            <label class="block text-xs font-bold text-slate-700 mb-1">Date *</label>
+                            <input type="date" id="bookingDate" required class="w-full px-3 py-2 rounded-xl border border-slate-300 text-xs focus:ring-2 focus:ring-brand focus:outline-none">
                         </div>
                         <div>
                             <label class="block text-xs font-bold text-slate-700 mb-1">Time Slot *</label>
-                            <select id="bookingTime" required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-emerald-500 focus:outline-none">
-                                <option value="">Select Slot</option>
-                                <option value="07:00 AM - 09:00 AM">07:00 AM - 09:00 AM</option>
-                                <option value="09:00 AM - 11:00 AM">09:00 AM - 11:00 AM</option>
-                                <option value="11:00 AM - 01:00 PM">11:00 AM - 01:00 PM</option>
-                                <option value="04:00 PM - 06:00 PM">04:00 PM - 06:00 PM</option>
+                            <select id="bookingTime" required class="w-full px-3 py-2 rounded-xl border border-slate-300 text-xs focus:ring-2 focus:ring-brand focus:outline-none">
+                                <option value="">Select</option>
+                                <option value="07:00 AM - 09:00 AM">07:00 - 09:00 AM</option>
+                                <option value="09:00 AM - 11:00 AM">09:00 - 11:00 AM</option>
+                                <option value="11:00 AM - 01:00 PM">11:00 - 01:00 PM</option>
+                                <option value="04:00 PM - 06:00 PM">04:00 - 06:00 PM</option>
                             </select>
                         </div>
                     </div>
 
-                    <!-- Upload Prescription or Reference Note -->
+                    <!-- Upload Prescription or Reference -->
                     <div>
-                        <label class="block text-xs font-bold text-slate-700 mb-1">Upload Prescription / Reference Note</label>
-                        <input type="file" id="prescriptionFile" accept="image/*,.pdf" class="w-full text-xs text-slate-500 file:mr-3 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-emerald-50 file:text-emerald-700 hover:file:bg-emerald-100 cursor-pointer border border-slate-200 rounded-xl p-1">
+                        <label class="block text-xs font-bold text-slate-700 mb-1">Upload Prescription / Reference</label>
+                        <input type="file" id="prescriptionFile" accept="image/*,.pdf" class="w-full text-[11px] text-slate-500 file:mr-2 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-[11px] file:font-semibold file:bg-sky-50 file:text-brand hover:file:bg-sky-100 cursor-pointer border border-slate-200 rounded-xl p-1">
                     </div>
 
-                    <!-- 1+1 Offer Discount Checkbox -->
-                    <div onclick="toggleOnePlusOne()" class="bg-emerald-50 border border-emerald-300 p-3 rounded-xl flex items-center gap-3 cursor-pointer">
-                        <input type="checkbox" id="onePlusOneCheck" class="w-4 h-4 text-emerald-600 rounded cursor-pointer" onclick="event.stopPropagation(); toggleOnePlusOne();">
+                    <!-- 1+1 Discount Checkbox -->
+                    <div onclick="toggleOnePlusOne()" class="bg-sky-50 border border-sky-200 p-2.5 rounded-xl flex items-center gap-2.5 cursor-pointer">
+                        <input type="checkbox" id="onePlusOneCheck" class="w-4 h-4 text-brand rounded cursor-pointer" onclick="event.stopPropagation(); toggleOnePlusOne();">
                         <div>
-                            <span class="text-xs font-bold text-emerald-900 block">Add 1+1 Offer (2 Persons)</span>
-                            <span class="text-[11px] text-emerald-700">Get Extra 5% OFF on total package amount!</span>
+                            <span class="text-xs font-bold text-sky-900 block">Add 1+1 Offer (2 Persons)</span>
+                            <span class="text-[10px] text-sky-700">Get Extra 5% OFF on total price!</span>
                         </div>
                     </div>
 
-                    <!-- Amount Box -->
-                    <div class="bg-slate-100 p-3.5 rounded-xl flex justify-between items-center text-sm font-bold text-slate-900">
-                        <span>Total Payable:</span>
-                        <span id="payableAmountDisplay" class="text-emerald-600 text-lg">₹0</span>
+                    <!-- Payable Amount Box -->
+                    <div class="bg-slate-100 p-3 rounded-xl flex justify-between items-center text-xs font-bold text-slate-800">
+                        <span>Total Amount:</span>
+                        <span id="payableAmountDisplay" class="text-brand text-base">₹0</span>
                     </div>
 
-                    <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3 rounded-xl text-sm transition shadow-md">
-                        Proceed to Pay via UPI QR
+                    <button type="submit" class="w-full bg-brand hover:bg-brand-dark text-white font-bold py-2.5 rounded-xl text-xs transition shadow-md">
+                        Proceed to Payment
                     </button>
                 </form>
             </div>
 
-            <!-- Step 2: UPI QR Payment -->
-            <div id="step2" class="p-6 text-center hidden">
-                <h4 class="font-bold text-slate-900 text-base">Scan & Pay via UPI</h4>
-                <p class="text-xs text-slate-500 mt-0.5">Pay via PhonePe, GPay, Paytm or BHIM</p>
+            <!-- Step 2: Payment Step -->
+            <div id="step2" class="p-5 text-center hidden space-y-3">
+                <h4 class="font-bold text-slate-900 text-sm">Scan & Pay via UPI Code</h4>
+                <p class="text-[11px] text-slate-500">Scan using PhonePe, Google Pay or Paytm</p>
 
-                <div class="my-4 inline-block bg-slate-50 p-4 rounded-2xl border-2 border-dashed border-slate-200">
+                <div class="inline-block bg-slate-50 p-3 rounded-xl border border-slate-200">
                     <div id="qrcodeCanvas" class="flex justify-center"></div>
                 </div>
 
-                <div class="bg-sky-50 text-sky-800 text-xs font-semibold py-2 px-4 rounded-xl mb-4">
-                    Amount to Pay: <span id="qrAmountDisplay" class="font-bold text-sky-900 text-sm">₹0</span> | UPI: <span class="font-bold">healthspace@ybl</span>
+                <div class="bg-sky-50 text-sky-800 text-xs font-medium py-2 px-3 rounded-xl">
+                    Pay Amount: <span id="qrAmountDisplay" class="font-bold text-brand">₹0</span><br>
+                    <small class="text-slate-500">UPI ID: healthspace@ybl</small>
                 </div>
 
-                <div class="text-left mb-4">
-                    <label class="block text-xs font-bold text-slate-700 mb-1">UTR / Ref No. (Last 4 Digits) *</label>
-                    <input type="text" id="utrNumber" maxlength="4" placeholder="e.g. 8412" required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+                <div class="text-left space-y-1">
+                    <label class="block text-xs font-bold text-slate-700">Enter Last 4 Digits of UTR *</label>
+                    <input type="text" id="utrNumber" maxlength="4" placeholder="e.g. 8412" required class="w-full px-3 py-2 rounded-xl border border-slate-300 text-xs focus:ring-2 focus:ring-brand focus:outline-none">
                 </div>
 
-                <button onclick="submitBookingToExcel()" id="confirmBtn" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3 rounded-xl text-sm transition shadow-md">
-                    Confirm & Complete Booking
+                <button onclick="submitBookingToExcel()" id="confirmBtn" class="w-full bg-brand hover:bg-brand-dark text-white font-bold py-2.5 rounded-xl text-xs transition shadow-md">
+                    Confirm & Submit Booking
                 </button>
             </div>
 
-            <!-- Step 3: Confirmation -->
-            <div id="step3" class="p-6 text-center hidden">
-                <div class="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-3">✓</div>
-                <h4 class="font-bold text-slate-900 text-lg">Booking Confirmed!</h4>
-                <p class="text-xs text-slate-500 mt-1">धन्यवाद, <span id="successPatientName" class="font-bold"></span></p>
+            <!-- Step 3: Success Screen -->
+            <div id="step3" class="p-5 text-center hidden space-y-3">
+                <div class="w-10 h-10 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center text-lg font-bold mx-auto">✓</div>
+                <h4 class="font-bold text-slate-900 text-base">Booking Success!</h4>
+                <p class="text-xs text-slate-500">Thank you, <span id="successPatientName" class="font-bold"></span></p>
 
-                <div class="bg-slate-50 border border-slate-200 text-left text-xs p-4 rounded-xl my-4 space-y-1.5 leading-relaxed">
-                    <p>• <strong>Package:</strong> <span id="successPackage"></span></p>
-                    <p>• <strong>Scheduled Date:</strong> <span id="successDate"></span></p>
+                <div class="bg-slate-50 border border-slate-200 text-left text-xs p-3 rounded-xl space-y-1 text-slate-700">
+                    <p>• <strong>Item:</strong> <span id="successPackage"></span></p>
+                    <p>• <strong>Scheduled:</strong> <span id="successDate"></span></p>
                     <p>• <strong>UTR (Last 4):</strong> <span id="successUtr" class="font-bold"></span></p>
-                    <p>• <strong>Status:</strong> <span class="text-emerald-600 font-bold">Successful</span></p>
+                    <p>• <strong>Status:</strong> <span class="text-emerald-600 font-bold">Confirmed</span></p>
                 </div>
 
-                <button onclick="closeModal()" class="w-full bg-slate-900 text-white font-bold py-2.5 rounded-xl text-sm">Close Window</button>
+                <button onclick="closeModal()" class="w-full bg-slate-900 text-white font-bold py-2 rounded-xl text-xs">Close</button>
             </div>
 
         </div>
@@ -253,11 +376,25 @@
             utr: ""
         };
 
+        // Drawer Control
+        function toggleDrawer() {
+            const drawer = document.getElementById('sideDrawer');
+            const overlay = document.getElementById('drawerOverlay');
+            if (drawer.classList.contains('-translate-x-full')) {
+                drawer.classList.remove('-translate-x-full');
+                overlay.classList.remove('hidden');
+            } else {
+                drawer.classList.add('-translate-x-full');
+                overlay.classList.add('hidden');
+            }
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
             const dateInput = document.getElementById('bookingDate');
             if(dateInput) dateInput.min = new Date().toISOString().split('T')[0];
         });
 
+        // Modal Controls
         function openBookingModal(title, price) {
             currentBooking.title = title;
             currentBooking.basePrice = price;
@@ -288,7 +425,7 @@
         function updatePriceCalculation() {
             let total = currentBooking.basePrice;
             if (currentBooking.isOnePlusOne && total > 0) {
-                total = Math.round((total * 2) * 0.95); // 1+1 Offer (Double Person & 5% OFF)
+                total = Math.round((total * 2) * 0.95);
             }
             currentBooking.finalPrice = total;
             document.getElementById('payableAmountDisplay').innerText = "₹" + total;
@@ -303,7 +440,7 @@
             currentBooking.date = document.getElementById('bookingDate').value;
             currentBooking.slot = document.getElementById('bookingTime').value;
 
-            // Generate UPI QR Code String
+            // Generate UPI String
             const upiString = `upi://pay?pa=${UPI_ID}&pn=HealthSpace%20Nashik&am=${currentBooking.finalPrice}&cu=INR&tn=Booking%20for%20${encodeURIComponent(currentBooking.patientName)}`;
             
             const qrContainer = document.getElementById('qrcodeCanvas');
@@ -313,9 +450,9 @@
                 const qr = qrcode(0, 'L');
                 qr.addData(upiString);
                 qr.make();
-                qrContainer.innerHTML = qr.createImgTag(5);
+                qrContainer.innerHTML = qr.createImgTag(4);
             } else {
-                qrContainer.innerHTML = `<img src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=${encodeURIComponent(upiString)}" alt="UPI QR">`;
+                qrContainer.innerHTML = `<img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(upiString)}" alt="UPI QR">`;
             }
 
             document.getElementById('qrAmountDisplay').innerText = "₹" + currentBooking.finalPrice;
@@ -326,7 +463,7 @@
         function submitBookingToExcel() {
             const utr = document.getElementById('utrNumber').value;
             if(!utr || utr.length !== 4) {
-                alert("कृपया UTR चे शेवटचे ४ अंक टाका (Enter last 4 digits of UTR)!");
+                alert("Please enter the last 4 digits of UTR!");
                 return;
             }
             currentBooking.utr = utr;
