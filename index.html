@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="mr">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>HealthSpace - Accurate Health Testing at Your Doorstep</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
   :root {
@@ -15,7 +15,7 @@
     --dark-blue: #1c2b36;
     --text-color: #333333;
     --gray-sub: #667788;
-    --card-shadow: 0 8px 24px rgba(0, 136, 204, 0.08);
+    --card-shadow: 0 8px 20px rgba(0, 136, 204, 0.08);
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; }
@@ -23,20 +23,16 @@
 
   /* NAVBAR */
   .navbar {
-    background: #ffffff;
-    padding: 14px 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: sticky; top: 0; z-index: 100;
+    background: #ffffff; padding: 14px 20px; display: flex;
+    justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100;
     box-shadow: 0 2px 10px rgba(0,0,0,0.05);
   }
   .nav-logo { display: flex; align-items: center; gap: 8px; text-decoration: none; }
-  .nav-logo img { height: 36px; }
-  .nav-logo span { font-size: 20px; font-weight: 800; color: #1c2b36; }
+  .nav-logo img { height: 32px; }
+  .nav-logo span { font-size: 20px; font-weight: 700; color: #1c2b36; }
   .menu-btn { font-size: 22px; color: var(--primary); background: none; border: none; cursor: pointer; }
 
-  /* SIDEBAR MENU */
+  /* SIDEBAR */
   .sidebar {
     position: fixed; top: 0; left: -280px; width: 260px; height: 100%;
     background: #ffffff; z-index: 200; transition: 0.3s; padding: 20px;
@@ -53,11 +49,6 @@
     display: block; padding: 12px 10px; color: var(--text-color);
     text-decoration: none; font-weight: 600; font-size: 15px; border-bottom: 1px solid #f0f4f8;
   }
-  .btn-book-nav {
-    display: block; width: 100%; background: var(--primary); color: #fff;
-    padding: 12px; border-radius: 25px; text-align: center; border: none;
-    font-weight: 700; margin-top: 20px; cursor: pointer; text-decoration: none;
-  }
   .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); display: none; z-index: 150; }
   .overlay.active { display: block; }
 
@@ -70,89 +61,54 @@
     display: inline-block; background: rgba(255,255,255,0.2);
     padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 600; margin-bottom: 12px;
   }
-  .hero-card h1 { font-size: 24px; font-weight: 800; margin-bottom: 10px; line-height: 1.3; }
-  .hero-card p { font-size: 13px; opacity: 0.95; margin-bottom: 20px; line-height: 1.5; }
+  .hero-card h1 { font-size: 24px; font-weight: 700; margin-bottom: 10px; line-height: 1.3; }
+  .hero-card p { font-size: 13px; opacity: 0.9; margin-bottom: 20px; line-height: 1.5; }
   .hero-btns { display: flex; flex-direction: column; gap: 10px; max-width: 320px; margin: 0 auto; }
-  .btn-hero-white { background: #ffffff; color: var(--primary-dark); padding: 14px; border-radius: 25px; text-decoration: none; font-weight: 700; font-size: 14px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
-  .btn-hero-outline { border: 1.5px solid #ffffff; color: #ffffff; padding: 14px; border-radius: 25px; text-decoration: none; font-weight: 700; font-size: 14px; }
+  .btn-white { background: #ffffff; color: var(--primary-dark); padding: 12px; border-radius: 25px; text-decoration: none; font-weight: 700; font-size: 14px; }
+  .btn-outline { border: 1.5px solid #ffffff; color: #ffffff; padding: 12px; border-radius: 25px; text-decoration: none; font-weight: 700; font-size: 14px; }
 
-  /* PRESCRIPTION SECTION */
-  .rx-card {
-    background: #ffffff; border-radius: 16px; margin: 16px; padding: 20px;
-    box-shadow: var(--card-shadow); border: 2px dashed #0088cc; text-align: center;
-  }
-  .rx-card i { font-size: 32px; color: var(--primary); margin-bottom: 8px; }
-  .rx-card h3 { font-size: 16px; font-weight: 700; color: var(--dark-blue); margin-bottom: 4px; }
-  .rx-card p { font-size: 12px; color: var(--gray-sub); margin-bottom: 14px; }
-  .btn-upload-rx {
-    background: #e6f4ff; color: #0066cc; padding: 10px 20px; border-radius: 20px;
-    font-size: 13px; font-weight: 700; border: none; cursor: pointer; display: inline-flex; align-items: center; gap: 6px;
-  }
+  /* SECTIONS */
+  .section-title { font-size: 20px; font-weight: 700; text-align: center; margin: 28px 16px 16px; color: var(--dark-blue); }
 
-  /* SECTION TITLE */
-  .section-title { font-size: 20px; font-weight: 800; text-align: center; margin: 28px 16px 16px; color: var(--dark-blue); }
-
-  /* PACKAGES CONTAINER */
-  .packages-container { padding: 0 16px; display: flex; flex-direction: column; gap: 18px; }
-
+  /* HEALTH PACKAGES */
+  .packages-container { padding: 0 16px; display: flex; flex-direction: column; gap: 16px; }
   .pkg-card {
-    background: #ffffff; border-radius: 18px; padding: 20px;
+    background: #ffffff; border-radius: 16px; padding: 20px;
     box-shadow: var(--card-shadow); border: 1px solid #eef4f8; position: relative;
-    display: flex; flex-direction: column; justify-content: space-between;
   }
-
   .pkg-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; }
-  .pkg-title { font-size: 18px; font-weight: 800; color: var(--dark-blue); }
+  .pkg-title { font-size: 18px; font-weight: 700; color: var(--dark-blue); }
+  
+  /* BADGES */
+  .badge-healthspace { background: #e6f4ff; color: #0066cc; font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 20px; }
+  .badge-metropolis { background: #10b981; color: #ffffff; font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 20px; }
 
-  .badge-metropolis {
-    background: #ffecb3; color: #b78103; font-size: 10px; font-weight: 800;
-    padding: 4px 10px; border-radius: 12px; text-transform: uppercase; letter-spacing: 0.5px;
-  }
-  .badge-hs {
-    background: #e6f4ff; color: #0066cc; font-size: 10px; font-weight: 800;
-    padding: 4px 10px; border-radius: 12px; text-transform: uppercase;
-  }
-
-  .price-box { display: flex; align-items: baseline; gap: 10px; margin-bottom: 12px; }
-  .pkg-price { font-size: 22px; font-weight: 800; color: var(--primary); }
+  .pkg-price { font-size: 22px; font-weight: 700; color: var(--primary); margin-bottom: 12px; }
   .pkg-mrp { text-decoration: line-through; font-size: 14px; color: var(--gray-sub); font-weight: 500; }
-
-  /* SCROLLABLE TESTS BOX */
-  .tests-scroll-box {
-    max-height: 140px; overflow-y: auto; background: #f8fafc;
-    border-radius: 12px; padding: 12px; margin-bottom: 14px; border: 1px solid #edf2f7;
+  
+  /* SCROLLABLE TESTS LIST */
+  .pkg-tests-box {
+    max-height: 140px; overflow-y: auto; background: #f8fafc; padding: 12px;
+    border-radius: 10px; border: 1px solid #edf2f7; margin-bottom: 16px;
   }
-  .tests-scroll-box::-webkit-scrollbar { width: 4px; }
-  .tests-scroll-box::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+  .pkg-tests { list-style: none; }
+  .pkg-tests li { font-size: 13px; color: #445566; margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
+  .pkg-tests li i { color: #00b894; font-size: 12px; }
 
-  .pkg-tests-list { list-style: none; }
-  .pkg-tests-list li { font-size: 12.5px; color: #445566; margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
-  .pkg-tests-list li i { color: #00b894; font-size: 12px; }
-
-  /* 1+1 OFFER OPTION BUTTON */
-  .offer-btn-option {
-    background: #f0fdf4; border: 1.5px solid #22c55e; color: #15803d;
-    padding: 10px; border-radius: 12px; font-size: 12px; font-weight: 700;
-    margin-bottom: 14px; cursor: pointer; display: flex; align-items: center; justify-content: space-between;
-    transition: 0.2s;
+  /* 1+1 OFFER CHECKBOX BOX */
+  .offer-box {
+    background: #ecfdf5; border: 1px dashed #10b981; padding: 10px 12px; border-radius: 10px;
+    margin-bottom: 16px; display: flex; align-items: center; gap: 10px; cursor: pointer;
   }
-  .offer-btn-option.selected {
-    background: #22c55e; color: #ffffff;
-  }
+  .offer-box input[type="checkbox"] { width: 18px; height: 18px; accent-color: #10b981; cursor: pointer; }
+  .offer-box label { font-size: 12px; font-weight: 700; color: #047857; cursor: pointer; }
 
   .btn-book-pkg {
-    width: 100%; background: var(--primary); color: #fff; padding: 13px;
-    border-radius: 25px; border: none; font-weight: 800; font-size: 14px; cursor: pointer;
-    box-shadow: 0 4px 10px rgba(0, 136, 204, 0.25);
+    width: 100%; background: var(--primary); color: #fff; padding: 12px;
+    border-radius: 25px; border: none; font-weight: 700; font-size: 14px; cursor: pointer;
   }
 
-  /* FOOTER */
-  .footer { background: var(--dark-blue); color: #ffffff; padding: 30px 20px; font-size: 13px; margin-top: 40px; }
-  .footer-logo { display: flex; align-items: center; gap: 8px; font-size: 18px; font-weight: 700; margin-bottom: 12px; }
-  .footer p { color: #a0b0c0; line-height: 1.5; margin-bottom: 16px; }
-  .footer-info { list-style: none; color: #a0b0c0; display: flex; flex-direction: column; gap: 8px; }
-
-  /* BOOKING MODAL */
+  /* MODAL */
   .modal {
     position: fixed; top: 0; left: 0; width: 100%; height: 100%;
     background: rgba(0,0,0,0.5); z-index: 300; display: none; align-items: flex-end;
@@ -170,7 +126,7 @@
 
 <div class="navbar">
   <a href="#" class="nav-logo">
-    <img src="1000531193.png" alt="Logo" onerror="this.src='https://via.placeholder.com/36'">
+    <img src="1000531193.png" alt="Logo" onerror="this.src='https://via.placeholder.com/32'">
     <span>HealthSpace</span>
   </a>
   <button class="menu-btn" onclick="toggleSidebar()"><i class="fa-solid fa-bars"></i></button>
@@ -184,11 +140,9 @@
   </div>
   <ul class="sidebar-menu">
     <li><a href="#">Home</a></li>
-    <li><a href="#prescription">Upload Prescription</a></li>
     <li><a href="#packages">Packages</a></li>
-    <li><a href="#contact">Contact Us</a></li>
+    <li><a href="#contact">Contact</a></li>
   </ul>
-  <button class="btn-book-nav" onclick="openBookingModal('General Health Checkup', 0, 0)">Book Home Visit</button>
 </div>
 
 <div class="hero-card">
@@ -196,42 +150,20 @@
   <h1>Accurate Health Testing at Your Doorstep</h1>
   <p>Experience premium medical testing with HealthSpace Nashik. Home collection • Expert analysis • Quick reports</p>
   <div class="hero-btns">
-    <a href="#packages" class="btn-hero-white">View Packages</a>
-    <a href="tel:+919096522533" class="btn-hero-outline"><i class="fa-solid fa-phone"></i> Call Us</a>
+    <button onclick="scrollToPackages()" class="btn-white">Book Home Collection</button>
+    <button onclick="scrollToPackages()" class="btn-outline">View Packages</button>
   </div>
 </div>
 
-<div class="rx-card" id="prescription">
-  <i class="fa-solid fa-file-prescription"></i>
-  <h3>Have a Doctor's Prescription?</h3>
-  <p>Upload your prescription & our team will call you back with the best offer prices.</p>
-  <button class="btn-upload-rx" onclick="uploadPrescriptionWhatsApp()">
-    <i class="fa-solid fa-upload"></i> Send Prescription on WhatsApp
-  </button>
-</div>
-
-<h2 class="section-title" id="packages">Health Packages</h2>
+<h2 class="section-title" id="packages">Our Health Checkup Packages</h2>
 <div class="packages-container" id="packagesList"></div>
-
-<div class="footer" id="contact">
-  <div class="footer-logo">
-    <i class="fa-solid fa-square-h"></i> HealthSpace Nashik
-  </div>
-  <p>Your trusted partner for accurate and convenient health testing in Nashik.</p>
-  <ul class="footer-info">
-    <li><i class="fa-solid fa-location-dot"></i> 9, Vandana Park-3, Opp. Dandwate Flowers, Indira Nagar, Nashik</li>
-    <li><i class="fa-solid fa-phone"></i> +91 90965 22533 / 0253 403 8004</li>
-    <li><i class="fa-solid fa-envelope"></i> healthspacensk@gmail.com</li>
-    <li><i class="fa-solid fa-clock"></i> Mon-Sun: 6:00 AM - 10:00 PM</li>
-  </ul>
-</div>
 
 <div class="modal" id="bookingModal">
   <div class="modal-content">
     <h3 style="margin-bottom:16px; font-size:18px;" id="modalPkgTitle">Book Appointment</h3>
     <div class="form-group">
       <label>Full Name</label>
-      <input type="text" id="custName" class="form-control" placeholder="Enter patient full name">
+      <input type="text" id="custName" class="form-control" placeholder="Enter patient name">
     </div>
     <div class="form-group">
       <label>Mobile Number</label>
@@ -242,45 +174,50 @@
       <input type="text" id="custAddress" class="form-control" placeholder="House/Flat No, Area, Nashik">
     </div>
     <div class="form-group">
-      <label>Preferred Date & Slot</label>
+      <label>Preferred Time Slot</label>
       <select id="custSlot" class="form-control">
-        <option value="Tomorrow Morning 7:00 AM - 9:00 AM">Morning (7:00 AM - 9:00 AM)</option>
-        <option value="Tomorrow Morning 9:00 AM - 11:00 AM">Morning (9:00 AM - 11:00 AM)</option>
-        <option value="Evening Slot">Evening (5:00 PM - 7:00 PM)</option>
+        <option value="6:00 AM - 8:00 AM">6:00 AM - 8:00 AM</option>
+        <option value="8:00 AM - 10:00 AM">8:00 AM - 10:00 AM</option>
+        <option value="10:00 AM - 12:00 PM">10:00 AM - 12:00 PM</option>
       </select>
     </div>
+
+    <div class="offer-box" id="modalOfferBox" style="display:none;" onclick="toggleModalCheck()">
+      <input type="checkbox" id="modalOnePlusOne">
+      <label for="modalOnePlusOne" id="modalOfferLabel">Add 1+1 Offer</label>
+    </div>
+
     <button class="btn-book-pkg" onclick="submitBooking()"><i class="fa-solid fa-check-circle"></i> Confirm Booking</button>
   </div>
 </div>
 
 <script>
-// Apps Script URL for saving data to Google Sheet
 const API_URL = "https://script.google.com/macros/s/AKfycbze0YahBu--60tTj1o2OrczXfZzL-EC56hRGWn6IAHy-U9t8-OS--yjbIzA7iy4L5uc/exec";
 
-// Master Package List (Includes Metropolis & HealthSpace packages from your images)
-const ALL_PACKAGES = [
+// सर्व पॅकेजेस डेटा (इमेजेस मधील सर्व पॅकेजेस)
+const allPackages = [
   // HealthSpace Packages
-  { id: 1, title: "Health Space Bone Care", price: 1660, mrp: 3500, lab: "HealthSpace", tests: ["Complete Blood Count", "ESR Calcium", "Phosphorus", "TSH Alkaline", "Phosphatase", "Vitamin (B12 & D)"] },
-  { id: 2, title: "Health Space Hair Care", price: 2200, mrp: 4000, lab: "HealthSpace", tests: ["Complete Blood Count", "SR. Ferritin", "Vitamin B12", "Vitamin D", "TSH"] },
-  { id: 3, title: "Health Space Self Care", price: 1050, mrp: 2600, lab: "HealthSpace", tests: ["Complete Blood Count", "Lipid Profile", "HBA1C TSH", "Vitamin B12"] },
-  { id: 4, title: "Health Space PCOD Care", price: 3300, mrp: 6800, lab: "HealthSpace", tests: ["Complete Blood Count", "FSH LH Prolactin", "Testosteron", "Sr. Ferritin", "Vitamin (B12 & D)"] },
-  { id: 5, title: "HealthSpace General", price: 1050, mrp: 3500, lab: "HealthSpace", tests: ["Complete Blood Count (18 Tests)", "Lipid Profile (7 Tests)", "Liver Function Test (10 Tests)", "Kidney Function Test (7 Tests)", "Thyroid Function Test (3 Tests)", "Fasting Blood Glucose (3 Tests)", "Urine R/M (20 Tests)"] },
-  { id: 6, title: "HealthSpace Maximum", price: 1800, mrp: 7200, lab: "HealthSpace", tests: ["Complete Blood Count (18 Tests)", "ESR (1 Test)", "Liver Function Test (1 Tests)", "Kidney Function Test (7 Tests)", "Thyroid Function Test (3 Tests)", "Lipid Profile (7 Tests)", "Urine R/M (20 Tests)", "Sugar Profile (5 Tests)", "Iron Test (1 Test)", "Magnesium (1 Test)", "Vitamins (B12 & D)"] },
-  { id: 7, title: "Healthy Heart", price: 1150, mrp: 3800, lab: "HealthSpace", tests: ["Complete Blood Count (18 Tests)", "Serum Creatine phosphokinase (CPK)", "Lactate Dehydrogenase (LDH)", "Liver Function Test (10 Tests)", "Kidney Function Test (7 Tests)"] },
-  { id: 8, title: "Diabetes Care", price: 550, mrp: 1050, lab: "HealthSpace", tests: ["Complete Blood Count (18 Tests)", "Blood Glucose Level (2 Tests)", "Glycated hemoglobin (2 Tests)"] },
-  { id: 9, title: "Arthritis Care", price: 1000, mrp: 3000, lab: "HealthSpace", tests: ["Complete Blood Count (18 Tests)", "ESR (1 Test)", "Rheumatoid Arthritis Factor (1 Test)", "C-Reactive Protein (1 Test)", "Anti Nuclear Antibody (1 Test)"] },
+  { name: "Diabetes Care", price: 550, mrp: 1050, lab: "HealthSpace", tests: ["Complete Blood Count (18 Tests)", "Blood Glucose Level (2 Tests)", "Glycated Hemoglobin (2 Tests)"] },
+  { name: "Arthritis Care", price: 1000, mrp: 3000, lab: "HealthSpace", tests: ["Complete Blood Count (18 Tests)", "ESR (1 Test)", "Rheumatoid Arthritis Factor (1 Test)", "C-Reactive Protein (1 Test)", "Anti Nuclear Antibody (1 Test)"] },
+  { name: "HealthSpace Self Care", price: 1050, mrp: 2600, lab: "HealthSpace", tests: ["Complete Blood Count", "Lipid Profile", "HBA1C TSH", "Vitamin B12"] },
+  { name: "HealthSpace General", price: 1050, mrp: 3500, lab: "HealthSpace", tests: ["Complete Blood Count (18 Tests)", "Lipid Profile (7 Tests)", "Liver Function Test (10 Tests)", "Kidney Function Test (7 Tests)", "Thyroid Function Test (3 Tests)", "Fasting Blood Glucose (3 Tests)", "Urine R/M (20 Tests)"] },
+  { name: "Healthy Heart", price: 1150, mrp: 3800, lab: "HealthSpace", tests: ["Complete Blood Count (18 Tests)", "Serum Creatine Phosphokinase (CPK)", "Lactate Dehydrogenase (LDH)", "Liver Function Test (10 Tests)", "Kidney Function Test (7 Tests)"] },
+  { name: "Bone Care", price: 1660, mrp: 3500, lab: "HealthSpace", tests: ["Complete Blood Count", "ESR Calcium", "Phosphorus", "TSH Alkaline", "Phosphatase", "Vitamin (B12 & D)"] },
+  { name: "HealthSpace Maximum", price: 1800, mrp: 7200, lab: "HealthSpace", tests: ["Complete Blood Count (18 Tests)", "ESR (1 Test)", "Liver Function Test (1 Test)", "Kidney Function Test (7 Tests)", "Thyroid Function Test (3 Tests)", "Lipid Profile (7 Tests)", "Urine R/M (20 Tests)", "Sugar Profile (5 Tests)", "Iron Test (1 Test)", "Magnesium (1 Test)", "Vitamins (B12 & D)"] },
+  { name: "Hair Care", price: 2200, mrp: 4000, lab: "HealthSpace", tests: ["Complete Blood Count", "SR. Ferritin", "Vitamin B12", "Vitamin D", "TSH"] },
+  { name: "PCOD Care", price: 3300, mrp: 6800, lab: "HealthSpace", tests: ["Complete Blood Count", "FSH LH Prolactin", "Testosteron", "Sr. Ferritin", "Vitamin (B12 & D)"] },
 
-  // Metropolis TruHealth Packages (With 1+1 Offer Options)
-  { id: 10, title: "TruHealth Essential", price: 1900, mrp: 6780, offerPrice: 3000, lab: "Metropolis", tests: ["CBC", "Glucose (F) HbA1c", "SGPT, SGOT, Bilirubin Total/Direct", "Proteins Total/Albumin", "Alkaline Phosphatase", "ESR", "Creatinine, BUN, Uric Acid", "TSH", "Lipid Profile (Cholesterol, HDL, LDL, Triglycerides)", "Calcium, Phosphorus, 25 OH Vit D"] },
-  { id: 11, title: "TruHealth Vital", price: 2900, mrp: 9065, offerPrice: 4500, lab: "Metropolis", tests: ["CBC", "Vitamin B-12", "Glucose (F) HbA1c", "ESR", "Liver Profile", "Kidney Profile", "Thyroid Profile (TSH, FT3, FT4)", "Lipid Profile", "Bone Profile"] },
-  { id: 12, title: "TruHealth Vital Plus", price: 3300, mrp: 10090, offerPrice: 5610, lab: "Metropolis", tests: ["86 Health Parameters", "CBC & Vit B-12", "Diabetes Care", "Kidney Profile", "Liver Profile", "Thyroid Profile", "Heart Lipid Profile", "Bone Calcium & Vit D"] },
-  { id: 13, title: "TruHealth Active (M/F)", price: 4400, mrp: 14885, offerPrice: 7450, lab: "Metropolis", tests: ["97 (M) / 88 (F) Parameters", "Anaemia & Diabetes", "Liver & Kidney Profile", "Thyroid & Lipid Profile", "Hormones & Cancer Screening"] },
-  { id: 14, title: "TruHealth ProActive", price: 5400, mrp: 18345, offerPrice: 9150, lab: "Metropolis", tests: ["103 Parameters", "Complete Body Checkup", "Iron Studies & Vit B12", "Advanced Heart & Bone Profile", "Allergy IgE Total"] },
-  { id: 15, title: "TruHealth Expert", price: 6700, mrp: 22510, offerPrice: 10850, lab: "Metropolis", tests: ["109 (M) / 110 (F) Parameters", "Comprehensive Health Check", "Cancer Markers", "Pancreas & Hormone Panel"] },
-  { id: 16, title: "TruHealth Elite", price: 10000, mrp: 33235, offerPrice: 18000, lab: "Metropolis", tests: ["116 (M) / 118 (F) Parameters", "Full Body Premium Checkup", "Advanced Cardiac & Bone Markers", "Full Hormone & Cancer Panel"] }
+  // Metropolis TruHealth Packages (Green Badge + 1+1 Offer)
+  { name: "TruHealth Essential", price: 1900, mrp: 6780, lab: "Metropolis", tests: ["Anaemia (CBC)", "Diabetes (Glucose, HbA1c)", "Infection (ESR)", "Liver (SGPT, SGOT, Bilirubin)", "Kidney (Creatinine, BUN)", "Thyroid (TSH)", "Heart (Lipid Profile)", "Bone (Calcium, Vit D)"] },
+  { name: "TruHealth Vital", price: 2900, mrp: 9065, lab: "Metropolis", tests: ["Anaemia", "Diabetes", "Infection", "Liver Profile", "Kidney Profile", "Thyroid (TSH, FT3, FT4)", "Heart Profile", "Bone Profile"] },
+  { name: "TruHealth Vital Plus", price: 3300, mrp: 10090, lab: "Metropolis", onePlusOnePrice: 5610, tests: ["Anaemia (CBC, Vit B12)", "Diabetes", "Infection", "Liver Profile", "Kidney Profile", "Thyroid Profile", "Heart Profile", "Bone Profile (86 Parameters)"] },
+  { name: "TruHealth Active (M/F)", price: 4400, mrp: 14885, lab: "Metropolis", onePlusOnePrice: 7450, tests: ["Anaemia", "Diabetes", "Liver", "Kidney", "Thyroid", "Heart", "Hormones", "Bone", "Cancer Screening (97 Parameters)"] },
+  { name: "TruHealth ProActive (M/F)", price: 5400, mrp: 18345, lab: "Metropolis", onePlusOnePrice: 9150, tests: ["Anaemia", "Diabetes", "Liver", "Kidney", "Thyroid", "Heart", "Hormones", "Cancer", "Pancreas (103 Parameters)"] },
+  { name: "TruHealth Expert (M/F)", price: 6700, mrp: 22510, lab: "Metropolis", onePlusOnePrice: 10850, tests: ["Anaemia", "Diabetes", "Liver", "Kidney", "Thyroid", "Heart", "Bone", "Hormones", "Cancer", "Pancreas", "Allergy (108 Parameters)"] },
+  { name: "TruHealth Elite (M/F)", price: 10000, mrp: 33235, lab: "Metropolis", onePlusOnePrice: 18000, tests: ["Anaemia", "Diabetes", "Liver", "Kidney", "Thyroid", "Heart", "Bone", "Hormones", "Cancer", "Pancreas", "Allergy (116 Parameters)"] }
 ];
 
-let selectedPackageObj = {};
+let selectedPkg = null;
 
 window.onload = function() {
   renderPackages();
@@ -291,84 +228,71 @@ function toggleSidebar() {
   document.getElementById('overlay').classList.toggle('active');
 }
 
+function scrollToPackages() {
+  document.getElementById('packages').scrollIntoView({ behavior: 'smooth' });
+}
+
 function renderPackages() {
   let html = "";
-  ALL_PACKAGES.forEach(p => {
-    let isMetropolis = p.lab === "Metropolis";
-    let badgeClass = isMetropolis ? "badge-metropolis" : "badge-hs";
-    
+  allPackages.forEach((p, idx) => {
+    let badgeClass = p.lab === "Metropolis" ? "badge-metropolis" : "badge-healthspace";
     let testsHtml = p.tests.map(t => `<li><i class="fa-solid fa-circle-check"></i> ${t}</li>`).join("");
 
-    let offerOptionHtml = "";
-    if (p.offerPrice) {
-      offerOptionHtml = `
-        <div class="offer-btn-option" id="offer-btn-${p.id}" onclick="toggle1Plus1(${p.id}, ${p.price}, ${p.offerPrice})">
-          <span><i class="fa-solid fa-user-group"></i> Add 1+1 Offer (2 Persons)</span>
-          <span>@ ₹${p.offerPrice}/-</span>
+    let offerHtml = "";
+    if (p.onePlusOnePrice) {
+      offerHtml = `
+        <div class="offer-box" onclick="toggleCardCheck(${idx})">
+          <input type="checkbox" id="cardCheck_${idx}">
+          <label for="cardCheck_${idx}">1+1 Offer Available @ ₹${p.onePlusOnePrice}/-</label>
         </div>`;
     }
 
     html += `
       <div class="pkg-card">
-        <div>
-          <div class="pkg-header">
-            <div class="pkg-title">${p.title}</div>
-            <span class="${badgeClass}">${p.lab}</span>
-          </div>
-          <div class="price-box">
-            <span class="pkg-price" id="price-display-${p.id}">₹ ${p.price}/-</span>
-            <span class="pkg-mrp">MRP ₹${p.mrp}</span>
-          </div>
-
-          <div class="tests-scroll-box">
-            <ul class="pkg-tests-list">${testsHtml}</ul>
-          </div>
+        <div class="pkg-header">
+          <div class="pkg-title">${p.name}</div>
+          <span class="${badgeClass}">${p.lab}</span>
         </div>
-
-        <div>
-          ${offerOptionHtml}
-          <button class="btn-book-pkg" onclick="openBookingModal('${p.title}', ${p.id}, ${p.price})">Book Now</button>
+        <div class="pkg-price">₹ ${p.price}/- <span class="pkg-mrp">MRP ₹${p.mrp}</span></div>
+        
+        <div class="pkg-tests-box">
+          <ul class="pkg-tests">${testsHtml}</ul>
         </div>
+        
+        ${offerHtml}
+        
+        <button class="btn-book-pkg" onclick="openBookingModal(${idx})">Book Now</button>
       </div>`;
   });
   document.getElementById("packagesList").innerHTML = html;
 }
 
-// 1+1 Offer Toggle Functionality
-function toggle1Plus1(pkgId, singlePrice, offerPrice) {
-  let btn = document.getElementById(`offer-btn-${pkgId}`);
-  let priceDisp = document.getElementById(`price-display-${pkgId}`);
+function toggleCardCheck(idx) {
+  let chk = document.getElementById(`cardCheck_${idx}`);
+  if(chk) chk.checked = !chk.checked;
+}
 
-  if (btn.classList.contains("selected")) {
-    btn.classList.remove("selected");
-    priceDisp.innerText = `₹ ${singlePrice}/-`;
+function toggleModalCheck() {
+  let chk = document.getElementById("modalOnePlusOne");
+  chk.checked = !chk.checked;
+}
+
+function openBookingModal(idx) {
+  selectedPkg = allPackages[idx];
+  document.getElementById("modalPkgTitle").innerText = "Book: " + selectedPkg.name;
+
+  let modalOfferBox = document.getElementById("modalOfferBox");
+  let modalOnePlusOne = document.getElementById("modalOnePlusOne");
+
+  if (selectedPkg.onePlusOnePrice) {
+    modalOfferBox.style.display = "flex";
+    modalOnePlusOne.checked = document.getElementById(`cardCheck_${idx}`)?.checked || false;
+    document.getElementById("modalOfferLabel").innerText = `1+1 Offer Available @ ₹${selectedPkg.onePlusOnePrice}/-`;
   } else {
-    btn.classList.add("selected");
-    priceDisp.innerText = `₹ ${offerPrice}/- (1+1 Offer)`;
-  }
-}
-
-function uploadPrescriptionWhatsApp() {
-  let msg = `Hello HealthSpace Nashik,\nI want to upload my doctor prescription for lab test booking. Please guide me.`;
-  window.open(`https://wa.me/919096522533?text=${encodeURIComponent(msg)}`, '_blank');
-}
-
-function openBookingModal(pkgTitle, pkgId, defaultPrice) {
-  let isOfferApplied = false;
-  let finalPrice = defaultPrice;
-
-  if (pkgId && document.getElementById(`offer-btn-${pkgId}`)) {
-    isOfferApplied = document.getElementById(`offer-btn-${pkgId}`).classList.contains("selected");
-    let pkg = ALL_PACKAGES.find(p => p.id === pkgId);
-    finalPrice = isOfferApplied ? pkg.offerPrice : pkg.price;
+    modalOfferBox.style.display = "none";
+    modalOnePlusOne.checked = false;
   }
 
-  selectedPackageObj = {
-    title: pkgTitle + (isOfferApplied ? " (1+1 Offer Applied)" : ""),
-    price: finalPrice
-  };
-
-  document.getElementById("modalPkgTitle").innerText = "Book: " + selectedPackageObj.title;
   document.getElementById("bookingModal").style.display = "flex";
 }
 
@@ -377,34 +301,36 @@ function submitBooking() {
   let mobile = document.getElementById("custMobile").value.trim();
   let address = document.getElementById("custAddress").value.trim();
   let slot = document.getElementById("custSlot").value;
+  let isOnePlusOne = document.getElementById("modalOnePlusOne").checked;
 
-  if (!name || !mobile || !address) {
-    return alert("कृपया संपूर्ण माहिती (नाव, मोबाईल, पत्ता) भरा!");
-  }
+  if (!name || !mobile || !address) return alert("कृपया संपूर्ण माहिती भरा!");
+
+  let finalPrice = (isOnePlusOne && selectedPkg.onePlusOnePrice) ? selectedPkg.onePlusOnePrice : selectedPkg.price;
+  let offerText = isOnePlusOne ? " (1+1 Offer Selected)" : "";
 
   let bookingData = {
-    action: "addBooking",
     name: name,
     mobile: mobile,
     address: address,
-    slot: slot,
-    package: selectedPackageObj.title,
-    price: selectedPackageObj.price
+    package: selectedPkg.name + offerText,
+    isOnePlusOne: isOnePlusOne,
+    slot: slot
   };
 
-  // 1. Send data to Google Sheet
+  // 1. Google Sheet मध्ये डेटा सेव्ह करणे
   fetch(API_URL, {
     method: "POST",
     mode: "no-cors",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(bookingData)
-  }).catch(e => console.log("Google Sheet Sync:", e));
+  }).then(() => {
+    console.log("Saved to Sheet");
+  }).catch(e => console.error(e));
 
-  // 2. Open WhatsApp for immediate confirmation
-  let msg = `Hello HealthSpace,\nI want to book an appointment:\n\n📌 *Package:* ${selectedPackageObj.title}\n💵 *Price:* ₹${selectedPackageObj.price}/-\n👤 *Patient:* ${name}\n📞 *Mobile:* ${mobile}\n📍 *Address:* ${address}\n⏰ *Slot:* ${slot}`;
+  // 2. WhatsApp वर रिडायरेक्ट करणे
+  let msg = `Hello HealthSpace, I want to book an appointment:\n\n📌 *Package:* ${selectedPkg.name}${offerText}\n💰 *Price:* ₹${finalPrice}/-\n👤 *Patient:* ${name}\n📞 *Mobile:* ${mobile}\n📍 *Address:* ${address}\n⏰ *Slot:* ${slot}`;
   
   window.open(`https://wa.me/919096522533?text=${encodeURIComponent(msg)}`, '_blank');
-  
   document.getElementById("bookingModal").style.display = "none";
 }
 </script>
