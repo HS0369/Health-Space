@@ -3,208 +3,159 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HealthSpace - Accurate Health Testing at Your Doorstep</title>
+    <title>HealthSpace - Patient Portal</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root {
-            --primary-color: #0098DA;
-            --secondary-color: #FF5722;
-            --dark-blue: #1E293B;
-            --bg-light: #F8FAFC;
-        }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: var(--bg-light); color: #333; }
-        .navbar { background-color: #ffffff; box-shadow: 0 2px 10px rgba(0,0,0,0.08); }
-        .navbar-brand { font-weight: bold; color: var(--primary-color); font-size: 1.5rem; }
-        .hero-section { background: linear-gradient(135deg, #0098DA 0%, #0056B3 100%); color: white; padding: 50px 20px; text-align: center; border-radius: 0 0 25px 25px; }
-        .hero-section h1 { font-size: 2.2rem; font-weight: 700; margin-bottom: 15px; }
-        .card-package { border: none; border-radius: 16px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); transition: transform 0.3s ease; height: 100%; overflow: hidden; background: white; }
-        .card-package:hover { transform: translateY(-5px); }
-        .package-header { padding: 15px 20px; color: white; font-weight: bold; border-radius: 16px 16px 0 0; }
-        .price-tag { font-size: 1.6rem; font-weight: 800; color: #111; }
-        .mrp-tag { text-decoration: line-through; color: #888; font-size: 1rem; margin-left: 8px; }
-        .badge-offer { background: #E1F5FE; color: var(--primary-color); font-weight: bold; padding: 5px 10px; border-radius: 20px; font-size: 0.85rem; }
-        .test-list { list-style: none; padding-left: 0; margin-top: 15px; font-size: 0.95rem; }
-        .test-list li { margin-bottom: 8px; }
-        .test-list li i { color: #2E7D32; margin-right: 8px; }
-        .btn-book { background-color: var(--primary-color); color: white; font-weight: 600; border-radius: 10px; padding: 10px; width: 100%; border: none; }
-        .btn-book:hover { background-color: #007bb5; color: white; }
-        .btn-whatsapp { background-color: #25D366; color: white; font-weight: 600; border-radius: 10px; padding: 10px; width: 100%; border: none; }
-        .footer { background-color: var(--dark-blue); color: white; padding: 40px 20px 20px 20px; margin-top: 50px; }
+        :root { --hs-blue: #0098DA; --bg-light: #F8FAFC; }
+        body { background-color: var(--bg-light); font-family: system-ui, -apple-system, sans-serif; color: #334155; }
+        .navbar { background: #ffffff; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+        .app-logo { height: 38px; }
+        .hero-card { background: white; border-radius: 16px; padding: 30px; border: 1px solid #E2E8F0; box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
+        .pkg-card { background: white; border-radius: 16px; border: 1px solid #E2E8F0; padding: 20px; transition: 0.2s; height: 100%; display: flex; flex-direction: column; justify-content: space-between; }
+        .pkg-card:hover { border-color: var(--hs-blue); transform: translateY(-2px); }
+        .price { font-size: 1.5rem; font-weight: 700; color: #0F172A; }
+        .btn-hs { background-color: var(--hs-blue); color: white; font-weight: 600; border-radius: 8px; border: none; padding: 10px; width: 100%; }
+        .btn-hs:hover { background-color: #0081B8; color: white; }
+        footer { background: #ffffff; border-top: 1px solid #E2E8F0; margin-top: 50px; padding: 20px 0; font-size: 0.875rem; color: #64748B; }
     </style>
 </head>
 <body>
 
-    <nav class="navbar navbar-expand-lg sticky-top">
-        <div class="container">
-            <a class="navbar-brand" href="#"><i class="fa-solid fa-heart-pulse text-danger"></i> HealthSpace</a>
-            <a href="tel:9096522533" class="btn btn-outline-primary btn-sm"><i class="fa-solid fa-phone"></i> 9096522533</a>
+    <nav class="navbar sticky-top">
+        <div class="container d-flex justify-content-between align-items-center">
+            <img src="1000531193.png" alt="HealthSpace" class="app-logo" onerror="this.src='https://via.placeholder.com/120x40?text=HealthSpace'">
+            <a href="tel:9096522533" class="btn btn-outline-primary btn-sm rounded-pill"><i class="fa-solid fa-phone me-1"></i> Call Support</a>
         </div>
     </nav>
 
-    <section class="hero-section">
-        <div class="container">
-            <span class="badge bg-light text-primary mb-2">🏥 Premium Lab Testing</span>
-            <h1>Accurate Health Testing at Your Doorstep</h1>
-            <p>Home collection • Expert analysis • Quick reports • Affordable pricing</p>
-            <a href="#packages" class="btn btn-warning text-dark font-weight-bold px-4 py-2 mt-2 rounded-pill">View Packages</a>
+    <div class="container my-4">
+        <div class="hero-card mb-4 text-center">
+            <h3 class="fw-bold text-dark">Accurate Health Testing at Your Doorstep</h3>
+            <p class="text-muted mb-0">Select a package and schedule your home sample collection seamlessly.</p>
         </div>
-    </section>
 
-    <div class="container my-5" id="packages">
-        <h2 class="text-center font-weight-bold mb-4">Our Health Checkup Packages</h2>
-        <div class="row g-4" id="package-container">
-            </div>
+        <div class="row g-3" id="packageGrid"></div>
     </div>
 
+    <!-- BOOKING MODAL -->
     <div class="modal fade" id="bookingModal" tabindex="-1">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modalPackageTitle">Book Package</h5>
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow">
+                <div class="modal-header border-bottom-0">
+                    <h5 class="modal-title fw-bold" id="modalPkgTitle">Book Health Checkup</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body pt-0">
                     <form id="bookingForm">
-                        <input type="hidden" id="selectedPackage">
-                        <div class="mb-3">
-                            <label class="form-label">Full Name (पूर्ण नाव)</label>
+                        <input type="hidden" id="selectedPkg">
+                        <div class="mb-2">
+                            <label class="form-label small fw-semibold">Full Name</label>
                             <input type="text" class="form-control" id="patientName" required>
                         </div>
-                        <div class="mb-3">
-                            <label class="form-label">Mobile Number (मोबाईल नंबर)</label>
-                            <input type="tel" class="form-control" id="patientMobile" required pattern="[0-9]{10}">
+                        <div class="mb-2">
+                            <label class="form-label small fw-semibold">Mobile Number</label>
+                            <input type="tel" class="form-control" id="patientMobile" pattern="[0-9]{10}" required>
                         </div>
-                        <div class="mb-3">
-                            <label class="form-label">Address (पत्ता)</label>
+                        <div class="mb-2">
+                            <label class="form-label small fw-semibold">Address</label>
                             <textarea class="form-control" id="patientAddress" rows="2" required></textarea>
                         </div>
-                        <div class="mb-3">
-                            <label class="form-label">Preferred Time Slot</label>
-                            <select class="form-select" id="patientSlot">
-                                <option>6:00 AM - 8:00 AM</option>
-                                <option>8:00 AM - 10:00 AM</option>
-                                <option>10:00 AM - 12:00 PM</option>
-                            </select>
+                        <div class="row g-2 mb-3">
+                            <div class="col-6">
+                                <label class="form-label small fw-semibold">Select Date</label>
+                                <input type="date" class="form-control" id="bookingDate" required>
+                            </div>
+                            <div class="col-6">
+                                <label class="form-label small fw-semibold">Select Slot (1 Hr)</label>
+                                <select class="form-select" id="bookingSlot" required>
+                                    <option value="6:00 AM - 7:00 AM">6:00 AM - 7:00 AM</option>
+                                    <option value="7:00 AM - 8:00 AM">7:00 AM - 8:00 AM</option>
+                                    <option value="8:00 AM - 9:00 AM">8:00 AM - 9:00 AM</option>
+                                    <option value="9:00 AM - 10:00 AM">9:00 AM - 10:00 AM</option>
+                                    <option value="10:00 AM - 11:00 AM">10:00 AM - 11:00 AM</option>
+                                    <option value="11:00 AM - 12:00 PM">11:00 AM - 12:00 PM</option>
+                                </select>
+                            </div>
                         </div>
-                        <button type="submit" class="btn btn-primary w-100 py-2">Confirm Booking</button>
+                        <button type="submit" class="btn-hs" id="btnSubmit">Confirm Booking</button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
 
-    <footer class="footer">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6 mb-3">
-                    <h5><i class="fa-solid fa-square-plus"></i> HealthSpace Nashik</h5>
-                    <p>Your trusted partner for accurate and convenient health testing.</p>
-                    <p><i class="fa-solid fa-location-dot"></i> 9, Vandana Park-3, Opp. Dandwate Flowers, Indira Nagar, Nashik</p>
-                    <p><i class="fa-solid fa-phone"></i> +91 9096522533 / 0253 403 8004</p>
-                </div>
-                <div class="col-md-6 text-md-end">
-                    <p>© 2026 HealthSpace Nashik. All rights reserved.</p>
-                </div>
-            </div>
+    <footer>
+        <div class="container text-center">
+            <p class="mb-1"><i class="fa-solid fa-location-dot text-primary me-1"></i> Shop no. 2073, Roongta Shopping Hub, Indira Nagar, Nashik</p>
+            <p class="mb-0">© 2026 HealthSpace. All Rights Reserved.</p>
         </div>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Apps Script Web App URL (तुमची Deploy झालेली URL इथे टाका)
-        const API_URL = "https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec";
+        const API_URL = "YOUR_SCRIPT_DEPLOYMENT_URL";
 
-        // DEFAULT PACKAGES (इमेजेस मधील सर्व डेटा)
         const defaultPackages = [
-            { title: "Diabetes Care", price: 550, mrp: 1050, color: "#0098DA", tests: ["Complete Blood Count (18 Tests)", "Blood Glucose Level (2 Tests)", "Glycated Hemoglobin (HbA1c)"] },
-            { title: "HealthSpace General", price: 1050, mrp: 3500, color: "#2E7D32", tests: ["Complete Blood Count (18 Tests)", "Lipid Profile (7 Tests)", "Liver Function Test (10 Tests)", "Kidney Function Test (7 Tests)", "Thyroid Test (3 Tests)", "Urine R/M (20 Tests)"] },
-            { title: "Bone Care Package", price: 1660, mrp: 3500, color: "#E65100", tests: ["Complete Blood Count", "ESR Calcium", "Phosphorus", "TSH Alkaline Phosphatase", "Vitamin B12 & D"] },
-            { title: "Healthy Heart", price: 1150, mrp: 3800, color: "#C2185B", tests: ["Complete Blood Count", "CPK", "Lactate Dehydrogenase (LDH)", "Liver Function Test", "Kidney Function Test"] },
-            { title: "PCOD Care", price: 3300, mrp: 6800, color: "#7B1FA2", tests: ["Complete Blood Count", "FSH LH Prolactin", "Testosterone", "Sr. Ferritin", "Vitamin B12 & D"] },
-            { title: "Hair Care Package", price: 2200, mrp: 4000, color: "#00838F", tests: ["Complete Blood Count", "SR. Ferritin", "Vitamin B12", "Vitamin D", "TSH"] },
-            { title: "HealthSpace Maximum", price: 1800, mrp: 7200, color: "#D84315", tests: ["Complete Blood Count (18 Tests)", "Liver & Kidney Function", "Thyroid Profile", "Lipid & Sugar Profile", "Iron & Magnesium Test", "Vitamins B12 & D"] },
-            { title: "Self Care Package", price: 1050, mrp: 2600, color: "#5E35B1", tests: ["Complete Blood Count", "Lipid Profile", "HbA1c & TSH", "Vitamin B12"] }
+            { title: "Diabetes Care", price: 550 },
+            { title: "HealthSpace General", price: 1050 },
+            { title: "Bone Care Package", price: 1660 },
+            { title: "Healthy Heart", price: 1150 },
+            { title: "HealthSpace Maximum", price: 1800 },
+            { title: "PCOD Care", price: 3300 }
         ];
 
-        function renderPackages(packages) {
-            const container = document.getElementById('package-container');
-            container.innerHTML = '';
-            packages.forEach((pkg) => {
-                const testsHTML = pkg.tests.map(t => `<li><i class="fa-solid fa-circle-check"></i> ${t}</li>`).join('');
-                const card = `
-                    <div class="col-md-6 col-lg-4">
-                        <div class="card-package">
-                            <div class="package-header" style="background-color: ${pkg.color || '#0098DA'}">
-                                ${pkg.title}
-                            </div>
-                            <div class="card-body p-4">
-                                <div class="d-flex align-items-baseline mb-3">
-                                    <span class="price-tag">₹${pkg.price}/-</span>
-                                    <span class="mrp-tag">₹${pkg.mrp}/-</span>
-                                </div>
-                                <ul class="test-list">${testsHTML}</ul>
-                                <button class="btn-book mt-3" onclick="openBookingModal('${pkg.title}')">
-                                    <i class="fa-solid fa-calendar-check"></i> Book Now
-                                </button>
-                                <button class="btn-whatsapp mt-2" onclick="bookOnWhatsApp('${pkg.title}', ${pkg.price})">
-                                    <i class="fa-brands fa-whatsapp"></i> Book via WhatsApp
-                                </button>
-                            </div>
+        const grid = document.getElementById('packageGrid');
+        defaultPackages.forEach(p => {
+            grid.innerHTML += `
+                <div class="col-md-6 col-lg-4">
+                    <div class="pkg-card">
+                        <div>
+                            <h5 class="fw-bold text-dark mb-1">${p.title}</h5>
+                            <div class="price mb-3">₹${p.price}/-</div>
                         </div>
+                        <button class="btn-hs" onclick="openBookingModal('${p.title}')">Book Collection</button>
                     </div>
-                `;
-                container.innerHTML += card;
-            });
-        }
+                </div>`;
+        });
 
-        // 1. प्रथम लगेच डिफॉल्ट पॅकेजेस दाखवा (तासभर थांबण्याची गरज नाही)
-        renderPackages(defaultPackages);
+        // Today as default date
+        document.getElementById('bookingDate').valueAsDate = new Date();
 
-        // 2. बॅकग्राउंडमध्ये Google Sheet कडून डेटा आणा
-        async function fetchFromSheet() {
-            if(API_URL.includes("YOUR_DEPLOYMENT_ID")) return;
-            try {
-                const res = await fetch(API_URL + "?action=packages");
-                const data = await res.json();
-                if(data.packages && data.packages.length > 0) {
-                    // शीटवरून डेटा आला तर अपडेट करा
-                    console.log("Loaded dynamic data from sheet");
-                }
-            } catch(e) {
-                console.log("Using default fallback packages");
-            }
-        }
-        fetchFromSheet();
-
-        function openBookingModal(pkgName) {
-            document.getElementById('selectedPackage').value = pkgName;
-            document.getElementById('modalPackageTitle').innerText = "Book: " + pkgName;
+        function openBookingModal(pkg) {
+            document.getElementById('selectedPkg').value = pkg;
+            document.getElementById('modalPkgTitle').innerText = "Book " + pkg;
             new bootstrap.Modal(document.getElementById('bookingModal')).show();
-        }
-
-        function bookOnWhatsApp(title, price) {
-            const msg = encodeURIComponent(`Hello HealthSpace,\nI want to book this package: *${title}* - Price: ₹${price}/-`);
-            window.open(`https://wa.me/919096522533?text=${msg}`, '_blank');
         }
 
         document.getElementById('bookingForm').addEventListener('submit', async function(e) {
             e.preventDefault();
-            const formData = {
+            const btn = document.getElementById('btnSubmit');
+            btn.innerText = "Booking..."; btn.disabled = true;
+
+            const payload = {
                 action: "createOrder",
                 name: document.getElementById('patientName').value,
                 mobile: document.getElementById('patientMobile').value,
                 address: document.getElementById('patientAddress').value,
-                package: document.getElementById('selectedPackage').value,
-                slot: document.getElementById('patientSlot').value
+                package: document.getElementById('selectedPkg').value,
+                date: document.getElementById('bookingDate').value,
+                slot: document.getElementById('bookingSlot').value
             };
 
-            if(!API_URL.includes("YOUR_DEPLOYMENT_ID")) {
-                fetch(API_URL, { method: "POST", body: JSON.stringify(formData) });
+            try {
+                await fetch(API_URL, {
+                    method: "POST",
+                    mode: "no-cors",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(payload)
+                });
+                alert("तुमचे बुकिंग पूर्ण झाले आहे!");
+                location.reload();
+            } catch (err) {
+                alert("एरर आला आहे. पुन्हा प्रयत्न करा.");
+                btn.disabled = false;
             }
-
-            alert("धन्यवाद! तुमची अपॉइंटमेंट यशस्वीरीत्या नोंदवली गेली आहे.");
-            location.reload();
         });
     </script>
 </body>
