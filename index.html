@@ -52,7 +52,7 @@ footer{background:#f5fafc;margin-top:40px;padding:28px 0}
 <nav class="navbar">
 <div class="container py-2 d-flex align-items-center justify-content-between">
   <a href="#" class="d-flex align-items-center text-decoration-none">
-    <img src="1000531193.png" class="brand-logo" alt="Health Space">
+    <img src="https://hs0369.github.io/Health-Space/1000531193.png" class="brand-logo" alt="Health Space">
   </a>
   <a href="tel:9096522533" class="btn btn-sm btn-hs">Call Support</a>
 </div>
@@ -67,7 +67,7 @@ footer{background:#f5fafc;margin-top:40px;padding:28px 0}
       <p class="mb-0">Collection starts from <b>6:00 AM</b> • Same Day Reports</p>
     </div>
     <div class="col-md-5 text-md-end">
-      <img src="1000531193.png" alt="Health Space" style="max-width:230px;width:75%">
+      <img src="https://hs0369.github.io/Health-Space/1000531193.png" alt="Health Space" style="max-width:230px;width:75%">
     </div>
   </div>
 </div>
@@ -214,7 +214,7 @@ footer{background:#f5fafc;margin-top:40px;padding:28px 0}
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 <script>
-const API_URL = 'https://script.google.com/macros/library/d/1NM4NrLAbIvL2ZPRlYxRqo4U5IR2orATNp9lqUeWMdlrHwON4_Mrf8lCc/5';
+const API_URL = 'https://script.google.com/macros/s/AKfycbzDHuowRFqr63Pxnm4Lk_DWjT3oUZIDBqAAYnyGf1qu_UqF8RILKn1qYmXAWIVm7jvH/exec';
 const UPI_ID = 'healthspace@upi';
 const UPI_NAME = 'Health Space';
 
@@ -251,15 +251,30 @@ function money(v){
  return '₹' + Number(v||0).toLocaleString('en-IN');
 }
 
-async function apiGet(action){
- const url = API_URL + '?action=' + encodeURIComponent(action);
- const r = await fetch(url, {cache:'no-store'});
- const t = await r.text();
- let j;
- try{j=JSON.parse(t)}catch(e){throw new Error('API returned invalid response')}
- if(j.status==='error') throw new Error(j.message||'API error');
- return j;
+function apiJsonp(action, params={}) {
+ return new Promise((resolve,reject)=>{
+   const cb='hs_cb_'+Date.now()+'_'+Math.floor(Math.random()*100000);
+   const script=document.createElement('script');
+   const q=new URLSearchParams({action,...params,callback:cb,_:Date.now()});
+   let done=false;
+   const timer=setTimeout(()=>finish(new Error('API request timed out')),15000);
+   function finish(err,data){
+     if(done)return; done=true; clearTimeout(timer);
+     try{delete window[cb]}catch(e){window[cb]=undefined}
+     if(script.parentNode)script.parentNode.removeChild(script);
+     err?reject(err):resolve(data);
+   }
+   window[cb]=(data)=>{
+     if(!data || data.status==='error') return finish(new Error((data&&data.message)||'API error'));
+     finish(null,data);
+   };
+   script.onerror=()=>finish(new Error('Failed to load API resource'));
+   script.src=API_URL+'?'+q.toString();
+   document.body.appendChild(script);
+ });
 }
+
+async function apiGet(action){ return apiJsonp(action); }
 
 async function loadAll(){
  try{
@@ -472,15 +487,7 @@ async function submitBooking(){
      utr:document.getElementById('utr').value.trim()
    };
 
-   const r=await fetch(API_URL,{
-     method:'POST',
-     headers:{'Content-Type':'application/x-www-form-urlencoded;charset=UTF-8'},
-     body:new URLSearchParams(payload)
-   });
-
-   const t=await r.text();
-   let j;
-   try{j=JSON.parse(t)}catch(e){throw new Error('Booking API returned invalid response')}
+   const j=await apiJsonp('createOrder', payload);
    if(j.status!=='success') throw new Error(j.message||'Booking failed');
 
    document.getElementById('paymentStep').classList.add('d-none');
