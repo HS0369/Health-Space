@@ -1,299 +1,263 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>HealthSpace - Home Collection Booking</title>
-  <!-- Tailwind CSS CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <!-- QRCode.js Library for dynamic UPI QR generation -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-  <style>
-    body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-    }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#087acb">
+<title>HealthSpace | Better Health, At Home</title>
+<style>
+:root{--blue:#078bd2;--deep:#07549a;--sky:#eaf7fd;--text:#253445;--muted:#7c8792;--white:#fff;--shadow:0 8px 26px rgba(13,88,139,.13)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:#f7fbfd;color:var(--text);font-family:Arial,Helvetica,sans-serif}a{color:inherit;text-decoration:none}button,input,select,textarea{font:inherit}button{cursor:pointer}.topbar{height:54px;background:#0879c8;color:#fff;display:flex;align-items:center;justify-content:center;position:sticky;top:0;z-index:10;box-shadow:0 2px 10px #0001}.brand{display:flex;align-items:center;gap:7px;font-size:17px;font-weight:700;letter-spacing:-.4px}.brand img{height:25px;width:25px;object-fit:contain;background:#fff;border-radius:6px}.hamb{position:absolute;left:17px;font-size:23px;border:0;background:transparent;color:#fff}.right-call{position:absolute;right:12px;font-size:12px;font-weight:bold}.menu-panel{display:none;position:fixed;top:54px;left:0;width:245px;background:#fff;z-index:20;box-shadow:var(--shadow);border-radius:0 0 12px 0;padding:10px}.menu-panel a{display:block;padding:13px;border-bottom:1px solid #edf1f4}.hero{padding:26px 17px 28px;background:linear-gradient(145deg,#05a9cf,#0870bf 62%,#064a94);color:white;border-radius:0 0 24px 24px;box-shadow:0 8px 20px #0579bf30}.hero-inner{max-width:700px;margin:auto}.eyebrow{display:inline-block;background:#ffffff25;border:1px solid #ffffff33;border-radius:20px;padding:6px 12px;font-size:11px;letter-spacing:.4px}.hero h1{font-size:31px;line-height:1.14;margin:18px 0 12px;max-width:430px}.hero p{font-size:14px;line-height:1.6;color:#eaf7ff;max-width:440px;margin:0 0 19px}.hero-actions{display:flex;gap:10px;flex-wrap:wrap}.btn{border:0;border-radius:30px;padding:12px 20px;font-size:13px;font-weight:bold;display:inline-flex;justify-content:center;align-items:center;min-height:42px}.btn-white{background:white;color:#087ac5}.btn-outline{background:transparent;color:white;border:1.5px solid white}.hero-icon{height:125px;margin-top:23px;border-radius:16px;background:linear-gradient(135deg,#ffffff1c,#ffffff0a);border:1px solid #ffffff25;display:flex;align-items:center;justify-content:center;font-size:68px;color:#fff}.section{padding:28px 15px;max-width:850px;margin:auto}.section-title{text-align:center;margin:0 0 8px;font-size:23px;color:#29394b}.section-sub{text-align:center;font-size:13px;line-height:1.5;color:var(--muted);max-width:480px;margin:0 auto 24px}.service-card{background:#fff;border-radius:17px;padding:23px 18px;margin:13px 0;text-align:center;box-shadow:var(--shadow);border:1px solid #edf3f7}.service-icon{height:48px;width:48px;border-radius:14px;background:#078bd2;color:#fff;display:flex;align-items:center;justify-content:center;font-size:25px;margin:0 auto 13px}.service-card:nth-of-type(2) .service-icon{background:#7918b5}.service-card:nth-of-type(3) .service-icon{background:#16a37a}.service-card h3{margin:0 0 8px;font-size:17px}.service-card p{margin:0;color:var(--muted);font-size:12px;line-height:1.6}.packages{padding-top:23px}.package-card{background:#fff;border-radius:15px;overflow:hidden;box-shadow:var(--shadow);margin:17px 0;border:1px solid #e9f0f5}.package-head{background:#2c9be8;color:#fff;padding:14px 15px 12px}.package-card:nth-child(2) .package-head{background:#8f2cc2}.package-card:nth-child(3) .package-head{background:#36a84c}.package-card:nth-child(4) .package-head{background:#d81d71}.package-card:nth-child(5) .package-head{background:#f08b22}.package-name{font-size:16px;font-weight:bold;margin-bottom:7px}.price-line{font-size:17px;font-weight:bold}.mrp{font-size:12px;opacity:.86;text-decoration:line-through;font-weight:normal;margin-left:4px}.lab{font-size:11px;margin-top:5px;opacity:.9}.tests{padding:13px 15px 4px;max-height:210px;overflow:auto}.test-line{font-size:12px;line-height:1.5;margin:0 0 7px;display:flex;gap:7px}.tick{color:#178fbd;font-weight:bold}.package-foot{padding:10px 15px 15px}.book-btn{width:100%;background:#168de0;color:#fff;border-radius:7px;padding:11px;border:0;font-size:12px;font-weight:bold}.package-card:nth-child(2) .book-btn{background:#8f2cc2}.package-card:nth-child(3) .book-btn{background:#36a84c}.package-card:nth-child(4) .book-btn{background:#d81d71}.package-card:nth-child(5) .book-btn{background:#f08b22}.testimonials{background:#edf8fc}.review-card{background:#fff;border-radius:15px;padding:22px 18px;margin:14px 0;text-align:center;box-shadow:0 5px 20px #0b639514}.stars{color:#ffb400;font-size:18px;letter-spacing:2px}.review-text{font-size:13px;line-height:1.65;color:#6c7884;margin:12px 0}.review-name{font-weight:bold;font-size:13px}.verified{font-size:11px;color:#99a4ae;margin-top:4px}.brochure{display:block;background:#fff;padding:14px;border-radius:12px;margin:10px 0;box-shadow:var(--shadow);font-weight:bold;color:#087ac5}.footer{background:#202c3d;color:#dce6ef;padding:27px 20px 20px}.footer-inner{max-width:850px;margin:auto}.footer-brand{font-size:18px;font-weight:bold;margin-bottom:8px}.footer p{font-size:12px;color:#b7c3d0;line-height:1.6}.footer h4{font-size:14px;margin:21px 0 10px;color:#fff}.footer .copyright{border-top:1px solid #3c4857;margin-top:24px;padding-top:15px;font-size:10px;color:#aab7c4}.modal-backdrop{display:none;position:fixed;inset:0;background:#101c2caa;z-index:50;overflow:auto;padding:18px 12px}.modal{background:#fff;border-radius:17px;max-width:480px;margin:15px auto;padding:20px;box-shadow:0 15px 50px #0003}.modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}.modal-head h2{font-size:20px;margin:0}.close{border:0;background:#edf3f7;border-radius:50%;height:32px;width:32px;font-size:20px}.selected-package{background:#edf8ff;border-radius:10px;padding:12px;margin:12px 0;font-size:13px}.field{margin:12px 0}.field label{display:block;font-size:12px;font-weight:bold;margin-bottom:6px;color:#435365}.field input,.field select,.field textarea{width:100%;border:1px solid #d5e0e8;border-radius:9px;padding:12px;background:#fff;outline:none}.field input:focus,.field select:focus,.field textarea:focus{border-color:#078bd2;box-shadow:0 0 0 3px #078bd21b}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 10px}.full{grid-column:1/-1}.modal-primary{width:100%;background:#087fcb;color:#fff;border:0;border-radius:9px;padding:14px;font-weight:bold;margin-top:8px}.small-note{font-size:11px;color:#7d8994;line-height:1.5}.qr-wrap{text-align:center;background:#f5fbff;border:1px solid #d9edf8;border-radius:13px;padding:14px;margin:12px 0}.qr-wrap img{width:210px;height:210px;max-width:100%;object-fit:contain;background:white}.pay-amount{font-size:25px;font-weight:bold;color:#075da5;margin:8px 0}.upi-text{font-size:13px;color:#4e5d6c;overflow-wrap:anywhere}.status-message{display:none;padding:13px;border-radius:10px;font-size:13px;line-height:1.5;margin:12px 0}.success{background:#e9f9ef;color:#166b38}.error{background:#fff0ef;color:#a32620}.loading{opacity:.65;pointer-events:none}.hidden{display:none!important}@media(min-width:650px){.hero{padding:38px 26px}.hero h1{font-size:39px}.hero-icon{max-width:500px;margin:25px auto 0}.service-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:13px}.service-card{margin:0}.package-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;align-items:start}.package-card{margin:0}.section{padding:38px 20px}.review-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.review-card{margin:0}}
+</style>
 </head>
-<body class="bg-gray-50 text-gray-800 antialiased">
+<body>
+<header class="topbar">
+  <button class="hamb" aria-label="Open menu" onclick="toggleMenu()">☰</button>
+  <div class="brand"><img id="brandLogo" src="https://hs0369.github.io/Health-Space/1000531193.png" alt="HS" onerror="this.style.display='none'"><span>💠 HealthSpace</span></div>
+  <a class="right-call" href="tel:9096522533">☎ CALL</a>
+</header>
+<nav id="menuPanel" class="menu-panel">
+  <a href="#home" onclick="toggleMenu()">Home</a><a href="#services" onclick="toggleMenu()">Our Services</a><a href="#packages" onclick="toggleMenu()">Our Health Packages</a><a href="#testimonials" onclick="toggleMenu()">Testimonials</a><a href="#brochures" onclick="toggleMenu()">Brochures</a><a href="tel:9096522533">Call Health Space</a>
+</nav>
 
-  <!-- Header / Navbar -->
-  <header class="bg-white shadow-sm border-b sticky top-0 z-40">
-    <div class="max-w-md mx-auto px-4 py-3 flex items-center justify-between">
-      <div class="flex items-center space-x-2">
-        <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-cyan-500 to-blue-600 flex items-center justify-center text-white font-bold text-lg">
-          +
-        </div>
-        <span class="text-xl font-extrabold tracking-tight text-gray-900">
-          Health<span class="text-cyan-600">Space</span>
-        </span>
-      </div>
-      <button class="text-gray-600 focus:outline-none">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-        </svg>
-      </button>
-    </div>
-  </header>
+<main>
+<section id="home" class="hero">
+ <div class="hero-inner">
+  <span class="eyebrow">✦ Premium Lab Services</span>
+  <h1>Accurate Health Testing at Your Doorstep</h1>
+  <p>Experience premium medical testing with HealthSpace Nashik. Home collection • Expert analysis • Quick reports • Affordable pricing</p>
+  <div class="hero-actions"><a class="btn btn-white" href="#packages">Book Home Collection</a><a class="btn btn-outline" href="#packages">View Packages</a></div>
+  <div class="hero-icon" aria-hidden="true">✚</div>
+ </div>
+</section>
 
-  <!-- Hero Section -->
-  <section class="max-w-md mx-auto p-4">
-    <div class="bg-gradient-to-br from-cyan-500 via-sky-600 to-blue-700 rounded-3xl p-6 text-white text-center shadow-lg relative overflow-hidden">
-      <div class="inline-block bg-white/20 backdrop-blur-md px-3 py-1 rounded-full text-xs font-medium mb-3">
-        💎 Premium Lab Services
-      </div>
-      <h1 class="text-2xl font-bold leading-tight mb-2">
-        Accurate Health Testing at Your Doorstep
-      </h1>
-      <p class="text-xs text-sky-100 mb-6 leading-relaxed">
-        Experience premium medical testing with HealthSpace Nashik.<br>
-        Home collection • Expert analysis • Quick reports • Affordable pricing
-      </p>
-      <div class="space-y-3">
-        <button onclick="openBookingModal('General Package', 963)" class="w-full bg-white text-cyan-700 hover:bg-sky-50 font-semibold py-3 px-4 rounded-full shadow transition-all duration-200">
-          Book Home Collection
-        </button>
-        <button class="w-full border border-white/40 text-white hover:bg-white/10 font-semibold py-3 px-4 rounded-full transition-all duration-200">
-          View Packages
-        </button>
-      </div>
-    </div>
-  </section>
+<section id="services" class="section">
+ <h2 class="section-title">Our Services</h2>
+ <p class="section-sub">Comprehensive healthcare solutions designed for your convenience</p>
+ <div class="service-grid">
+  <article class="service-card"><div class="service-icon">⌂</div><h3>Home Collection</h3><p>Professional sample collection at your doorstep with trained phlebotomists.</p></article>
+  <article class="service-card"><div class="service-icon">⚗</div><h3>Advanced Testing</h3><p>Reliable laboratory testing with quality-focused processes and trusted lab partners.</p></article>
+  <article class="service-card"><div class="service-icon">♥</div><h3>Health Packages</h3><p>Affordable health checkup packages for individuals and families.</p></article>
+ </div>
+</section>
 
-  <!-- Health Packages Listing -->
-  <section class="max-w-md mx-auto p-4 space-y-4">
-    <h2 class="text-xl font-bold text-gray-900 mb-2">Our Health Packages</h2>
+<section id="packages" class="section packages">
+ <h2 class="section-title">Our Health Packages</h2>
+ <p class="section-sub">Comprehensive health checkup packages tailored to your needs</p>
+ <div id="packageGrid" class="package-grid"><div class="small-note" style="text-align:center">Loading health packages…</div></div>
+</section>
 
-    <!-- Package Card 1 -->
-    <div class="bg-gradient-to-r from-sky-500 to-blue-600 rounded-2xl p-5 text-white shadow-md">
-      <div class="flex justify-between items-start mb-2">
-        <h3 class="text-lg font-bold">Diabetes Package</h3>
-        <div class="text-right">
-          <span class="text-2xl font-extrabold">₹ 369/-</span>
-          <span class="text-xs line-through text-sky-200 block">MRP ₹ 1050/-</span>
-        </div>
-      </div>
-      <ul class="text-xs space-y-1.5 mb-5 text-sky-50">
-        <li class="flex items-center"><span class="mr-2">✓</span> Complete Blood Count (18 Tests)</li>
-        <li class="flex items-center"><span class="mr-2">✓</span> Blood Glucose Level (1 Test)</li>
-        <li class="flex items-center"><span class="mr-2">✓</span> Glycated Hemoglobin (2 Tests)</li>
-      </ul>
-      <button onclick="openBookingModal('Diabetes Package', 369)" class="w-full bg-white text-blue-600 font-bold py-2.5 rounded-xl hover:bg-sky-50 transition">
-        Book Now
-      </button>
-    </div>
+<section id="testimonials" class="section testimonials">
+ <h2 class="section-title">What Our Customers Say</h2>
+ <p class="section-sub">Trusted by families across Nashik</p>
+ <div id="testimonialGrid" class="review-grid"><div class="small-note">Loading testimonials…</div></div>
+</section>
 
-    <!-- Package Card 2 -->
-    <div class="bg-gradient-to-r from-purple-600 to-indigo-600 rounded-2xl p-5 text-white shadow-md">
-      <div class="flex justify-between items-start mb-2">
-        <h3 class="text-lg font-bold">Self Care Package</h3>
-        <div class="text-right">
-          <span class="text-2xl font-extrabold">₹ 963/-</span>
-          <span class="text-xs line-through text-purple-200 block">MRP ₹ 2600/-</span>
-        </div>
-      </div>
-      <ul class="text-xs space-y-1.5 mb-5 text-purple-100">
-        <li class="flex items-center"><span class="mr-2">✓</span> Complete Blood Count</li>
-        <li class="flex items-center"><span class="mr-2">✓</span> Lipid Profile</li>
-        <li class="flex items-center"><span class="mr-2">✓</span> HBA1C TSH</li>
-        <li class="flex items-center"><span class="mr-2">✓</span> Vitamin B12</li>
-      </ul>
-      <button onclick="openBookingModal('Self Care Package', 963)" class="w-full bg-white text-purple-700 font-bold py-2.5 rounded-xl hover:bg-purple-50 transition">
-        Book Now
-      </button>
-    </div>
-  </section>
+<section id="brochures" class="section">
+ <h2 class="section-title">Health Brochures</h2>
+ <p class="section-sub">Explore our health information and offers</p>
+ <div id="brochureList"><div class="small-note">Loading brochures…</div></div>
+</section>
+</main>
 
-  <!-- Modal Container -->
-  <div id="bookingModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-    <div class="bg-white rounded-3xl w-full max-w-md overflow-hidden shadow-2xl transition-all">
-      
-      <!-- Modal Header -->
-      <div class="bg-gray-50 px-6 py-4 border-b flex justify-between items-center">
-        <div>
-          <h3 class="font-bold text-gray-800 text-lg" id="modalTitle">Book Home Collection</h3>
-          <p class="text-xs text-gray-500" id="selectedPkgText">Package: Select Package</p>
-        </div>
-        <button onclick="closeBookingModal()" class="text-gray-400 hover:text-gray-600 text-2xl font-bold">&times;</button>
-      </div>
+<footer class="footer">
+ <div class="footer-inner">
+  <div class="footer-brand">💠 HealthSpace</div>
+  <p>Your trusted partner for accurate diagnostics and convenient health testing.</p>
+  <h4>Services</h4><p>Home Collection<br>Lab Testing<br>Health Packages<br>Reports</p>
+  <h4>Contact Info</h4>
+  <p>Shop No. 2073, Roongta Shopping Hub,<br>Opp. Opel Blue Hospital, Indira Nagar, Nashik.</p>
+  <p>☎ +91 90965 22533<br>Collection starts from 6:00 AM<br>Same Day Reports</p>
+  <div class="copyright">© 2026 HealthSpace Nashik. All rights reserved.<br>We Deliver Better Health, Every Day.</div>
+ </div>
+</footer>
 
-      <!-- STEP 1: Booking Form -->
-      <div id="stepForm" class="p-6">
-        <form id="bookingForm" onsubmit="handleFormSubmit(event)" class="space-y-4">
-          <div>
-            <label class="block text-xs font-semibold text-gray-600 mb-1">Full Name</label>
-            <input type="text" id="custName" required placeholder="John Doe" class="w-full px-3 py-2 text-sm border border-gray-300 rounded-xl focus:ring-2 focus:ring-cyan-500 focus:outline-none">
-          </div>
-
-          <div>
-            <label class="block text-xs font-semibold text-gray-600 mb-1">Email Address</label>
-            <input type="email" id="custEmail" required placeholder="john@example.com" class="w-full px-3 py-2 text-sm border border-gray-300 rounded-xl focus:ring-2 focus:ring-cyan-500 focus:outline-none">
-          </div>
-
-          <div>
-            <label class="block text-xs font-semibold text-gray-600 mb-1">Contact Number</label>
-            <input type="tel" id="custPhone" required pattern="[0-9]{10}" placeholder="9876543210" class="w-full px-3 py-2 text-sm border border-gray-300 rounded-xl focus:ring-2 focus:ring-cyan-500 focus:outline-none">
-          </div>
-
-          <div class="grid grid-cols-2 gap-3">
-            <div>
-              <label class="block text-xs font-semibold text-gray-600 mb-1">Preferred Date</label>
-              <input type="date" id="custDate" required class="w-full px-3 py-2 text-sm border border-gray-300 rounded-xl focus:ring-2 focus:ring-cyan-500 focus:outline-none">
-            </div>
-
-            <div>
-              <label class="block text-xs font-semibold text-gray-600 mb-1">Time Slot (6-11 AM)</label>
-              <select id="custSlot" required class="w-full px-3 py-2 text-sm border border-gray-300 rounded-xl focus:ring-2 focus:ring-cyan-500 focus:outline-none">
-                <option value="">Select Slot</option>
-                <option value="06:00 AM - 07:00 AM">06:00 AM - 07:00 AM</option>
-                <option value="07:00 AM - 08:00 AM">07:00 AM - 08:00 AM</option>
-                <option value="08:00 AM - 09:00 AM">08:00 AM - 09:00 AM</option>
-                <option value="09:00 AM - 10:00 AM">09:00 AM - 10:00 AM</option>
-                <option value="10:00 AM - 11:00 AM">10:00 AM - 11:00 AM</option>
-              </select>
-            </div>
-          </div>
-
-          <button type="submit" class="w-full mt-2 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-bold py-3 rounded-xl shadow-md hover:opacity-95 transition">
-            Proceed to Pay
-          </button>
-        </form>
-      </div>
-
-      <!-- STEP 2: Payment Section (Dynamic Dynamic UPI QR Code) -->
-      <div id="stepPayment" class="p-6 hidden text-center space-y-4">
-        <div>
-          <span class="text-xs text-gray-500 uppercase tracking-wider">Amount to Pay</span>
-          <div class="text-3xl font-extrabold text-gray-900" id="payAmount">₹ 0</div>
-          <p class="text-xs text-gray-500 mt-0.5">UPI ID: <span class="font-semibold text-gray-700">healthspace@ybl</span></p>
-        </div>
-
-        <!-- Dynamic QR Code Target Container -->
-        <div class="flex justify-center my-2">
-          <div id="qrcode" class="p-3 bg-white rounded-2xl border-2 border-dashed border-cyan-400 shadow-inner"></div>
-        </div>
-
-        <p class="text-xs text-gray-500">Scan using Google Pay, PhonePe, Paytm or any UPI App</p>
-
-        <button onclick="confirmPayment()" class="w-full bg-emerald-600 text-white font-bold py-3 rounded-xl shadow-md hover:bg-emerald-700 transition">
-          I Have Paid (Confirm Order)
-        </button>
-      </div>
-
-      <!-- STEP 3: Order Confirmation -->
-      <div id="stepConfirmation" class="p-6 hidden text-center space-y-4">
-        <div class="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto text-3xl font-bold">
-          ✓
-        </div>
-
-        <div>
-          <h4 class="text-xl font-bold text-gray-900">Booking Confirmed!</h4>
-          <p class="text-xs text-gray-500 mt-1">Order ID: <span id="confOrderId" class="font-mono font-bold text-gray-700"></span></p>
-        </div>
-
-        <div class="bg-gray-50 rounded-2xl p-4 text-left text-xs space-y-2 border">
-          <div class="flex justify-between"><span class="text-gray-500">Package:</span> <span id="confPkg" class="font-semibold"></span></div>
-          <div class="flex justify-between"><span class="text-gray-500">Name:</span> <span id="confName" class="font-semibold"></span></div>
-          <div class="flex justify-between"><span class="text-gray-500">Contact:</span> <span id="confPhone" class="font-semibold"></span></div>
-          <div class="flex justify-between"><span class="text-gray-500">Date:</span> <span id="confDate" class="font-semibold"></span></div>
-          <div class="flex justify-between"><span class="text-gray-500">Slot:</span> <span id="confSlot" class="font-semibold"></span></div>
-          <div class="flex justify-between"><span class="text-gray-500">Amount Paid:</span> <span id="confAmount" class="font-semibold text-emerald-600"></span></div>
-        </div>
-
-        <p class="text-xs text-gray-500">Our representative will contact you shortly regarding sample collection.</p>
-
-        <button onclick="closeBookingModal()" class="w-full bg-gray-900 text-white font-bold py-3 rounded-xl hover:bg-black transition">
-          Done
-        </button>
-      </div>
-
-    </div>
+<div id="bookingBackdrop" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="bookingTitle">
+ <div class="modal">
+  <div class="modal-head"><h2 id="bookingTitle">Book Home Collection</h2><button class="close" onclick="closeBooking()" aria-label="Close">×</button></div>
+  <div id="bookingStatus" class="status-message"></div>
+  <div class="selected-package" id="selectedPackage"></div>
+  <form id="bookingForm" onsubmit="event.preventDefault();showPayment();">
+   <div class="form-grid">
+    <div class="field full"><label for="customerName">Full Name *</label><input id="customerName" required autocomplete="name" placeholder="Enter patient name"></div>
+    <div class="field"><label for="customerEmail">Email Address *</label><input id="customerEmail" type="email" required autocomplete="email" placeholder="name@email.com"></div>
+    <div class="field"><label for="customerMobile">Contact Number *</label><input id="customerMobile" type="tel" required inputmode="numeric" pattern="[0-9+ -]{10,15}" autocomplete="tel" placeholder="Mobile number"></div>
+    <div class="field full"><label for="customerAddress">Full Address *</label><textarea id="customerAddress" rows="2" required autocomplete="street-address" placeholder="House / building, area, city"></textarea></div>
+    <div class="field"><label for="customerLandmark">Landmark</label><input id="customerLandmark" placeholder="Nearby landmark"></div>
+    <div class="field"><label for="customerPincode">Pincode</label><input id="customerPincode" inputmode="numeric" maxlength="6" placeholder="6-digit pincode"></div>
+    <div class="field"><label for="bookingDate">Date *</label><input id="bookingDate" type="date" required></div>
+    <div class="field"><label for="bookingSlot">Time Slot *</label><select id="bookingSlot" required><option value="">Select 1-hour slot</option></select></div>
+   </div>
+   <p class="small-note">Please verify the contact number, address, date and one-hour collection slot before proceeding.</p>
+   <button class="modal-primary" type="submit">Continue to Payment</button>
+  </form>
+  <div id="paymentStep" class="hidden">
+   <h3 style="font-size:16px;margin:17px 0 8px;text-align:center">Pay with UPI</h3>
+   <div class="qr-wrap">
+    <div class="small-note">Scan with any UPI app</div>
+    <img id="qrImage" alt="Dynamic UPI QR Code">
+    <div class="pay-amount" id="qrAmount"></div>
+    <div class="upi-text">UPI ID: <strong>healthspace@ybl</strong></div>
+    <div class="small-note" id="upiNote" style="margin-top:7px">Use the exact amount shown above.</div>
+   </div>
+   <div class="field"><label for="utrNumber">UPI Transaction ID / UTR *</label><input id="utrNumber" required placeholder="Enter UTR after payment"></div>
+   <p class="small-note">After paying, enter the UTR / transaction reference and confirm. The booking will be recorded with payment status “Pending Verification” until the transaction is verified. A QR scan alone cannot automatically confirm that money was received.</p>
+   <button id="confirmBookingBtn" class="modal-primary" type="button" onclick="submitBooking()">I Have Paid · Confirm Booking</button>
+   <button class="modal-primary" type="button" style="background:#edf3f7;color:#31506a;margin-top:8px" onclick="backToForm()">Back to Details</button>
   </div>
+  <div id="confirmationStep" class="hidden">
+   <div class="qr-wrap" style="background:#edfbf2;border-color:#c8ecd5">
+    <div style="font-size:43px;color:#168849">✓</div>
+    <h3 style="margin:7px 0;color:#176c3b">Booking Submitted</h3>
+    <p id="confirmationText" style="font-size:13px;line-height:1.6"></p>
+   </div>
+   <button class="modal-primary" onclick="closeBooking()">Done</button>
+  </div>
+ </div>
+</div>
 
-  <script>
-    // Global state
-    let bookingData = {
-      packageName: '',
-      price: 0,
-      name: '',
-      email: '',
-      phone: '',
-      date: '',
-      slot: '',
-      orderId: ''
-    };
+<script>
+/* Keep this URL in sync with the current Apps Script Web App deployment. */
+const API_URL = "https://script.google.com/macros/s/AKfycbzDHuowRFqr63Pxnm4Lk_DWjT3oUZIDBqAAYnyGf1qu_UqF8RILKn1qYmXAWIVm7jvH/exec";
+const UPI_ID = "healthspace@ybl";
+const DEFAULT_SLOTS = ["6:00 AM - 7:00 AM","7:00 AM - 8:00 AM","8:00 AM - 9:00 AM","9:00 AM - 10:00 AM","10:00 AM - 11:00 AM","11:00 AM - 12:00 PM"];
+let packagesData = [];
+let selectedPackage = null;
+let paymentUri = "";
+let currentBooking = null;
 
-    // Set min date to today for the date picker
-    document.getElementById('custDate').min = new Date().toISOString().split('T')[0];
+function apiGet(params) {
+  return new Promise((resolve, reject) => {
+    const callbackName = "hsJsonp_" + Date.now() + "_" + Math.floor(Math.random()*100000);
+    const script = document.createElement("script");
+    const timeout = setTimeout(() => { cleanup(); reject(new Error("API timed out. Check the Web App URL and deployment access.")); }, 18000);
+    function cleanup(){ clearTimeout(timeout); try{delete window[callbackName];}catch(e){window[callbackName]=undefined;} if(script.parentNode)script.parentNode.removeChild(script); }
+    window[callbackName] = data => { cleanup(); resolve(data); };
+    const query = new URLSearchParams({...params, callback: callbackName, _ts: Date.now()});
+    script.src = API_URL + "?" + query.toString();
+    script.onerror = () => { cleanup(); reject(new Error("Could not load the Health Space API. Verify the deployed /exec URL and access setting.")); };
+    document.body.appendChild(script);
+  });
+}
 
-    function openBookingModal(packageName, price) {
-      bookingData.packageName = packageName;
-      bookingData.price = price;
-
-      document.getElementById('selectedPkgText').innerText = `Package: ${packageName} (₹${price})`;
-      
-      // Reset steps visibility
-      document.getElementById('stepForm').classList.remove('hidden');
-      document.getElementById('stepPayment').classList.add('hidden');
-      document.getElementById('stepConfirmation').classList.add('hidden');
-      
-      // Show modal
-      document.getElementById('bookingModal').classList.remove('hidden');
-    }
-
-    function closeBookingModal() {
-      document.getElementById('bookingModal').classList.add('hidden');
-      document.getElementById('bookingForm').reset();
-    }
-
-    function handleFormSubmit(event) {
-      event.preventDefault();
-
-      // Collect Form Data
-      bookingData.name = document.getElementById('custName').value;
-      bookingData.email = document.getElementById('custEmail').value;
-      bookingData.phone = document.getElementById('custPhone').value;
-      bookingData.date = document.getElementById('custDate').value;
-      bookingData.slot = document.getElementById('custSlot').value;
-      bookingData.orderId = 'HS-' + Math.floor(100000 + Math.random() * 900000);
-
-      // Render Payment Details
-      document.getElementById('payAmount').innerText = `₹ ${bookingData.price}`;
-      
-      // Generate Dynamic UPI String
-      // upi://pay?pa=healthspace@ybl&pn=HealthSpace&am=AMOUNT&cu=INR
-      const upiUrl = `upi://pay?pa=healthspace@ybl&pn=HealthSpace&am=${bookingData.price}&cu=INR&tn=Booking_${bookingData.orderId}`;
-
-      // Render Dynamic QR Code
-      const qrContainer = document.getElementById('qrcode');
-      qrContainer.innerHTML = ''; // clear previous
-      new QRCode(qrContainer, {
-        text: upiUrl,
-        width: 180,
-        height: 180,
-        colorDark : "#0891b2",
-        colorLight : "#ffffff",
-        correctLevel : QRCode.CorrectLevel.H
-      });
-
-      // Switch to Payment View
-      document.getElementById('stepForm').classList.add('hidden');
-      document.getElementById('stepPayment').classList.remove('hidden');
-    }
-
-    function confirmPayment() {
-      // Set Confirmation Details
-      document.getElementById('confOrderId').innerText = bookingData.orderId;
-      document.getElementById('confPkg').innerText = bookingData.packageName;
-      document.getElementById('confName').innerText = bookingData.name;
-      document.getElementById('confPhone').innerText = bookingData.phone;
-      document.getElementById('confDate').innerText = bookingData.date;
-      document.getElementById('confSlot').innerText = bookingData.slot;
-      document.getElementById('confAmount').innerText = `₹ ${bookingData.price}`;
-
-      // Switch to Confirmation View
-      document.getElementById('stepPayment').classList.add('hidden');
-      document.getElementById('stepConfirmation').classList.remove('hidden');
-    }
-  </script>
+function toggleMenu(){const m=document.getElementById("menuPanel");m.style.display=m.style.display==="block"?"none":"block";}
+function money(value){const n=Number(String(value||"0").replace(/[₹,\s]/g,""));return Number.isFinite(n)?n.toLocaleString("en-IN",{maximumFractionDigits:2}):String(value||"");}
+function safe(v){return String(v==null?"":v).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
+function parseTests(tests){
+ if(Array.isArray(tests)) return tests.map(String);
+ const s=String(tests||"").trim();
+ if(!s)return [];
+ return s.split(/\r?\n|;|\s*\|\s*/).map(x=>x.replace(/^[•✓✔\-]\s*/,"").trim()).filter(Boolean);
+}
+function renderPackages(items){
+ packagesData=items||[];
+ const grid=document.getElementById("packageGrid");
+ if(!packagesData.length){grid.innerHTML='<div class="small-note">No packages found. Please check the Packages sheet.</div>';return;}
+ grid.innerHTML=packagesData.map((p,i)=>{
+  const title=p.Title||p.title||p.Package||"Health Package";
+  const price=p.Price??p.price??"";
+  const mrp=p.MRP??p.mrp??"";
+  const lab=p.Lab||p.lab||"";
+  const tests=parseTests(p.Tests||p.tests||"");
+  const testHtml=tests.length?tests.map(t=>`<div class="test-line"><span class="tick">✓</span><span>${safe(t)}</span></div>`).join(""):'<div class="test-line"><span class="tick">✓</span><span>Details available on request</span></div>';
+  return `<article class="package-card"><div class="package-head"><div class="package-name">${safe(title)}</div><div class="price-line">₹ ${safe(money(price))} ${mrp!==""?`<span class="mrp">MRP ₹${safe(money(mrp))}</span>`:""}</div>${lab?`<div class="lab">${safe(lab)}</div>`:""}</div><div class="tests">${testHtml}</div><div class="package-foot"><button class="book-btn" onclick="openBooking(${i})">Book Now</button></div></article>`;
+ }).join("");
+}
+function renderTestimonials(items){
+ const el=document.getElementById("testimonialGrid");
+ if(!items||!items.length){el.innerHTML='<div class="small-note">Customer reviews will appear here.</div>';return;}
+ el.innerHTML=items.map(t=>`<article class="review-card">${t.PhotoURL?`<img src="${safe(t.PhotoURL)}" alt="" style="height:44px;width:44px;object-fit:cover;border-radius:50%">`:""}<div class="stars">★★★★★</div><p class="review-text">"${safe(t.Review||"")}"</p><div class="review-name">${safe(t.Name||"Health Space Customer")}</div><div class="verified">Verified Customer</div></article>`).join("");
+}
+function renderBrochures(items){
+ const el=document.getElementById("brochureList");
+ if(!items||!items.length){el.innerHTML='<div class="small-note">Health brochures will appear here.</div>';return;}
+ el.innerHTML=items.map(b=>`<a class="brochure" href="${safe(b.ImageURL||"#")}" target="_blank" rel="noopener">▣ &nbsp; ${safe(b.Title||"Health Brochure")} <span style="float:right">↗</span></a>`).join("");
+}
+async function loadAppData(){
+ try{
+  const [p,t,b,s]=await Promise.all([
+   apiGet({action:"getPackages"}),apiGet({action:"getTestimonials"}),apiGet({action:"getBrochures"}),apiGet({action:"getSlots"})
+  ]);
+  if(p.status==="success")renderPackages(p.packages);else throw new Error(p.message||"Could not load packages.");
+  renderTestimonials(t.status==="success"?t.testimonials:[]);
+  renderBrochures(b.status==="success"?b.brochures:[]);
+  populateSlots(s.status==="success"&&s.slots&&s.slots.length?s.slots:DEFAULT_SLOTS);
+ }catch(err){
+  document.getElementById("packageGrid").innerHTML=`<div class="status-message error" style="display:block">${safe(err.message)}<br>Check the Apps Script deployment URL in index.html.</div>`;
+  renderTestimonials([]);renderBrochures([]);populateSlots(DEFAULT_SLOTS);
+ }
+}
+function populateSlots(slots){
+ const select=document.getElementById("bookingSlot");
+ const old=select.value;
+ select.innerHTML='<option value="">Select 1-hour slot</option>'+slots.map(s=>`<option value="${safe(s)}">${safe(s)}</option>`).join("");
+ if(old)select.value=old;
+}
+function openBooking(index){
+ selectedPackage=packagesData[index];
+ if(!selectedPackage)return;
+ const title=selectedPackage.Title||selectedPackage.title||selectedPackage.Package||"Health Package";
+ const price=Number(String(selectedPackage.Price??selectedPackage.price??0).replace(/[₹,\s]/g,""));
+ if(!Number.isFinite(price)||price<=0){alert("The package price is missing or invalid. Please check the Packages sheet.");return;}
+ currentBooking=null;
+ document.getElementById("selectedPackage").innerHTML=`<strong>${safe(title)}</strong><br><span style="color:#087ac5;font-size:17px;font-weight:bold">₹${safe(money(price))}</span> <span class="small-note">selected package</span>`;
+ document.getElementById("bookingForm").reset();
+ document.getElementById("bookingDate").min=new Date(Date.now()-new Date().getTimezoneOffset()*60000).toISOString().slice(0,10);
+ document.getElementById("bookingDate").value=document.getElementById("bookingDate").min;
+ document.getElementById("bookingForm").classList.remove("hidden");
+ document.getElementById("paymentStep").classList.add("hidden");
+ document.getElementById("confirmationStep").classList.add("hidden");
+ hideStatus();
+ document.getElementById("bookingBackdrop").style.display="block";
+ document.body.style.overflow="hidden";
+}
+function closeBooking(){document.getElementById("bookingBackdrop").style.display="none";document.body.style.overflow="";currentBooking=null;}
+function hideStatus(){const e=document.getElementById("bookingStatus");e.style.display="none";e.className="status-message";e.textContent="";}
+function showStatus(message,type){const e=document.getElementById("bookingStatus");e.style.display="block";e.className="status-message "+type;e.textContent=message;}
+function showPayment(){
+ const form=document.getElementById("bookingForm");
+ if(!form.reportValidity())return;
+ const price=Number(String(selectedPackage.Price??selectedPackage.price??0).replace(/[₹,\s]/g,""));
+ currentBooking={
+  name:document.getElementById("customerName").value.trim(),
+  email:document.getElementById("customerEmail").value.trim(),
+  mobile:document.getElementById("customerMobile").value.trim(),
+  address:document.getElementById("customerAddress").value.trim(),
+  landmark:document.getElementById("customerLandmark").value.trim(),
+  pincode:document.getElementById("customerPincode").value.trim(),
+  date:document.getElementById("bookingDate").value,
+  slot:document.getElementById("bookingSlot").value,
+  package:selectedPackage.Title||selectedPackage.title||selectedPackage.Package||"Health Package",
+  amount:price
+ };
+ const orderRef="HS"+Date.now().toString().slice(-10);
+ paymentUri="upi://pay?pa="+encodeURIComponent(UPI_ID)+"&pn="+encodeURIComponent("Health Space Healthcare Services")+"&am="+encodeURIComponent(price.toFixed(2))+"&cu=INR&tn="+encodeURIComponent("Health Space "+orderRef);
+ const qrUrl="https://api.qrserver.com/v1/create-qr-code/?size=280x280&margin=8&data="+encodeURIComponent(paymentUri);
+ document.getElementById("qrImage").src=qrUrl;
+ document.getElementById("qrAmount").textContent="₹"+money(price);
+ document.getElementById("upiNote").textContent="Payment reference: "+orderRef+" · Amount is fixed in this QR.";
+ document.getElementById("bookingForm").classList.add("hidden");
+ document.getElementById("paymentStep").classList.remove("hidden");
+ hideStatus();
+}
+function backToForm(){document.getElementById("paymentStep").classList.add("hidden");document.getElementById("bookingForm").classList.remove("hidden");}
+async function submitBooking(){
+ const utr=document.getElementById("utrNumber").value.trim();
+ if(!currentBooking){showStatus("Booking details are missing. Please start again.","error");return;}
+ if(utr.length<6){showStatus("Enter the UPI transaction ID / UTR shown by your payment app.","error");return;}
+ const btn=document.getElementById("confirmBookingBtn");
+ btn.disabled=true;btn.textContent="Submitting booking…";
+ try{
+  const response=await apiGet({action:"createOrder",...currentBooking,utr:utr});
+  if(!response||response.status!=="success")throw new Error((response&&response.message)||"Booking could not be saved.");
+  document.getElementById("paymentStep").classList.add("hidden");
+  document.getElementById("confirmationStep").classList.remove("hidden");
+  document.getElementById("confirmationText").innerHTML=`Your booking request has been recorded.<br><strong>Order ID: ${safe(response.orderId)}</strong><br>Package: ${safe(currentBooking.package)}<br>Collection: ${safe(currentBooking.date)} · ${safe(currentBooking.slot)}<br>Amount: ₹${safe(money(currentBooking.amount))}<br><br>Payment status: <strong>Pending Verification</strong>. Health Space will verify the UPI transaction before marking it paid.`;
+ }catch(err){showStatus(err.message||"Failed to confirm booking. Please retry.", "error");}
+ finally{btn.disabled=false;btn.textContent="I Have Paid · Confirm Booking";}
+}
+document.getElementById("bookingBackdrop").addEventListener("click",e=>{if(e.target.id==="bookingBackdrop")closeBooking();});
+loadAppData();
+</script>
 </body>
 </html>
